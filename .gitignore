@@ -15,3 +15,4 @@ test.xls
 public/files/
 public/vendor/bower_components/*
 modules/*
+!modules/empty
