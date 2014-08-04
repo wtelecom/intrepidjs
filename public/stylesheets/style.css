@@ -1,0 +1,594 @@
+body {
+    top: 40px;
+    background-color: #F5F7FA;
+    overflow-y: scroll;
+}
+
+.panel-title a { 
+    cursor: pointer; 
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.navbar-custom {
+    background-color: #FFF;
+    border-color: #FFF;
+}
+
+.navbar-custom a {
+    color: #3BAFDA;
+    line-height: 18px !important;
+}
+
+.navbar-custom a:hover {
+    background-color: #FFF !important;
+}
+
+ul.main-menu li.active {
+    border-bottom: 3px solid #3BAFDA;
+}
+
+.carousel {
+    margin-bottom: 20px;
+}
+
+.img-responsive, .thumbnail>img, .thumbnail a>img, .carousel-inner>.item>img, .carousel-inner>.item>a>img {
+    width: 100%;
+    height: 300px;
+}
+
+.media-heading {
+    cursor: pointer;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.jumbotron .jumbotron-contents {
+    padding: 10px 20px;
+}
+
+.media-object {
+    display: inline-block !important;
+}
+
+p.detail {
+    display: inline-block !important;
+    font-size: 12px;
+}
+
+span.dropdown-toggle {
+    -webkit-box-shadow: 0px 0px !important;
+    -moz-box-shadow: 0px 0px !important;
+    box-shadow: 0px 0px !important;
+}
+
+.options-btn {
+    color: #FFF !important;
+}
+
+.options-btn:hover {
+    color: #434A54 !important;
+}
+
+canvas {
+    -webkit-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.footer {
+    margin-top: 30px;
+}
+.pointer {
+    cursor: pointer;
+}
+
+
+/* 
+ * Common circle buttons
+ */
+
+.action-btn-wrapper {
+    position: fixed;
+    z-index: 10000;
+    bottom: 5%;
+    right: 3%;
+}
+
+.create-btn {
+    width: 50px;
+    height: 50px;
+    color: #FFF;
+    background-color: #8CC152;
+    border-color: #8CC152;
+    border-radius: 50%;
+    box-shadow: 0px 1px 6px 0.5px #2B5004;
+}
+
+.create-btn i {
+    padding-top: 5px;
+}
+
+
+/* 
+ * Forum
+ */
+.forum .img-user {
+    max-width: 65px;
+}
+
+.forum .img-user-sm {
+    max-width: 35px;
+    margin-right: 10px; 
+}
+.forum .panel-float {
+    position: absolute;
+    width: 100%
+}
+.forum .panel-float div{
+    overflow-y: scroll;
+    max-height: 300px;
+    margin-right: 30px;
+}
+.forum .moderator {
+    margin-right: 10px;
+    font-size: 1em;
+}
+.forum .well.moderators {
+    margin-bottom: 0;
+}
+.mt0 {
+    margin-top: 0;
+}
+.mb0 {
+    margin-bottom: 0;
+}
+
+/* 
+ * Meetings
+ */
+.meetings .panel-float {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+.meetings .panel-float div{
+    overflow-y: scroll;
+    max-height: 300px;
+    margin-right: 30px;
+}
+.meetings .moderator {
+    margin-right: 10px;
+    font-size: 1em;
+}
+.meetings .well.moderators {
+    margin-bottom: 0;
+}
+.meetings .well.moderators .user,
+.meetings .list-inline .user {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.meetings .img30 {
+    width: 30px;
+}
+.meetings #meetings .participants {
+    padding-top: 9px;
+    padding-right: 15px;
+}
+.meetings .user-trash {
+    color: #ED5565;
+    vertical-align: middle;
+}
+
+/* meetings timeline */
+.meetings .timeline-badge {
+    margin-left: 10px !important;
+}
+.meetings .timeline-badge img{
+    width: 50px;
+}
+.meetings .timeline::before {
+    bottom: 135px;
+    left: 35px;
+    z-index: 1;
+}
+.meetings .timeline-panel {
+    min-height: 84px;
+}
+.meetings .timeline-heading hr{
+    margin-top: 0;
+}
+.meetings .create-btn,
+.meetings .write-types {
+    display: table;
+    text-align: center;
+    cursor: pointer;
+}
+.meetings .create-btn i,
+.meetings .end i,
+.meetings .ball {
+    display: table-cell;
+    vertical-align: middle;
+}
+.meetings .timeline-panel {
+    padding-left: 70px !important;
+}
+.meetings .audio-message {
+    margin-top: 7px;
+}
+.meetings .img-message {
+    max-width: 100%;
+}
+.meetings .file-message {
+    display: block;
+    margin-top: 10px;
+}
+.meetings #write {
+    min-height: 60px;
+}
+.meetings #write .timeline-body {
+    padding-top: 15px;
+}
+.meetings .end {
+    background-color: #CCD1D9;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;   
+    display: table;
+    text-align: center;
+}
+.meetings .ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+.meetings .ball:hover,
+.meetings .write-types .active .ball{
+    opacity: 1;
+}
+
+.meetings .write-types .bcl {
+    background-color: #AC92EC;
+}
+.meetings .write-types .bcs {
+    background-color: #F6BB42;
+}
+.meetings .action-btn .bcl {
+    background-color: #AC92EC;
+    box-shadow: 0px 1px 3px 0.5px #AC92EC;
+}
+.meetings .action-btn .bcs {
+    background-color: #F6BB42;
+    box-shadow: 0px 1px 3px 0.5px #F6BB42;
+}
+.meetings .action-btn .bcg {
+    background-color: #ED5565;
+    box-shadow: 0px 1px 3px 0.5px #ED5565;
+}
+.meetings .cg {
+    color: #ED5565;
+}
+.meetings .record-btn:hover {
+    background-color: #ed5565;
+    border-color: #ed5565;
+}
+.meetings .intermittent-on {
+    background-color: transparent;
+    border: 1px solid #ed5565;
+    color: #ed5565;
+
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-name: redToWhite;
+}
+.meetings .intermittent-off {
+    background-color: #ed5565;
+    border: 1px solid transparent;
+    color: inherit;
+
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-name: whiteToRed;
+}
+.meetings .record {
+    vertical-align: top;
+    padding-top: 5px;
+}
+.meetings audio {
+    vertical-align: middle;
+}
+
+
+@-webkit-keyframes redToWhite {
+    0% {
+        background-color: #ed5565;
+        border: 1px solid transparent;
+        color: inherit;
+    }
+    100% {
+        background-color: transparent;
+        border: 1px solid #ed5565;
+        color: #ed5565;
+    }
+}
+@-webkit-keyframes whiteToRed {
+    0% {
+        background-color: transparent;
+        border: 1px solid #ed5565;
+        color: #ed5565;
+    }
+    100% {
+        background-color: #ed5565;
+        border: 1px solid transparent;;
+        color: inherit;
+    }
+}
+
+/* Coordinates of the dots on the circle */
+/* top:  sin(deg) * R * -1     */
+/* left:  cos(deg) * R    */
+.meetings .action-btn .menu li:nth-child(1) {
+    -webkit-transition-duration: .5s, .3s, .3s;
+    -moz-transition-duration: .5s, .3s, .3s;
+    -o-transition-duration: .5s, .3s, .3s;
+    -ms-transition-duration: .5s, .3s, .3s;
+    transition-duration: .5s, .3s, .3s;
+
+    -webkit-transition-delay: 0, .4s, .4s;
+    -moz-transition-delay: 0, .4s, .4s;
+    -o-transition-delay: 0, .4s, .4s;
+    -ms-transition-delay: 0, .4s, .4s;
+    transition-delay: 0, .4s, .4s;
+}
+
+.meetings .action-btn input:checked ~ .menu li:nth-child(1) {
+    top: -7em;
+    left: 0;
+
+    -webkit-transition-duration: .2s, .2s, .3s;
+    -moz-transition-duration: .2s, .2s, .3s;
+    -o-transition-duration: .2s, .2s, .3s;
+    -ms-transition-duration: .2s, .2s, .3s;
+    transition-duration: .2s, .2s, .3s;
+
+    -webkit-transition-delay: 0, 0, 0;
+    -moz-transition-delay: 0, 0, 0;
+    -o-transition-delay: 0, 0, 0;
+    -ms-transition-delay: 0, 0, 0;
+    transition-delay: 0, 0, 0;
+}
+
+.meetings .action-btn .menu li:nth-child(2) {
+    -webkit-transition-duration: .5s, .3s, .3s;
+    -moz-transition-duration: .5s, .3s, .3s;
+    -o-transition-duration: .5s, .3s, .3s;
+    -ms-transition-duration: .5s, .3s, .3s;
+    transition-duration: .5s, .3s, .3s;
+
+    -webkit-transition-delay: 0, .3s, .3s;
+    -moz-transition-delay: 0, .3s, .3s;
+    -o-transition-delay: 0, .3s, .3s;
+    -ms-transition-delay: 0, .3s, .3s;
+    transition-delay: 0, .3s, .3s;
+}
+
+.meetings .action-btn input:checked ~ .menu li:nth-child(2) {
+    top: -4.94974746831em;
+    left: -4.94974746831em;
+
+    -webkit-transition-duration: .2s, .2s, .3s;
+    -moz-transition-duration: .2s, .2s, .3s;
+    -o-transition-duration: .2s, .2s, .3s;
+    -ms-transition-duration: .2s, .2s, .3s;
+    transition-duration: .2s, .2s, .3s;
+
+    -webkit-transition-delay: .1s, .1s, .1s;
+    -moz-transition-delay: .1s, .1s, .1s;
+    -o-transition-delay: .1s, .1s, .1s;
+    -ms-transition-delay: .1s, .1s, .1s;
+    transition-delay: .1s, .1s, .1s;
+}
+
+.meetings .action-btn .menu li:nth-child(3) {
+    -webkit-transition-duration: .5s, .3s, .3s;
+    -moz-transition-duration: .5s, .3s, .3s;
+    -o-transition-duration: .5s, .3s, .3s;
+    -ms-transition-duration: .5s, .3s, .3s;
+    transition-duration: .5s, .3s, .3s;
+
+    -webkit-transition-delay: 0, .2s, .2s;
+    -moz-transition-delay: 0, .2s, .2s;
+    -o-transition-delay: 0, .2s, .2s;
+    -ms-transition-delay: 0, .2s, .2s;
+    transition-delay: 0, .2s, .2s;
+}
+
+.meetings .action-btn input:checked ~ .menu li:nth-child(3) {
+    top: 0em;
+    left: -7em;
+
+    -webkit-transition-duration: .2s, .2s, .3s;
+    -moz-transition-duration: .2s, .2s, .3s;
+    -o-transition-duration: .2s, .2s, .3s;
+    -ms-transition-duration: .2s, .2s, .3s;
+    transition-duration: .2s, .2s, .3s;
+
+    -webkit-transition-delay: .2s, .2s, .1s;
+    -moz-transition-delay: .2s, .2s, .1s;
+    -o-transition-delay: .2s, .2s, .1s;
+    -ms-transition-delay: .2s, .2s, .1s;
+    transition-delay: .2s, .2s, .1s;
+} 
+
+
+
+
+
+/* 
+ * Comments timeline
+ */
+
+.timeline {
+    list-style: none;
+    padding: 20px 0 20px;
+    position: relative;
+}
+
+.timeline:before {
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 3px;
+    background-color: #eeeeee;
+    /*left: 50%;*/
+    margin-left: -1.5px;
+}
+
+.timeline > li {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.timeline > li:before,
+.timeline > li:after {
+    content: " ";
+    display: table;
+}
+
+.timeline > li:after {
+    clear: both;
+}
+
+.timeline > li:before,
+.timeline > li:after {
+    content: " ";
+    display: table;
+}
+
+.timeline > li:after {
+    clear: both;
+}
+
+.timeline > li > .timeline-panel {
+    width: 100%;
+    float: left;
+    padding: 20px;
+    position: relative;
+}
+
+.timeline > li > .timeline-badge {
+    position: absolute;
+    top: 16px;
+    margin-left: -25px;
+    z-index: 100;
+}
+
+.timeline-title {
+    margin-top: 0;
+    color: inherit;
+}
+
+.timeline-body p,
+.timeline-body ul {
+    margin-bottom: 0;
+    font-weight: 200;
+}
+
+.timeline-body > p + p {
+    margin-top: 5px;
+}
+
+
+
+/* Admin Styles */
+
+.admin .list-group .list-group-item {
+    cursor: pointer;
+}
+
+.admin .menu .list-group .caret {
+    position: absolute;
+    top: 18px;
+    right: 10px;
+}
+
+.admin .menu .panel .list-group {
+    border-radius: 4px;
+    -webkit-box-shadow: 0 10px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+
+.admin .menu .list-group-item:hover {
+    background-color: #e6e9ed;
+    color: #4fc1e9;
+}
+
+.admin .title {
+    margin-top: 0;
+}
+
+.admin select.lg {
+    font-size: large;
+}
+
+/* Admin modules distribution */
+
+.admin .dist .panel-heading {
+    height: 30px;
+}
+
+.admin .dist .panel-body.page-header {
+    margin-bottom: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.admin .dist .modules-row {
+    margin-bottom: 10px;
+}
+
+
+.admin .dist .modules-row .module-col {
+    border: dashed 1px #ccc;
+    height: 36px;
+    border-radius: 4px;
+}
+
+/* Admin customize style */
+
+.admin .style .custom {
+    margin-bottom: 15px;
+}
+
+.admin .style .custom label{
+    font-weight: 500;
+    color: #555;
+}
+
+/* In place editor */
+
+.edit-in-place span {
+    cursor: pointer;
+}
+
+.edit-in-place input {
+    display: none;
+}
+
+.edit-in-place.active span {
+    display: none;
+}
+
+.edit-in-place.active a {
+    display: none;
+}
+
+.edit-in-place.active input {
+    display: inline-block;
+}

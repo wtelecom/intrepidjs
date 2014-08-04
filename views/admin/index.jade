@@ -1,0 +1,14 @@
+div.row.admin
+    div.col-xs-12.col-md-3.menu
+        //- Left sidebar
+        div.list-group
+            a.list-group-item(ui-sref="admin.dashboard", ui-sref-active="active")= __('Dashboard')
+            a.list-group-item(ui-sref="admin.modules", ui-sref-active="active")= __('Modules')
+            a.list-group-item(ui-sref="admin.dist", ui-sref-active="active")= __('Highlights')
+            a.list-group-item(ui-sref="admin.ui", ui-sref-active="active")= __('Appearance')
+
+
+    div.col-md-9.col-xs-12
+        //- Right content
+        div.row
+          div.col-xs-12(ui-view="admin_content")

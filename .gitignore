@@ -1,0 +1,17 @@
+!node_modules
+node_modules/*
+!node_modules/i18n-node-angular
+!node_modules/mongodb-fixtures/mongodb-fixtures.js
+.DS_Store
+.sass-cache/
+themes/
+_theme_vars.scss
+locales/*
+!locales/empty
+dump.rdb
+*.old.*
+test
+test.xls
+public/files/
+public/vendor/bower_components/*
+modules/*

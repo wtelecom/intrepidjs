@@ -1,0 +1,23 @@
+{
+  "name": "WeTalk",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lammoth/social-platform",
+  "authors": [
+    "lammoth <chelestra2003@yahoo.es>"
+  ],
+  "description": "WeTalk bower packages",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "froala": "~1.1.5",
+    "jcrop": "~0.9.12",
+    "ngInfiniteScroll": "~1.1.2"
+  }
+}

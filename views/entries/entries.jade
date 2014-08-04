@@ -1,0 +1,6 @@
+h3 
+    small Your entries
+div(ng-repeat='entry in entries')
+    a(href='entry/{{entry._id}}')
+        span(ng-bind='entry.entry')
+    br

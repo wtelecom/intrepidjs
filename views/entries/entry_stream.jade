@@ -1,0 +1,19 @@
+extends ../layout 
+
+append header
+    include ../header
+append content
+    .row
+        .small-8.columns.small-centered
+            h5= mainEntry[0].entry
+    .row
+        .small-8.columns.small-centered
+            if entries != undefined
+                each entry in entries
+                    p= entry.reply
+                    br
+            else
+                h6.subheader Not entries available
+    .row
+        .small-8.columns.small-centered
+            include entry_reply

@@ -1,0 +1,8 @@
+block entry
+    //- form(name="entry", action="/entry/create", method="post", enctype="application/x-www-form-urlencoded").custom
+    form(enctype="application/x-www-form-urlencoded", ng-submit="createEntry()").custom
+        textarea(name="entry", ng-model="entry.entry",  required).form-control
+        //- input(type="text", name="type", value="normal", ng-model="entry.type", required")
+        //- input(type="text", name="userId", value="52529dad0e709b7031fe3282", ng-model="entry.userId", required")
+        br
+        input(type="submit", value="Send entry").btn.btn-md.btn-primary.pull-right

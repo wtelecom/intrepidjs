@@ -1,0 +1,29 @@
+div.row
+    div.col-md-12
+        h4.title= __('Organize your homepage.')
+        hr
+
+div.row.dist
+    div.col-md-9.col-xs-12
+        div.panel.panel-default
+            div.panel-heading
+            div.panel-body.page-header
+            div.panel-body.page-modules
+                div.row
+                    div.col-xs-8
+                        div.modules-row(ng-repeat="module in modules_enabled_left")
+                            div.module-col(data-drop="true", ng-model='modules_enabled_left', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(modules_enabled_left[$index], $index, 1)'}")
+                                div.btn.btn-info.btn-block(ng-show="modules_enabled_left[$index].name", name="{{modules_enabled_right[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="modules_enabled_left", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{modules_enabled_left[$index].real_name}}
+                    div.col-xs-4
+                        div.modules-row(ng-repeat="module in modules_enabled_right")
+                            div.module-col(data-drop="true", ng-model='modules_enabled_right', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(modules_enabled_right[$index], $index, 2)'}")
+                                div.btn.btn-info.btn-block(ng-show="modules_enabled_right[$index].name", name="{{modules_enabled_right[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="modules_enabled_right", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{modules_enabled_right[$index].real_name}}
+    div.col-md-3.col-xs-12
+        div.row
+            if modules.length > 0
+                div.col-xs-12.modules-row(ng-repeat="module in modules_availabled")
+                    div.module-col(data-drop="true", ng-model='modules_availabled', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(modules_availabled[$index], null, null)'}")
+                        div.btn.btn-info.btn-block(data-drag="true", data-jqyoui-options="{revert: 'invalid'}" ng-model="modules_availabled" jqyoui-draggable="{index:{{$index}}, placeholder:true, onStart:'startCallback(module, $index)'}" ng-hide="!module.name") {{module.real_name}}
+            else
+                div.alert.alert-warning
+                    span= __('No modules availables')

@@ -1,0 +1,127 @@
+doctype html
+block htmltag
+    html
+        head
+            title= title
+            meta(http-equiv='X-UA-Compatible', content='IE=edge')
+            meta(name='viewport', content='width=device-width, initial-scale=1')
+
+            // Styles files
+            link(rel="stylesheet", href='/vendor/bootstrap/css/bootstrap.min.css')
+            link(rel="stylesheet", href='/vendor/bootflat/css/bootflat.min.css')
+            link(rel='stylesheet', href='/vendor/font-awesome-4.1.0/css/font-awesome.css')
+            link(rel='stylesheet', href='/stylesheets/style.css')
+            link(rel='stylesheet', href='/stylesheets/chat.css')
+            link(rel='stylesheet', href='/stylesheets/action_button.css')
+            link(rel='stylesheet', href='/vendor/bootstrap/css/angular-toggle-switch-bootstrap-3.css')
+
+            //- link(rel='stylesheet', href='/vendor/bower_components/jcrop/css/jquery.Jcrop.css')
+            //- link(rel='stylesheet', href='/vendor/bower_components/froala/css/froala_editor.min.css')
+            //- link(rel='stylesheet', href='/vendor/bower_components/medium-editor/dist/css/medium-editor.css')
+            //- link(rel='stylesheet', href='/vendor/bower_components/medium-editor/dist/css/themes/bootstrap.css')
+            link(rel='stylesheet', href='/vendor/bower_components/summernote/dist/summernote.css')
+            link(rel='stylesheet', href='/vendor/bower_components/angular-loading-bar/src/loading-bar.css')
+
+            // Custom styles
+            each styleFile in styleFiles
+                link(rel='stylesheet', href= styleFile.path)
+
+            // JavaScripts files
+            script(type='text/javascript', src="/vendor/jquery/jquery.js")
+            script(type='text/javascript', src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js")
+            script(type='text/javascript', src="/socket.io/socket.io.js")
+            script(type='text/javascript', src="/vendor/underscore/underscore-min.js")
+            script(type='text/javascript', src="/vendor/bower_components/underscore.string/dist/underscore.string.min.js")
+            // Upload image behaviour
+            script(type='text/javascript', src="/vendor/angular/angular-file-upload-shim.js")
+            
+            script(type='text/javascript', src="/vendor/angular/angular.js")
+            script(type='text/javascript', src="/vendor/bower_components/angular-sanitize/angular-sanitize.js")    
+
+            script(type='text/javascript', src="/vendor/angular/angular-inview.js")
+            script(type='text/javascript', src="/vendor/angular/angular-file-upload.js")
+
+            script(type='text/javascript', src="/vendor/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/jcrop/js/jquery.Jcrop.min.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/froala/js/froala_editor.min.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/angular-sir-trevor/angular-sir-trevor.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/medium-editor/dist/js/medium-editor.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/angular-medium-editor/dist/angular-medium-editor.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/textAngular/dist/textAngular-sanitize.min.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/textAngular/dist/textAngular.min.js")
+            script(type='text/javascript', src="/vendor/bower_components/summernote/dist/summernote.js")
+            script(type='text/javascript', src="/vendor/bower_components/angular-summernote/src/angular-summernote.js")
+            script(type='text/javascript', src="/vendor/bower_components/angular-loading-bar/src/loading-bar.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/iCheck/icheck.min.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/ng-icheck/dist/ng-icheck.min.js")
+            script(type='text/javascript', src="/vendor/misc/bootstrap.file-input.js")
+
+            script(type='text/javascript', src="/vendor/angular/angular-resource.js")
+            script(type='text/javascript', src="/vendor/angular/angular-route.js")
+            script(type='text/javascript', src="/vendor/misc/i18n-node-angular.js")
+            //- script(type='text/javascript', src="/vendor/angular/ui-bootstrap-tpls-0.10.0.js")
+            script(type='text/javascript', src="/vendor/angular/angular-dragdrop.js")
+            script(type='text/javascript', src="/vendor/angular/angular-ui-router.min.js")
+            script(type='text/javascript', src="/vendor/misc/holder.js")
+            script(type='text/javascript', src="/vendor/misc/recordrtc/RecordRTC.js")
+
+            //- script(type='text/javascript', src="/vendor/bower_components/highcharts/highcharts.js")
+            //- script(type='text/javascript', src="/vendor/bower_components/highcharts/modules/exporting.js")
+            script(type='text/javascript', src="http://code.highcharts.com/highcharts.js")
+            script(type='text/javascript', src="http://code.highcharts.com/modules/exporting.js")  
+    
+
+        body
+            include header
+            .container
+                .row
+                    #wrapper.col-xs-12
+                        #content
+                            block content
+                                //block entry
+                        block widgets
+            include footer    
+
+            div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
+                include chat/chat
+
+            block scripts
+                script(type='text/javascript', src="/javascripts/core/app.js")
+                script(type='text/javascript', src="/javascripts/core/controllers/main_controller.js")
+                script(type='text/javascript', src="/javascripts/core/controllers/accounts_controller.js")
+                script(type='text/javascript', src="/javascripts/core/controllers/admin_controller.js")    
+                script(type='text/javascript', src="/javascripts/core/controllers/chat_controller.js")                
+                script(type='text/javascript', src="/javascripts/core/routes/index.js")
+                script(type='text/javascript', src="/javascripts/core/routes/accounts.js")
+                script(type='text/javascript', src="/javascripts/core/routes/admin.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_inplace_editor.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_dyn_attr.js")                
+                script(type='text/javascript', src="/javascripts/core/directives/ng_type.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_slide_show.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_permission.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_author.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_holder.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_openchat.js")
+                script(type='text/javascript', src="/javascripts/core/directives/ng_enter.js")
+                script(type='text/javascript', src="/vendor/ng_draggable/ngDraggable.js")
+    
+
+                //- script(type='text/javascript', src="/javascripts/core/directives/ng_froala.js")
+
+                script(type='text/javascript', src="/javascripts/core/directives/ng_thumbnail_preview.js")
+                //- script(type='text/javascript', src="/javascripts/core/directives/ng_crop.js")
+                script(type='text/javascript', src="/javascripts/core/services/file_reader.js")
+
+                script(type='text/javascript', src="/javascripts/core/services/permission_service.js")
+                script(type='text/javascript', src="/javascripts/core/services/rest_service.js")
+                script(type='text/javascript', src="/javascripts/core/services/socketio_service.js")
+                script(type='text/javascript', src="/javascripts/core/services/chat_service.js")
+                //- TODO: Check if this JS file is needed if ui-bootstrap-tpls is loaded
+                script(type='text/javascript', src="/vendor/bootstrap/js/bootstrap.js")                               
+                script(type='text/javascript', src="/vendor/scroll-glue/scrollglue.js")
+                script(type='text/javascript', src="/vendor/angular/angular-toggle-switch.min.js")
+                
+
+                // Custom javascripts
+                each jsFile in jsFiles
+                    script(type='text/javascript', src= jsFile.path)

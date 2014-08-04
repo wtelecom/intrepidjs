@@ -1,0 +1,58 @@
+//- Title
+div.row
+    div.col-md-12
+        h4.title= __('Site appearance')
+        hr
+
+//- Theme in use
+div.row
+    div.col-md-4.col-xs-12
+        select.form-control.lg(ng-model="selectTheme", ng-options="theme.name.value for theme in themes")
+
+    div.col-md-8.col-xs-12
+        p= __('Select the theme you want to use.')
+hr
+
+//- Customize your style
+div.row
+    div.col-xs-12
+        h4= __('Customize your style')
+div.row
+    div.col-md-8.col-xs-12
+        p= __('Select the theme you want to modify.')
+    div.col-md-4.col-xs-12
+        select.form-control.lg(ng-model="editTheme", ng-options="theme.name.value for theme in themes")
+            option(value="") - &nbsp;
+                = __('New theme')
+                | &nbsp;-
+hr
+
+form.style(role="form", name="styleForm", method="post", ng-submit="validator()", novalidate)
+    div.row()
+        div(data-ng-repeat="(key, input) in formData")
+            div.col-md-4.col-xs-12.custom
+                ng-form(name="form", ng-class="{ 'has-error' : form['{{strkey}}'].$invalid}")
+                    label(for="{{key}}") {{key}}
+                    input.form-control(
+                        id="{{key}}",
+                        type="{{input.type}}",
+                        placeholder="{{input.value}}",
+                        data-ng-model="input.value",
+                        name="{{key}}",
+                        ng-pattern="{{input.pattern}}",
+                        required)
+                    span.control-label(data-ng-show="form['{{strkey}}'].$error.pattern") {{input.error}}
+                    div.has-warning(data-ng-show="nameExists && key=='name' ")
+                        span.control-label(ng-if="!nameDefault") Be careful, already exists a theme with this name. It will overridden.
+                        span.control-label(ng-if="nameDefault") You can't use this name because It's a name of a default theme.
+                    p
+                        small {{input.desc}}
+            div.clearfix(ng-if="$index % 3 == 2")
+
+    div.row
+        div.col-xs-12
+            h5 Finish
+        div.col-xs-12
+            p Push the button to save this theme!
+            input.btn.btn-primary(type="submit", value="Save the theme", ng-disabled='styleForm.$invalid || nameDefault' )
+

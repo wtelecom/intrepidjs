@@ -1,0 +1,30 @@
+div.row
+    div.col-md-12
+        h4.title= __('Select the modules that you want activate.')
+        hr
+div.row
+    div.col-md-6.col-xs-12(ng-repeat="module in modules")
+        div.well
+            div.row
+                div.col-xs-9(ng-init="module._id=false")
+                    h5.title {{ module.real_name }}
+                        &nbsp;
+                        a.btn.btn-default.btn-xs(ng-click="module._id=!module._id", ng-if="module.actions")
+                            span= __('Show actions')
+                    p {{ module.description }}
+                div.col-xs-3
+                    toggle-switch.pull-right.switch-small(model="module.enabled")
+                div.col-xs-12(ng-if="module.actions")
+                    table.table(ng-slide-show="module._id")
+                        thead
+                            tr
+                                th(colspan=2)
+                                    span= __('Module actions')
+                        tr(ng-repeat="action in module.actions")
+                            td {{ action.name }}
+                            td
+                                a.btn.btn-xs.pull-right(ui-sref="{{action.url}}")= __('Manage')
+
+div.row
+    div.col-xs-12(ui-view="actions_parent_content")                          
+

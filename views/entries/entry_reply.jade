@@ -1,0 +1,8 @@
+block replyentry
+    form(name="entry", action="/entry/reply/create", method="post" enctype="application/x-www-form-urlencoded").custom
+        textarea(name="reply")
+        input(type="hidden", name="type", value="normal")
+        input(type="hidden", name="userId", value="52529dad0e709b7031fe3282")
+        input(type="hidden", name="entryId", value=mainEntry[0].id)
+        br
+        input(type="submit", value="Send reply").button.right

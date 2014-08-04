@@ -1,0 +1,148 @@
+.action-btn {
+    position: fixed;
+    z-index: 10000;
+
+    bottom: 20px;
+    right: 70px;
+}        
+/* Some helper classes from the HTML5 Boilerplate  */
+/*        .visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }*/
+.action-btn .ir {
+    display: block;
+    border: 0;
+    text-indent: -999em;
+    overflow: hidden;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    text-align: left;
+    direction: ltr;
+    *line-height: 0;
+}
+
+/* The toggle */
+.action-btn label[for="shownav"],
+.action-btn .menu,
+.action-btn input#shownav {
+    position: absolute;
+    bottom: 7%;
+    left: 7%;
+    padding: 0;
+    margin: 0;            
+}
+
+.action-btn input#shownav,
+.action-btn input#shownav:checked {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+    width: 50px;
+    height: 50px;
+    color: #FFF;
+    background-color: transparent;
+}
+.action-btn label[for="shownav"],
+.action-btn .menu li {
+    /* Basis for the circles */
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}       
+.action-btn label[for="shownav"] {
+    z-index: 3;
+    width: 50px;
+    height: 50px;
+    background-color: #8CC152;
+    box-shadow: 0px 1px 6px 0.5px #2B5004;
+    cursor: pointer;          
+}
+.action-btn label[for="shownav"]:before {
+    vertical-align: middle;
+    display: table-cell;
+    font-family: FontAwesome;
+    font-size: 2em;
+    content: "\f067";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    
+    color: #fff;
+    text-align: center;
+    text-indent: 0;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.action-btn input:checked + label[for="shownav"]:before { 
+    content: "\f00d";
+} 
+
+/* Navigation elements  */
+.action-btn .menu {
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+}
+
+.action-btn .menu li::before {
+    vertical-align: middle;
+    display: table-cell;
+    font-size: 1.2em;
+}
+.action-btn .menu li {
+   /* First of all we align centers of the navigation elements with the center of the circle */
+    list-style: none;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: 46px;
+    height: 46px;
+    display: table;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1;
+
+   -webkit-transition-property: -webkit-transform, left, top;
+   -webkit-transition-timing-function: ease-out, cubic-bezier(.59,-0.99,.5,.96), cubic-bezier(.59,-0.99,.5,.96);
+   -moz-transition-property: -moz-transform, left, top;
+   -moz-transition-timing-function: ease-out, cubic-bezier(.59,-0.99,.5,.96), cubic-bezier(.59,-0.99,.5,.96);
+   -ms-transition-property: -ms-transform, left, top;
+   -ms-transition-timing-function: ease-out, cubic-bezier(.59,-0.99,.5,.96), cubic-bezier(.59,-0.99,.5,.96);
+   -o-transition-property: -o-transform, left, top;
+   -o-transition-timing-function: ease-out, cubic-bezier(.59,-0.99,.5,.96), cubic-bezier(.59,-0.99,.5,.96); 
+   transition-property: transform, left, top;
+   transition-timing-function: ease-out, cubic-bezier(.59,-0.99,.5,.96), cubic-bezier(.59,-0.99,.5,.96);
+}
+.action-btn input:checked ~ .menu li {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    
+    -webkit-transition-property: left, top, -webkit-transform;
+    -webkit-transition-timing-function: cubic-bezier(.56,.18,.75,1.5), cubic-bezier(.56,.18,.75,1.5), ease-out;
+    -moz-transition-property: left, top, -moz-transform;
+    -moz-transition-timing-function: cubic-bezier(.56,.18,.75,1.5), cubic-bezier(.56,.18,.75,1.5), ease-out;
+    -ms-transition-property: left, top, -ms-transform;
+    -ms-transition-timing-function: cubic-bezier(.56,.18,.75,1.5), cubic-bezier(.56,.18,.75,1.5), ease-out;
+    -o-transition-property: left, top, -o-transform;
+    -o-transition-timing-function: cubic-bezier(.56,.18,.75,1.5), cubic-bezier(.56,.18,.75,1.5), ease-out;
+    transition-property: left, top, transform;
+    transition-timing-function: cubic-bezier(.56,.18,.75,1.5), cubic-bezier(.56,.18,.75,1.5), ease-out;
+} 

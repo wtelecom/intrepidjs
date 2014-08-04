@@ -1,0 +1,31 @@
+div.col-xs-12
+    div.carousel.slide(data-ride="carousel")
+        ol.carousel-indicators
+            li.active(data-target="#carousel-example-generic", data-slide-to="0")
+            li(data-target="#carousel-example-generic", data-slide-to="1")
+            li(data-target="#carousel-example-generic", data-slide-to="2")
+        div.carousel-inner
+            div.item.active
+                img(src="http://www.cranfield.ac.uk/images/slider-items/energy-slider-6.jpg")
+                //- img(data-src="/vendor/misc/holder.js/1110x300", holder-fix)
+            div.item
+                img(src="http://www.cranfield.ac.uk/images/slider-items/energy-slider-6.jpg")
+                //- img(data-src="/vendor/misc/holder.js/1110x300", holder-fix)
+            div.item
+                img(src="http://www.cranfield.ac.uk/images/slider-items/energy-slider-6.jpg")
+                //- img(data-src="/vendor/misc/holder.js/1110x300", holder-fix)
+        a.left.carousel-control(href="#carousel-example-generic", data-slide="prev")
+            span.glyphicon.glyphicon-chevron-left
+        a.right.carousel-control(href="#carousel-example-generic", data-slide="next")
+            span.glyphicon.glyphicon-chevron-right
+
+div.col-md-8.col-xs-12
+    div.row
+        each highlight_left in highlights_left
+            div.col-xs-12
+                div(ng-include="'#{highlight_left.route}'")
+div.col-md-4.col-xs-12
+    div.row
+        each highlight_right in highlights_right
+            div.col-xs-12
+                div(ng-include="'#{highlight_right.route}'")

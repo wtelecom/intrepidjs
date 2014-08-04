@@ -1,7 +1,6 @@
-IntrepidJS
-==========
+<h3>WTPlatform</h3>
+===============
 
-<b>IntrepidJS</b> is an ExpressJS based framework that helps you to develop NodeJS's applications quickly
+WTPlatform attempts to unify any application under a structured and dynamic modules system
 <br />
-<br />
-<i><b>IntrepidJS</b> is under construction and <b>NOT</b> is recommended for a production environment</i>
+<b>Alpha version under construction, is NOT available to production environments</b>
