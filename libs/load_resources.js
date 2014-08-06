@@ -26,16 +26,20 @@ module.exports = function loadResources(app, route, module) {
         // Parse route to add the static
         function checkAndInsert(file) {
             var extname = path.extname(file);
+
             // Checks if extension is .css
             if (extname === '.css') {
                 if (!module) {
                     var rm_css = null;
-                    _.each(settings.styleFiles, function (theme, i){
+                    _.each(settings.styleFiles, function(theme, i) {
                         if (theme.type == 'default') {
                             rm_css = i;
                         }
                     });
-                    settings.styleFiles.splice(rm_css,1);
+
+                    if (!_.isNull(rm_css))
+                        settings.styleFiles.splice(rm_css, 1);
+
                     settings.styleFiles.push({
                         type: 'default',
                         path: file.replace(process.cwd() + '/public', '')
@@ -46,16 +50,20 @@ module.exports = function loadResources(app, route, module) {
                         path: file.replace(process.cwd() + '/modules/' + module + '/public', '/' + module + '/public')
                     });
                 }
+
             // Checks if extension is .js
             } else if (extname === '.js') {
                 if (!module) {
                     var rm_js = null;
-                    _.each(settings.jsFiles, function (theme, i){
+                    _.each(settings.jsFiles, function(theme, i) {
                         if (theme.type == 'default') {
                             rm_js = i;
                         }
                     });
-                    settings.jsFiles.splice(rm_js,1);
+
+                    if (!_.isNull(rm_js))
+                        settings.jsFiles.splice(rm_js, 1);
+
                     settings.jsFiles.push({
                         type: 'default',
                         path: file.replace(process.cwd() + '/public', '')
