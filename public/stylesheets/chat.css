@@ -4,6 +4,7 @@
     bottom: 4px;
     border-radius: 4px;
     box-shadow: 0 0 6px #586771;
+    z-index: 20000;
 }
 
 #chat-header {
@@ -29,6 +30,11 @@
     background-color: white;
 }
 
+.chat-name {
+    padding-left: 5px;
+    font-weight: bold;
+}
+
 #chat-content {
     overflow-y: scroll;
     padding: 8px;
@@ -50,19 +56,31 @@
 }
 #chat-content .chat-message-me > .chat-message,
 #chat-content .chat-message-other > .chat-message {
-    background-color: #ccc;
+    border: 1px solid;
+    border-radius: 4px;
     margin-bottom: 7px;
     display: table;
+    padding: 3px 6px;
 }
 
 #chat-content .chat-message-me > img {
     width: 30px;
-    float: right;
+    float: left;
 }
 
 #chat-content .chat-message-other > img {
     width: 30px;
-    float: left;
+    float: right;
+}
+
+#chat-content .chat-message-me > .chat-message {
+    border-color: #AC92EC;
+    background-color: #DCD7E9;
+}
+#chat-content .chat-message-other > .chat-message {
+    border-color: #48CFAD;
+    float: right;
+    background-color: #C2D6D1;
 }
 
 #chat-users {
@@ -131,6 +149,10 @@
 
 #chat-users > ul.chat-users > li.chat-user > .state.offline {
     background-color: #AFAFAF;
+}
+
+.globalUnread {
+    background-color: #ED5565;
 }
 
 [openchat] {

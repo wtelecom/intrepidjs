@@ -37,7 +37,7 @@ block header
                                         ul.dropdown-menu
                                             each s in section.sections
                                                 li
-                                                    a(href=s.route)= s.name
+                                                    a(href='#{s.route}')= s.name
                                     else
                                         a(ui-sref='#{section.real_name}')= __(section.name)
                 ul.nav.navbar-nav.navbar-right
@@ -48,7 +48,7 @@ block header
                                 | &nbsp;
                                 = __('Chats')
                                 | &nbsp;
-                                span.badge.ng-cloak {{globalChatMessages}}
+                                span.badge.ng-cloak.globalUnread(ng-if="globalChatMessages") {{globalChatMessages}}
                         li.dropdown
                             a.dropdown-toggle(href='', data-toggle='dropdown')
                                 span.glyphicon.glyphicon-user &nbsp; 

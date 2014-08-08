@@ -92,7 +92,7 @@ angular.module('WeTalk').controller('ChatController',
             // When message is received
             socketIO.on('newChatMessage', function(msg){
                 if (msg.user_dst._id.toString() == $scope.user._id.toString()) {
-                    // Check if exist user and room in session.
+                    // Check if not exists user and room in session.
                     if(!_.has($scope.usersInSession, msg.user_src._id)) {
                         // Add chat user to request session
                         var uid = msg.user_src._id.toString();
@@ -120,24 +120,36 @@ angular.module('WeTalk').controller('ChatController',
 
             // When receiver user messages
             socketIO.on('userMsgs', function(data){
-                $scope.rooms[data.uid.other._id.toString()] = {};
-                $scope.rooms[data.uid.other._id.toString()].messages = data.lastMessages;
-                var unread = _.filter($scope.rooms[data.uid.other._id.toString()].messages, function (msg) {
+                var other = data.uid.other._id.toString();
+                $scope.rooms[other] = {};
+                $scope.rooms[other].messages = data.lastMessages;
+                var unread = _.filter($scope.rooms[other].messages, function (msg) {
                     return msg.read === false && msg.user_dst._id == $scope.user._id;
                 });
-                var first_unread = _.last(unread);
+
+                var n = $scope.usersInSession[other].unread;
+                var first_unread;
+                if (unread.length > 0) {
+                    first_unread = _.last(unread);
+                } else if (n > 0) {
+                    first_unread = _.first($scope.rooms[other].messages);
+                }
                 if (first_unread) {
                     setTimeout(function(){
-                        // Go to first unread message
-                        $location.hash('msg'+first_unread._id.toString());
-                        $anchorScroll();
                         // Mark as read all messages
-                        var g = $scope.globalMessages;
-                        var n = $scope.usersInSession[data.uid.other._id.toString()].unread;
+                        var g =  uSession.getGMessages();
                         var r = g - n;
                         socketIO.emit('chatAllRead', data.uid.other._id);
-                        $scope.globalMessages = r;
-                        $scope.usersInSession[data.uid.other._id.toString()].unread = 0;
+                        uSession.setGMessages(r);
+                        $scope.usersInSession[other].unread = 0;
+
+                        // Go to first unread message
+                        $scope.$apply(function () {
+                            $('.room[room="' + other + '"]')
+                            .scrollTop($('#msg'+first_unread._id.toString()).offset().top);
+                        });
+                        // $location.hash('msg'+first_unread._id.toString());
+                        // $anchorScroll();
                     }, 1);
                 }
             });
@@ -146,30 +158,37 @@ angular.module('WeTalk').controller('ChatController',
             // Set number of unread messages of a user.
             socketIO.on('numUnreadMsgs', function (data) {
                 $scope.usersInSession[data._id.toString()].unread = data.total;
+                if (!$scope.globalChatMessage) {
+                    uSession.setGMessages(1);
+                }
             });
 
             // When user chat window is opening 
             socketIO.on('openChatUser', function (u) {
-                // Setting user and room actives.
-                $scope.userActive = u._id.toString();
-                if (!_.has($scope.usersInSession, $scope.userActive)) {
-                    $scope.usersInSession[$scope.userActive] = u;
-                    // Save the user in session
-                    restService.post({room:$scope.userActive}, 'api/v1/room',
-                        function(data, status, headers, config) {
-                            console.log('Room saved in session successfully.');
-                        },
-                        function(data, status, headers, config) {
-                            console.log('Error saving room in session.');
-                        }
-                    );
+                if (u) {
+                    // Setting user and room actives.
+                    $scope.userActive = u._id.toString();
+                    if (!_.has($scope.usersInSession, $scope.userActive)) {
+                        $scope.usersInSession[$scope.userActive] = u;
+                        // Save the user in session
+                        restService.post({room:$scope.userActive}, 'api/v1/room',
+                            function(data, status, headers, config) {
+                                console.log('Room saved in session successfully.');
+                            },
+                            function(data, status, headers, config) {
+                                console.log('Error saving room in session.');
+                            }
+                        );
+                    }
+                        
+                    var user = $scope.usersInSession[$scope.userActive];
+                    $scope.uChatName = user.username;
+                    socketIO.emit('getUserMsgs', user);
+                    $scope.chatVisible = true;
+                    angular.element('#chat-text > input').focus();
+                } else {
+                    $scope.chatVisible = true;
                 }
-                    
-                var user = $scope.usersInSession[$scope.userActive];
-                $scope.uChatName = user.username;
-                socketIO.emit('getUserMsgs', user);
-                $scope.chatVisible = true;
-                angular.element('#chat-text > input').focus();
             });
 
 
@@ -203,6 +222,7 @@ angular.module('WeTalk').controller('ChatController',
             // Close chat window
             $scope.close = function(){
                 $scope.chatVisible = false;
+                $scope.userActive = null;
             };
 
             // Comunicate to server new message

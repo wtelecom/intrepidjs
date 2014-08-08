@@ -255,42 +255,93 @@ module.exports = function(socket, io, redisClient) {
 
     // Someone click the chat button user to chat with him.
     socket.on('openChat', function (uid) {
-
+        var queryU = {
+            $or: [
+                {
+                    user_src: meUser._id,
+                    user_dst: ObjectId(uid),
+                    read:true
+                },
+                {
+                    user_src: ObjectId(uid),
+                    user_dst: meUser._id,
+                    read:true
+                }
+            ]
+        };
+        var query = {
+            $or: [
+                { user_src: meUser._id },
+                { user_dst: meUser._id }
+            ]
+        };
+        
         // First, check if the users has chat history.
         messageModel
-            .aggregate([{
-                $match:{
-                    $or:[
-                        {
-                            user_src: meUser._id,
-                            user_dst: ObjectId(uid),
-                            read:true
-                        },
-                        {
-                            user_src: ObjectId(uid),
-                            user_dst: meUser._id,
-                            read:true
-                        }
-                    ]
-                }
-            },
-            {$group: {
-                _id: "$user_src",
-                total: {$sum: 1}
-            }}])
+            .aggregate([
+                { $sort: {created: -1} },
+                { $limit: !uid ? 1 : 30 },
+                { $match: uid ? queryU : query },
+                { $group: { _id: { src: "$user_src" , dst: "$user_dst"}, total: {$sum: 1} }}
+            ])
             .exec(function(err, msgs) {
-                if (msgs.length > 1)
-                    if (msgs[0].total > 0 && msgs[1].total > 0)
+                if (msgs.length > 1) {
+                    // These users have messages. When uid is received.
+                    if (msgs[0].total > 0 && msgs[1].total > 0) {
                         passportSocketIo.filterSocketsByUser(io, function(user){
                             if (user.logged_in)
                                 return user._id==meUser._id;
                         }).forEach(function(socket){
+                            var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+                                if (user.logged_in)
+                                    return user._id==uid;
+                            }).length;
                             accountModel.findById(ObjectId(uid))
+                            .lean(true)
                             .select('username image')
                             .exec(function (err, u) {
+                                u.state = isOnline ? 'online' : 'offline';
                                 socket.emit('openChatUser', u);
                             });
                         });
+                    }
+                } else if (msgs.length == 1) {
+                    // Openning chat from global button with user
+                    var src = msgs[0]._id.src,
+                        dst = msgs[0]._id.dst,
+                        other = src == String(meUser._id) ? String(dst) : String(src);
+
+                    var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+                        if (user.logged_in)
+                            return user._id==other;
+                    }).length;
+                    
+                    accountModel.findById(other)
+                    .lean(true)
+                    .select('username image')
+                    .exec(function (err, u) {
+                        u.state = isOnline ? 'online' : 'offline';
+                        socket.emit('openChatUser', u);
+                    });
+
+                } else if (msgs.length === 0 && !uid) {
+                    // Openning chat from global button
+                    socket.emit('openChatUser', null);
+                } else if (msgs.length === 0 && uid) {
+                    // Openning chat from user button whithout messages
+                    var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+                        if (user.logged_in)
+                            return user._id==uid;
+                    }).length;
+
+                    accountModel.findById(ObjectId(uid))
+                    .lean(true)
+                    .select('username image')
+                    .exec(function (err, u) {
+                        u.state = isOnline ? 'online' : 'offline';
+                        socket.emit('openChatUser', u);
+                    });
+                }
             });
     });
 };

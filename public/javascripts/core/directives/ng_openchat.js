@@ -17,13 +17,15 @@ angular.module('WeTalk').directive('openchat', [
                     if (u) {
                         socketIO.emit('openChat', u);
                     } else {
-                        var users = _.filter(_.values(uSession.getUsers()), function (user) {
-                            return user.read > 0 || user.unread > 0;
-                        });
-                        if (users.length > 0) {
-                            u = _.first(users)._id;
-                            socketIO.emit('openChat', u);
-                        }
+                        // var users = _.filter(_.values(uSession.getUsers()), function (user) {
+                        //     return user.read > 0 || user.unread > 0;
+                        // });
+                        // if (users.length > 0) {
+                        //     u = _.first(users)._id;
+                        //     socketIO.emit('openChat', u);
+                        // } else {
+                            socketIO.emit('openChat', null);
+                        // }
                     }
                 });
             }
