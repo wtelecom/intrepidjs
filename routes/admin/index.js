@@ -2,9 +2,10 @@
  * Admin Index methods
  */
 
-var settings = require('../../settings');
-var rek = require('rekuire');
-var modulesMiddleware = rek('middlewares/admin/modules_info');
+
+var rek = require('rekuire'),
+    settings = rek('/settings'),
+    modulesMiddleware = rek('middlewares/admin/modules_info');
 
 var routes = {};
 

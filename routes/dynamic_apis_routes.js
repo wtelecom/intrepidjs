@@ -31,6 +31,14 @@ function dynamicRoutes() {
                 ms = require(modSetting);
 
             if (extname == '.js') {
+                // With this logic, we create a models registry to use an any place
+                var moduleObj = _.findWhere(settings.models, {module: module});
+                if (_.isEmpty(moduleObj)) {
+                    settings.models.push({module: module, models:[{file: file}]});
+                } else {
+                    moduleObj.models.push({file: file});
+                }
+
                 models.push({
                     module: module,
                     modelFile: file,

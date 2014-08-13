@@ -1,13 +1,13 @@
 {
-  "name": "WeTalk",
-  "version": "0.0.1",
-  "homepage": "https://github.com/lammoth/social-platform",
+  "name": "vendor",
+  "version": "0.0.0",
   "authors": [
     "lammoth <chelestra2003@yahoo.es>"
   ],
-  "description": "WeTalk bower packages",
+  "moduleType": [
+    "node"
+  ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,8 +16,18 @@
     "tests"
   ],
   "dependencies": {
+    "angular-loading-bar": "~0.4.3",
+    "angular-medium-editor": "*",
+    "angular-sanitize": "1.2.18",
+    "angular-sir-trevor": "~0.1.0",
+    "angular-summernote": "~0.2.2",
+    "bootstrap-file-input": "~1.0.0",
     "froala": "~1.1.5",
     "jcrop": "~0.9.12",
-    "ngInfiniteScroll": "~1.1.2"
+    "highcharts": "~4.0.3",
+    "ng-icheck": "*",
+    "ngInfiniteScroll": "~1.1.2",
+    "textAngular": "~1.2.1",
+    "underscore.string": "~2.3.3"
   }
 }

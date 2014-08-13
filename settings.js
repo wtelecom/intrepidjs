@@ -73,6 +73,9 @@ exports.modules = [
     'recommendations'
 ];
 
+// Modules models
+exports.models = [];
+
 // Widgets
 // Twitter address
 exports.twitterURL = 'twitter.com';

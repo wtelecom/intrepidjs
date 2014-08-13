@@ -319,7 +319,7 @@ angular.module('WeTalk').controller('AdminStyleController',
 angular.module('WeTalk').controller('AdminController',
     [
         '$scope',
-        function ($scope) {
+        function($scope) {
             // Function to expand menu children.
             $scope.expand = function (v) {
                 var old = $scope[v];
@@ -334,8 +334,89 @@ angular.module('WeTalk').controller('AdminController',
 angular.module('WeTalk').controller('AdminDashboardController',
     [
         '$scope',
-        function ($scope) {
+        'restService',
+        'i18n',
+        function($scope, restService, i18n) {
 
+            restService.get(
+                {},
+                apiPrefix + '/admin/models',
+                function(data, status, headers, config) {
+                    if (data.success) {
+                          moduleVolumeGraph(data.models);
+                    }
+                },
+                function(data, status, headers, config) {}
+            );
+
+            function moduleVolumeGraph(data) {
+                $(function () {
+                    var dataParsed = [];
+
+                    _.each(data, function(d) {
+                        var tmpList = [];
+                        tmpList.push(_.str.capitalize(d.module));
+                        var count = 0;
+                        _.each(d.models, function(m) {
+                            count += m.count;
+                        });
+                        tmpList.push(count);
+                        dataParsed.push(tmpList);
+                    });
+
+                    $('#module_volume_graph').highcharts({
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: 0,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: i18n.__('Module volumes')
+                        },
+                        tooltip: {
+                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                dataLabels: {
+                                    enabled: true,
+                                    distance: -50,
+                                    style: {
+                                        fontWeight: 'bold',
+                                        color: 'white',
+                                        textShadow: '0px 1px 2px black'
+                                    }
+                                },
+                                startAngle: -90,
+                                endAngle: 90,
+                                center: ['50%', '75%']
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: i18n.__('Module volumes'),
+                            innerSize: '50%',
+                            data: dataParsed
+                        }],
+                        exporting: {
+                            enabled: false
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+                });
+            }
+        }
+    ]
+);
+
+angular.module('WeTalk').controller('AdminUsersController',
+    [
+        '$scope',
+        'restService',
+        'i18n',
+        function($scope, restService, i18n) {
         }
     ]
 );

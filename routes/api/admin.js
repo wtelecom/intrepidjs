@@ -4,15 +4,34 @@
  * @desc API Admin methods
  */
 
-var settings = require('../../settings');
-var rek = require('rekuire');
-var modulesMiddleware = rek('middlewares/admin/modules_info');
-var modulesCreateMiddleware = rek('middlewares/admin/modules_create');
-var modulesUpdateMiddleware = rek('middlewares/admin/modules_update');
-var themesMiddleware = rek('middlewares/admin/themes');
-var activeThemeMiddleware = rek('middlewares/admin/theme_active');
+var rek = require('rekuire'),
+    settings = rek('/settings'),
+    modulesMiddleware = rek('middlewares/admin/modules_info'),
+    modelsMiddleware = rek('middlewares/admin/models_info'),
+    modulesCreateMiddleware = rek('middlewares/admin/modules_create'),
+    modulesUpdateMiddleware = rek('middlewares/admin/modules_update'),
+    themesMiddleware = rek('middlewares/admin/themes'),
+    activeThemeMiddleware = rek('middlewares/admin/theme_active');
 
 var routes = {};
+
+
+/**
+  * @desc  Get modules models data
+  * @return array - Models availables
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/models'] =  {
+    methods: ['get'],
+    middleware: [modelsMiddleware()],
+    fn: function(req, res, next) {
+        res.json(
+            {
+                'models': req.objects,
+                'success': true
+            }
+        );
+    }
+};
 
 
 /**

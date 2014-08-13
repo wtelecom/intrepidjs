@@ -33,6 +33,16 @@ angular.module('WeTalk').config(
                             }
                     }
                 }).
+                state('admin.users', {
+                    url: '/users',
+                    views: {
+                        "admin_content":
+                            {
+                                templateUrl: "/admin/partials/users",
+                                controller: 'AdminUsersController'
+                            }
+                    }
+                }).
                 state('admin.modules', {
                     url: '/modules',
                     views: {

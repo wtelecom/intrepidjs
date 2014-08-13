@@ -155,7 +155,6 @@ routescan(app, {
 var dbURL = 'mongodb://localhost/wetalk';
 var dbCon = db.connect(dbURL);
 
-
 // Initializing server
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
