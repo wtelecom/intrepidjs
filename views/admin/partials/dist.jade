@@ -1,6 +1,6 @@
 div.row
     div.col-md-12
-        h4.title= __('Organize your homepage.')
+        h4.title= __('Organize your homepage')
         hr
 
 div.row.dist
@@ -20,6 +20,8 @@ div.row.dist
                                 div.btn.btn-info.btn-block(ng-show="modules_enabled_right[$index].name", name="{{modules_enabled_right[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="modules_enabled_right", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{modules_enabled_right[$index].real_name}}
     div.col-md-3.col-xs-12
         div.row
+            h4.title= __('Modules')
+            hr
             if modules.length > 0
                 div.col-xs-12.modules-row(ng-repeat="module in modules_availabled")
                     div.module-col(data-drop="true", ng-model='modules_availabled', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(modules_availabled[$index], null, null)'}")
@@ -27,3 +29,9 @@ div.row.dist
             else
                 div.alert.alert-warning
                     span= __('No modules availables')
+        div.row
+            h4.title= __('UI elements')
+            hr
+        div.row
+            h4.title= __('Social networks')
+            hr
