@@ -12,7 +12,8 @@ var Account = new Schema({
     lastName: Date,
     email: String,
     roles: [],
-    image: String
+    image: String,
+    created: {type: Date, default: Date.now }
 });
 
 Account.plugin(passportLocalMongoose);

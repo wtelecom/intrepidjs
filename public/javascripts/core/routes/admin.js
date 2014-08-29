@@ -72,6 +72,26 @@ angular.module('WeTalk').config(
                                 controller: 'AdminStyleController'
                             }
                     }
+                }).
+                state('admin.uiel', {
+                    url: "/ui",
+                    views: {
+                        "admin_content":
+                            {
+                                templateUrl: "/admin/partials/customstyle",
+                                controller: 'AdminUIController'
+                            }
+                    }
+                }).
+                state('admin.social', {
+                    url: "/social",
+                    views: {
+                        "admin_content":
+                            {
+                                templateUrl: "/admin/partials/social_networks",
+                                controller: 'AdminSocialNetworkController'
+                            }
+                    }
                 });
         }
     ]

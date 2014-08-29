@@ -8,6 +8,7 @@ var rek = require('rekuire'),
     settings = rek('/settings'),
     modulesMiddleware = rek('middlewares/admin/modules_info'),
     modelsMiddleware = rek('middlewares/admin/models_info'),
+    usersMiddleware = rek('middlewares/admin/users_info'),
     modulesCreateMiddleware = rek('middlewares/admin/modules_create'),
     modulesUpdateMiddleware = rek('middlewares/admin/modules_update'),
     themesMiddleware = rek('middlewares/admin/themes'),
@@ -27,6 +28,23 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/models'] =  {
         res.json(
             {
                 'models': req.objects,
+                'success': true
+            }
+        );
+    }
+};
+
+/**
+  * @desc  Get users evolution data
+  * @return array - Users evolution data object
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/users'] =  {
+    methods: ['get'],
+    middleware: [usersMiddleware()],
+    fn: function(req, res, next) {
+        res.json(
+            {
+                'users': req.objects,
                 'success': true
             }
         );

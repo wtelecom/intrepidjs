@@ -33,6 +33,8 @@ exports.modulesPath = rootPath + '/modules/';
 exports.themesPath = rootPath + '/public/themes/';
 // Files path
 exports.filesPath = rootPath + '/public/files/';
+// Social networks path
+exports.socialNetworksPath = rootPath + '/widgets';
 
 // Site settings
 exports.site = {

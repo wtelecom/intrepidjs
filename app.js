@@ -28,6 +28,7 @@ var express = require('express'),
     checkSiteSetting = rek('libs/check_site_settings'),
     loadResources = rek('libs/load_resources'),
     loadSiteParams = rek('libs/load_site_params'),
+    loadSocialNetworks = rek('libs/load_social_networks'),
     loadModules = rek('libs/load_modules'),
     loadCustomMiddlewares = rek('middlewares/custom_data');
 
@@ -131,6 +132,9 @@ loadResources(app, settings.themesPath);
 
 // Load modules
 loadModules(app, settings.modulesPath, settings.modules);
+
+// Load social networks
+loadSocialNetworks(app, settings.socialNetworksPath);
 
 // development only
 if ('development' == app.get('env')) {

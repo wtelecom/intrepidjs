@@ -100,7 +100,7 @@ angular.module('WeTalk').controller('AdminDistController',
                     }
                 },
                 function(data, status, headers, config) {
-                    console.log(data);
+                    
                 }
             );
             
@@ -349,6 +349,17 @@ angular.module('WeTalk').controller('AdminDashboardController',
                 function(data, status, headers, config) {}
             );
 
+            restService.get(
+                {},
+                apiPrefix + '/admin/users',
+                function(data, status, headers, config) {
+                    if (data.success) {
+                        usersEvolutionGraph(data.users);
+                    }
+                },
+                function(data, status, headers, config) {}
+            );
+
             function moduleVolumeGraph(data) {
                 $(function () {
                     var dataParsed = [];
@@ -407,11 +418,102 @@ angular.module('WeTalk').controller('AdminDashboardController',
                     });
                 });
             }
+
+            function usersEvolutionGraph(data) {
+                $(function () {
+                    var currentTmpObj = {
+                        name: i18n.__('Registered users in the day'),
+                        data: []
+                    };
+
+                    _.each(data, function(d) {
+                        var c_d = new Date(d._id);
+                        currentTmpObj.data.push([Date.UTC(c_d.getFullYear(), c_d.getMonth(), c_d.getDate()), d.current_count]);
+                    });
+                    
+                    var totalTmpObj = {
+                        name: i18n.__('Total users'),
+                        data: []
+                    };
+
+                    _.each(data, function(d) {
+                        var c_d = new Date(d._id);
+                        totalTmpObj.data.push([Date.UTC(c_d.getFullYear(), c_d.getMonth(), c_d.getDate()), d.global_count]);
+                    });
+
+                    var dataParsed = [
+                        currentTmpObj,
+                        totalTmpObj
+                    ];
+
+                    $('#users_evolution_graph').highcharts({
+                        chart: {
+                            type: 'spline'
+                        },
+                        title: {
+                            text: i18n.__('Users info')
+                        },
+                        exporting: {
+                            enabled: false
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%e. %b',
+                                week: '%e. %b',
+                                month: '%b \'%y',
+                                year: '%Y'
+                            },
+                            title: {
+                                text: i18n.__('Date')
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: i18n.__('Users count')
+                            },
+                            min: 0
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br>',
+                            pointFormat: '{point.x:%e. %b}: {point.y}'
+                        },
+                        series: dataParsed
+                    });
+                });
+            }
         }
     ]
 );
 
 angular.module('WeTalk').controller('AdminUsersController',
+    [
+        '$scope',
+        'restService',
+        'i18n',
+        function($scope, restService, i18n) {
+        }
+    ]
+);
+
+angular.module('WeTalk').controller('AdminUIController',
+    [
+        '$scope',
+        'restService',
+        'i18n',
+        function($scope, restService, i18n) {
+        }
+    ]
+);
+
+angular.module('WeTalk').controller('AdminSocialNetworkController',
     [
         '$scope',
         'restService',
