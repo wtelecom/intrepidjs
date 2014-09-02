@@ -43,10 +43,9 @@ routes[settings.apiPrefix + '/room'] =  {
         }
         // Check if room is correct
         // TODO: check with validator if is ObjectId
-        if (req.body.room.indexOf('undefined') === -1) {
+        if (req.body.room && req.body.room != req.user._id) {
             // If this room does not exist in session, It is saved now.
             var isInSession = _.some(req.session.chats, function (room) {
-                console.log(room);
                 return room === req.body.room;
             });
             if (!isInSession)

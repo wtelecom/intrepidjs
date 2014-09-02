@@ -146,6 +146,14 @@ canvas {
 .mb0 {
     margin-bottom: 0;
 }
+.forum .moderated {
+    font-style: italic;
+}
+.forum .break-word {
+    word-wrap: break-word;
+}
+
+
 
 /* 
  * Meetings
@@ -182,6 +190,9 @@ canvas {
 .meetings .user-trash {
     color: #ED5565;
     vertical-align: middle;
+}
+.meetings #participants {
+    margin-top: 10px;
 }
 
 /* meetings timeline */

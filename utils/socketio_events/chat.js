@@ -179,69 +179,73 @@ module.exports = function(socket, io, redisClient) {
     socket.on('sendChatMessage', function (data) {
         var user_src = meUser._id.toString();
         var user_dst = data.user_dst;
-        var chatParams = {
-            data: data,
-            io: io
-        };
 
-        var messageData = {
-            user_src: {
-                value: ObjectId(user_src),
-                type: 'objectid'
-            },
-            user_dst: {
-                value: ObjectId(user_dst),
-                type: 'objectid'
-            },
-            text: {
-                value: data.message,
-                type: 'text'
-            }
-        };
+        // If user_src and user_dst are equal, do nothing
+        if (user_src != user_dst) {
+            var chatParams = {
+                data: data,
+                io: io
+            };
 
-        // Check if there are messages betwen this users
-        // TODO: Improve this part
-        var msgDstSocket = 0;
-        passportSocketIo.filterSocketsByUser(io, function(user){
-            if (user.logged_in)
-                return user._id.toString()==user_dst;
-        }).forEach(function(socket){
-            ++msgDstSocket;
-        });
-
-        if(msgDstSocket === 0) {
-            messageModel
-            .find({
-                $or: [
-                    {user_src: user_src, user_dst: user_dst},
-                    {user_src: user_dst, user_dst: user_src}
-                ]
-            })
-            .exec(function(err, msgs) {
-                var msgSrc = 0;
-                var msgDst = 0;
-                _.each(msgs, function(msg) {
-                    if (msg.user_src == meUser._id.toString())
-                        ++msgSrc;
-                    else
-                        ++msgDst;
-                });
-                if (msgSrc > 0 && msgDst > 0) {
-                    create_message(messageModel, messageData, chatParams, function(err) {
-                        if (!err)
-                            console.log('message saved');
-                        else
-                            console.log(err);
-                    });
+            var messageData = {
+                user_src: {
+                    value: ObjectId(user_src),
+                    type: 'objectid'
+                },
+                user_dst: {
+                    value: ObjectId(user_dst),
+                    type: 'objectid'
+                },
+                text: {
+                    value: data.message,
+                    type: 'text'
                 }
+            };
+
+            // Check if there are messages betwen this users
+            // TODO: Improve this part
+            var msgDstSocket = 0;
+            passportSocketIo.filterSocketsByUser(io, function(user){
+                if (user.logged_in)
+                    return user._id.toString()==user_dst;
+            }).forEach(function(socket){
+                ++msgDstSocket;
             });
-        } else {
-            create_message(messageModel, messageData, chatParams, function(err) {
-                if (!err)
-                    console.log('message saved');
-                else
-                    console.log(err);
-            });
+
+            if(msgDstSocket === 0) {
+                messageModel
+                .find({
+                    $or: [
+                        {user_src: user_src, user_dst: user_dst},
+                        {user_src: user_dst, user_dst: user_src}
+                    ]
+                })
+                .exec(function(err, msgs) {
+                    var msgSrc = 0;
+                    var msgDst = 0;
+                    _.each(msgs, function(msg) {
+                        if (msg.user_src == meUser._id.toString())
+                            ++msgSrc;
+                        else
+                            ++msgDst;
+                    });
+                    if (msgSrc > 0 && msgDst > 0) {
+                        create_message(messageModel, messageData, chatParams, function(err) {
+                            if (!err)
+                                console.log('message saved');
+                            else
+                                console.log(err);
+                        });
+                    }
+                });
+            } else {
+                create_message(messageModel, messageData, chatParams, function(err) {
+                    if (!err)
+                        console.log('message saved');
+                    else
+                        console.log(err);
+                });
+            }
         }
     });
 
@@ -255,93 +259,96 @@ module.exports = function(socket, io, redisClient) {
 
     // Someone click the chat button user to chat with him.
     socket.on('openChat', function (uid) {
-        var queryU = {
-            $or: [
-                {
-                    user_src: meUser._id,
-                    user_dst: ObjectId(uid),
-                    read:true
-                },
-                {
-                    user_src: ObjectId(uid),
-                    user_dst: meUser._id,
-                    read:true
-                }
-            ]
-        };
-        var query = {
-            $or: [
-                { user_src: meUser._id },
-                { user_dst: meUser._id }
-            ]
-        };
-        
-        // First, check if the users has chat history.
-        messageModel
-            .aggregate([
-                { $sort: {created: -1} },
-                { $limit: !uid ? 1 : 30 },
-                { $match: uid ? queryU : query },
-                { $group: { _id: { src: "$user_src" , dst: "$user_dst"}, total: {$sum: 1} }}
-            ])
-            .exec(function(err, msgs) {
-                if (msgs.length > 1) {
-                    // These users have messages. When uid is received.
-                    if (msgs[0].total > 0 && msgs[1].total > 0) {
-                        passportSocketIo.filterSocketsByUser(io, function(user){
-                            if (user.logged_in)
-                                return user._id==meUser._id;
-                        }).forEach(function(socket){
-                            var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+        if (uid != meUser._id) {
+
+            var queryU = {
+                $or: [
+                    {
+                        user_src: meUser._id,
+                        user_dst: ObjectId(uid),
+                        read:true
+                    },
+                    {
+                        user_src: ObjectId(uid),
+                        user_dst: meUser._id,
+                        read:true
+                    }
+                ]
+            };
+            var query = {
+                $or: [
+                    { user_src: meUser._id },
+                    { user_dst: meUser._id }
+                ]
+            };
+            
+            // First, check if the users has chat history.
+            messageModel
+                .aggregate([
+                    { $sort: {created: -1} },
+                    { $limit: !uid ? 1 : 30 },
+                    { $match: uid ? queryU : query },
+                    { $group: { _id: { src: "$user_src" , dst: "$user_dst"}, total: {$sum: 1} }}
+                ])
+                .exec(function(err, msgs) {
+                    if (msgs.length > 1) {
+                        // These users have messages. When uid is received.
+                        if (msgs[0].total > 0 && msgs[1].total > 0) {
+                            passportSocketIo.filterSocketsByUser(io, function(user){
                                 if (user.logged_in)
-                                    return user._id==uid;
-                            }).length;
-                            accountModel.findById(ObjectId(uid))
-                            .lean(true)
-                            .select('username image')
-                            .exec(function (err, u) {
-                                u.state = isOnline ? 'online' : 'offline';
-                                socket.emit('openChatUser', u);
+                                    return user._id==meUser._id;
+                            }).forEach(function(socket){
+                                var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+                                    if (user.logged_in)
+                                        return user._id==uid;
+                                }).length;
+                                accountModel.findById(ObjectId(uid))
+                                .lean(true)
+                                .select('username image')
+                                .exec(function (err, u) {
+                                    u.state = isOnline ? 'online' : 'offline';
+                                    socket.emit('openChatUser', u);
+                                });
                             });
+                        }
+                    } else if (msgs.length == 1) {
+                        // Openning chat from global button with user
+                        var src = msgs[0]._id.src,
+                            dst = msgs[0]._id.dst,
+                            other = src == String(meUser._id) ? String(dst) : String(src);
+
+                        var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+                            if (user.logged_in)
+                                return user._id==other;
+                        }).length;
+                        
+                        accountModel.findById(other)
+                        .lean(true)
+                        .select('username image')
+                        .exec(function (err, u) {
+                            u.state = isOnline ? 'online' : 'offline';
+                            socket.emit('openChatUser', u);
+                        });
+
+                    } else if (msgs.length === 0 && !uid) {
+                        // Openning chat from global button
+                        socket.emit('openChatUser', null);
+                    } else if (msgs.length === 0 && uid) {
+                        // Openning chat from user button whithout messages
+                        var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
+                            if (user.logged_in)
+                                return user._id==uid;
+                        }).length;
+
+                        accountModel.findById(ObjectId(uid))
+                        .lean(true)
+                        .select('username image')
+                        .exec(function (err, u) {
+                            u.state = isOnline ? 'online' : 'offline';
+                            socket.emit('openChatUser', u);
                         });
                     }
-                } else if (msgs.length == 1) {
-                    // Openning chat from global button with user
-                    var src = msgs[0]._id.src,
-                        dst = msgs[0]._id.dst,
-                        other = src == String(meUser._id) ? String(dst) : String(src);
-
-                    var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
-                        if (user.logged_in)
-                            return user._id==other;
-                    }).length;
-                    
-                    accountModel.findById(other)
-                    .lean(true)
-                    .select('username image')
-                    .exec(function (err, u) {
-                        u.state = isOnline ? 'online' : 'offline';
-                        socket.emit('openChatUser', u);
-                    });
-
-                } else if (msgs.length === 0 && !uid) {
-                    // Openning chat from global button
-                    socket.emit('openChatUser', null);
-                } else if (msgs.length === 0 && uid) {
-                    // Openning chat from user button whithout messages
-                    var isOnline = passportSocketIo.filterSocketsByUser(io, function(user){
-                        if (user.logged_in)
-                            return user._id==uid;
-                    }).length;
-
-                    accountModel.findById(ObjectId(uid))
-                    .lean(true)
-                    .select('username image')
-                    .exec(function (err, u) {
-                        u.state = isOnline ? 'online' : 'offline';
-                        socket.emit('openChatUser', u);
-                    });
-                }
-            });
+                });
+        }
     });
 };

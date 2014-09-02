@@ -195,7 +195,7 @@ angular.module('WeTalk').controller('ChatController',
             // Pass the msg to render
             $scope.msgReceived = function (msg) {
                 // Check if the two users are chatting together.
-                if ($scope.userActive == msg.user_src._id.toString() || $scope.userActive == msg.user_dst._id.toString()) {
+                if (($scope.userActive == msg.user_src._id.toString() && $scope.chatVisible) || $scope.userActive == msg.user_dst._id.toString()) {
                     // Mark read if the other has read it.
                     if (msg.user_dst._id === $scope.user._id) {
                         msg.read = true;

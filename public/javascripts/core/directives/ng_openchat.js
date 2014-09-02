@@ -1,3 +1,5 @@
+
+/*globals user */
 // Directive to open chat window.
 angular.module('WeTalk').directive('openchat', [
     'socketIO',
@@ -11,11 +13,16 @@ angular.module('WeTalk').directive('openchat', [
                 openchat: '@'
             },
             link: function(scope, elem, attrs) {
+                if (!user._id || scope.openchat === user._id) {
+                    elem.remove();
+                }
                 elem.bind('click', function() {
                     var u = scope.openchat;
                     // Check if click on a user icon or on the header icon.
                     if (u) {
-                        socketIO.emit('openChat', u);
+                        if (u != user._id) {
+                            socketIO.emit('openChat', u);
+                        }
                     } else {
                         // var users = _.filter(_.values(uSession.getUsers()), function (user) {
                         //     return user.read > 0 || user.unread > 0;
