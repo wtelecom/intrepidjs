@@ -1,0 +1,37 @@
+div.row
+    div.col-md-12
+        h4.title= __('Manage users')
+        hr
+
+div.row.admin-users
+    div.col-md-9.col-xs-12
+        input.form-control(type="text", placeholder="Search an user", ng-model="search")
+        div.list-group
+            div.list-group-item(ng-repeat="user in users | filter: search")
+                h4.panel-title
+                    a(data-toggle='collapse', data-parent='#users', href="#user{{$index}}")
+                        div.pull-left
+                            img.img-circle.img-user-sm(ng-src="{{user.image}}")
+                            | {{ user.username }}
+                        div.pull-right.ml10
+                            i.caret
+                        div.pull-right
+                            span.badge.ml10(ng-repeat="role in user.roles") {{role}}
+                        .clearfix
+                div.panel-collapse.collapse(id="user{{$index}}")
+                    span.badge.ml10(ng-repeat="role in user.roles") {{role}}
+                        i.fa.fa-times-circle.ml10(ng-click="removeRole(user, role)")
+                    label.label.label-warning(ng-if="!user.roles || user.roles.length === 0")= __("No roles yet")
+                    .btn-group.open.ml10
+                        input.form-control(type="text", placeholder="Add a role", ng-model="user.newRole", ng-enter="addRole(user)")
+                        ul.dropdown-menu(ng-if="(roles | filter: user.newRole).length > 0 && user.newRole")
+                            li(ng-repeat="role in roles | filter: user.newRole", ng-click="selectRole(user, role)")
+                                a {{role}}
+
+
+
+    div.col-md-3.col-xs-12
+        h5= __("Roles in use")
+        div.panel.panel-body.roles
+            span.badge(ng-repeat="role in roles") {{role}}
+            

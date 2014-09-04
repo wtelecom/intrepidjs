@@ -52,4 +52,18 @@ routes[settings.siteRoutes.admin.route + '/partials/:name'] =  {
     }
 };
 
+// Widgets info
+routes[settings.siteRoutes.admin.route + '/widget/:type/info'] =  {
+    methods: ['get'],
+    middleware: [],
+    fn: function(req, res, next) {
+        res.render(
+            settings.viewsPath + 'admin/partials/widgets',
+            {
+                widgets: settings.widgets[req.params.type]
+            }
+        );
+    }
+};
+
 module.exports = routes;

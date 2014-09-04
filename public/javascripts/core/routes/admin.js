@@ -88,7 +88,7 @@ angular.module('WeTalk').config(
                     views: {
                         "admin_content":
                             {
-                                templateUrl: "/admin/partials/social_networks",
+                                templateUrl: "/admin/widget/social/info",
                                 controller: 'AdminSocialNetworkController'
                             }
                     }

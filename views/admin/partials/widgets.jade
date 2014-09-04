@@ -1,0 +1,30 @@
+div.row(ng-controller="WidgetsRouteConstructorController")
+    div.col-xs-12
+        h4.title= __('Manage your widgets')
+        hr
+    each widget in widgets
+        div.col-xs-12
+            h5= widget.real_name
+        div.col-xs-12(ng-include="'#{widget.main_url}'")
+        each partial in widget.partials
+            div.col-xs-12
+                div(ng-include="'#{partial.url}'")
+        div.col-xs-12
+            hr
+
+
+
+
+    //- div.col-xs-12(ng-init="social_widgets='#{social_widget_index_urls}'")
+    //- div.col-xs-12(ng-repeat="widget in widgets")
+    //-     p= social_widget_index_urls
+    //-     {{ social_widgets }}
+    //-     {{ pepe }}
+    //- a.twitter-timeline(data-dnt="true", href="https://twitter.com/lammoth2", data-widget-id="505302903452495872") Tweets por @lammoth2
+    //- script(type='text/javascript', src="/javascripts/widgets/twitter/timeline.js")
+    //- each social_widget_index_url in social_widgets_index_urls
+    //- div.col-xs-12()
+    //-     div(ng-model="'#{social_widget_index_urls}'")
+        
+
+        

@@ -28,7 +28,7 @@ var express = require('express'),
     checkSiteSetting = rek('libs/check_site_settings'),
     loadResources = rek('libs/load_resources'),
     loadSiteParams = rek('libs/load_site_params'),
-    loadSocialNetworks = rek('libs/load_social_networks'),
+    loadWidgets = rek('libs/load_widgets'),
     loadModules = rek('libs/load_modules'),
     loadCustomMiddlewares = rek('middlewares/custom_data');
 
@@ -133,8 +133,8 @@ loadResources(app, settings.themesPath);
 // Load modules
 loadModules(app, settings.modulesPath, settings.modules);
 
-// Load social networks
-loadSocialNetworks(app, settings.socialNetworksPath);
+// Load widgets
+loadWidgets(app);
 
 // development only
 if ('development' == app.get('env')) {
@@ -152,7 +152,7 @@ if ('production' == app.get('env')) {
 
 // Init routes
 routescan(app, {
-    directory: app.get('modules_routes')
+    directory: app.get('site_routes')
 });
 
 // MongoDB constructor

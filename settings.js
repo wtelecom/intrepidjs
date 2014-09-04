@@ -33,8 +33,12 @@ exports.modulesPath = rootPath + '/modules/';
 exports.themesPath = rootPath + '/public/themes/';
 // Files path
 exports.filesPath = rootPath + '/public/files/';
-// Social networks path
-exports.socialNetworksPath = rootPath + '/widgets';
+// Widgets path
+exports.widgetsPath = rootPath + '/widgets/';
+// Social widgets path
+exports.socialwidgetsPath = rootPath + '/widgets/social_widgets/';
+// Custom Widgets path
+exports.customWidgetsPath = rootPath + '/widgets/custom_widgets/';
 
 // Site settings
 exports.site = {
@@ -79,8 +83,19 @@ exports.modules = [
 exports.models = [];
 
 // Widgets
-// Twitter address
-exports.twitterURL = 'twitter.com';
+exports.widgets = {
+    // Social widgets
+    social: [{
+        partials: [],
+        name: 'twitter',
+        real_name: 'Twitter',
+        main_url: null
+    }],
+    // Custom widgets
+    custom: [
+        'slider'
+    ]
+};
 
 // Site static files
 exports.styleFiles = null;

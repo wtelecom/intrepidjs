@@ -85,6 +85,9 @@ canvas {
 .pointer {
     cursor: pointer;
 }
+.img-user-sm {
+    width: 35px;
+}
 
 
 /* 
@@ -581,6 +584,40 @@ canvas {
     font-weight: 500;
     color: #555;
 }
+
+/* Admin manage users */
+
+.admin-users .img-user-sm {
+    margin-right: 10px;
+}
+
+.admin-users .roles span{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.admin-users .ml10 {
+    margin-left: 10px;
+}
+.admin-users .add-role {
+    margin-left: 10px;
+    width: 100px;
+    display: initial;
+}
+.admin-users .add-role input {
+    display: initial;
+    width: 100px;
+}
+.admin-users .dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+.admin-users .dropdown-menu li a {
+    color: #434a54;
+}
+.admin-users .dropdown-menu li a:hover {
+    background-color: #ccc;
+}
+
 
 /* In place editor */
 

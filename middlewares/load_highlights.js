@@ -5,7 +5,7 @@
 
 var rek = require('rekuire');
 var settings = require('../settings');
-var us = require('underscore');
+var _ = require('underscore');
 
 function loadHighlights(req, res, next) {
     function getModulesHighlights(position) {
@@ -30,7 +30,7 @@ function loadHighlights(req, res, next) {
                 console.log(err);
             }
         }
-        return us.sortBy(mods, 'order');
+        return _.sortBy(mods, 'order');
     }
 
     req.highlights_left = getModulesHighlights(1);

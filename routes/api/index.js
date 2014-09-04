@@ -2,8 +2,9 @@
  * API Index methods
  */
 
-var settings = require('../../settings');
-var _ = require('underscore');
+var rek = require('rekuire'),
+    _ = require('underscore'),
+    settings = rek('/settings');
 
 var routes = {};
 

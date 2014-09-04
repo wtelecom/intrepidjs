@@ -41,8 +41,6 @@ module.exports = {
         methods: ['get'],
         middleware: [modulesMiddleware(true), loadHighlightsMiddleware],
         fn: function(req, res, next) {
-            console.log(req.highlights_left);
-            console.log(req.highlights_right);
             res.render(
                 'highlights',
                 {

@@ -12,7 +12,9 @@ var rek = require('rekuire'),
     modulesCreateMiddleware = rek('middlewares/admin/modules_create'),
     modulesUpdateMiddleware = rek('middlewares/admin/modules_update'),
     themesMiddleware = rek('middlewares/admin/themes'),
-    activeThemeMiddleware = rek('middlewares/admin/theme_active');
+    activeThemeMiddleware = rek('middlewares/admin/theme_active'),
+    getObjects = rek('middlewares/get_objects'),
+    userModel = rek('data/models/user/account');
 
 var routes = {};
 
@@ -149,6 +151,22 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes/edit'] = 
         res.json(
             {
                 'theme': req.theme
+            }
+        );
+    }
+};
+
+/**
+  * @desc - Get user roles
+  * @return array of different roles
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/roles'] =  {
+    methods: ['get'],
+    middleware: [getObjects(userModel, 'getRoles')],
+    fn: function(req, res, next) {
+        res.json(
+            {
+                'roles': req.roles
             }
         );
     }

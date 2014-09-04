@@ -9,7 +9,7 @@ var rek = require('rekuire');
 var settingModel = rek('data/models/admin/setting');
 
 module.exports = function loadSelectedModules(app, path, modules_to_load) {
-    var modules_routes = ['./routes'];
+    var site_routes = ['./routes'];
     app.locals.modules = [];
 
     /**
@@ -45,7 +45,7 @@ module.exports = function loadSelectedModules(app, path, modules_to_load) {
             var moduleApp = require(dir + '/app');
             moduleApp.setModuleApp(app, dir, module_name);
             moduleApp.setModuleSections(app, mSettings);
-            modules_routes.push(moduleApp.setModuleRoutes(dir));
+            site_routes.push(moduleApp.setModuleRoutes(dir));
             var moduleInfo = {
                 name: mSettings.route_prefix,
                 real_name: mSettings.name,
@@ -62,8 +62,8 @@ module.exports = function loadSelectedModules(app, path, modules_to_load) {
         loadModule(path + modules_to_load[module], modules_to_load[module]);
     }
 
-    if (modules_routes.length > 0) {
-        app.set('modules_routes', modules_routes);
+    if (site_routes.length > 0) {
+        app.set('site_routes', site_routes);
     }
         
 };
