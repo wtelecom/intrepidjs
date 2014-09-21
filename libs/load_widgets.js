@@ -12,15 +12,14 @@ var _ = require('underscore'),
     rek = require('rekuire'),
     mainSettings = rek('/settings');
 
-module.exports = function loadWidgets(app) {
-    var modules_routes = ['./routes'];
+module.exports = function loadWidgets(app, cb) {
 
     // Initializing main static widget path
     app.use(
-        '/widgets/',
+        '/widgets/public/',
         expressStatic(
             path.join(process.cwd(),
-                'widgets/'
+                'widgets/public/'
             )
         )
     );
@@ -48,21 +47,39 @@ module.exports = function loadWidgets(app) {
             var partial_name = _.last(file.split('/')).replace('.jade', '');
             widget_obj.partials.push(
                 {
-                    url: '/widget/' + widget_obj.name + '/partials/' + partial_name,
+                    url: '/widget/' + widget_obj.name + '/admin/partials/' + partial_name,
                 }
             );
         }
     }
 
+    // Social widgets
     _.each(mainSettings.widgets.social, function(element) {
         var route = mainSettings.socialwidgetsPath + element.name,
             widgetInit = require(route + '/app'),
             widgetRoutes = widgetInit.setWidgetRoutes(route);
 
+        widgetInit.setWidgetPublic(app, route, element.name);
+
         app.get('site_routes').push(widgetRoutes);
 
         element.main_url = '/widget/' + element.name + '/index';
-
-        dive(mainSettings.socialwidgetsPath + element.name + '/views/partials', element);
+        dive(mainSettings.socialwidgetsPath + element.name + '/views/admin_partials', element);
     });
+
+    // Custom widgets
+    _.each(mainSettings.widgets.custom, function(element) {
+        var route = mainSettings.customwidgetsPath + element.name,
+            widgetInit = require(route + '/app'),
+            widgetRoutes = widgetInit.setWidgetRoutes(route);
+
+        widgetInit.setWidgetPublic(app, route, element.name);
+
+        app.get('site_routes').push(widgetRoutes);
+
+        element.main_url = '/widget/' + element.name + '/index';
+        dive(mainSettings.customwidgetsPath + element.name + '/views/admin_partials', element);
+    });
+    
+    cb();
 };

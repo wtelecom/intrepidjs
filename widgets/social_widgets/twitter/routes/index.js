@@ -45,4 +45,13 @@ routes['/' + twitterURLWidgetPrefix + '/partials/:name'] =  {
     }
 };
 
+routes['/' + twitterURLWidgetPrefix + '/admin/partials/:name'] =  {
+    methods: ['get'],
+    middleware: [],
+    fn: function(req, res, next) {
+        var name = req.params.name;
+        res.render(twitterSettings.viewsPath + '/admin_partials/' + name);
+    }
+};
+
 module.exports = routes;

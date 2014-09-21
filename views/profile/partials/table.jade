@@ -1,0 +1,14 @@
+table.tab-pane.table.table-hover(ng-init="getMails()")
+    tbody(ng-class="isInbox ? 'inbox': 'sent'")
+        tr.pointer(ng-repeat="mail in mails", ng-click="readMail(mail)", ng-class="mail.read ? 'mail-read': 'mail-unread'")
+            td
+                ng-thumb-user(image="theOther([mail.user_src, mail.user_dst]).image || user.image", size="25")
+            td.name {{ theOther([mail.user_src, mail.user_dst]).username || user.username }}
+            td.subject {{ mail.subject }}
+            td.date.small {{ mail.updated | date: dateFormat }}
+        tr.no-mails(ng-if="mails.length == 0")
+            td
+            td.subject
+                .alert.alert-warning
+                    p= __('No mails yet')
+            td

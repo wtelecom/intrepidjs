@@ -27,9 +27,9 @@ div#chat-users
             ng-class="user._id == userActive ? 'active':''",
             uid="{{user._id}}", ng-click="chatWith($event.currentTarget)")
             span.badge(ng-if="user.unread > 0") {{user.unread}}
-            img.img-circle(ng-if="user.image", ng-src="{{user.image}}")
-            img.img-circle(ng-if="!user.image",
-                data-src="/vendor/misc/holder.js/40x40")
-            br
+            ng-thumb-user(image="user.image", size="40")
+            //- img.img-circle(ng-if="user.image", ng-src="{{user.image}}")
+            //- img.img-circle(ng-if="!user.image",
+            //-     data-src="/vendor/misc/holder.js/40x40")
             span.uname {{user.username}}
             div.state(class="{{user.state}}")

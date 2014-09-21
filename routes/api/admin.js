@@ -7,10 +7,12 @@
 var rek = require('rekuire'),
     settings = rek('/settings'),
     modulesMiddleware = rek('middlewares/admin/modules_info'),
+    widgetsMiddleware = rek('middlewares/admin/widgets_info'),
     modelsMiddleware = rek('middlewares/admin/models_info'),
     usersMiddleware = rek('middlewares/admin/users_info'),
     modulesCreateMiddleware = rek('middlewares/admin/modules_create'),
     modulesUpdateMiddleware = rek('middlewares/admin/modules_update'),
+    widgetsUpdateMiddleware = rek('middlewares/admin/widgets_update'),
     themesMiddleware = rek('middlewares/admin/themes'),
     activeThemeMiddleware = rek('middlewares/admin/theme_active'),
     getObjects = rek('middlewares/get_objects'),
@@ -95,6 +97,40 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/create']
 routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/update'] =  {
     methods: ['post'],
     middleware: [modulesUpdateMiddleware()],
+    fn: function(req, res, next) {
+        res.json(
+            {
+                'success': true
+            }
+        );
+    }
+};
+
+/**
+  * @desc  Get widgets available in the system
+  * @param bool $available - Returns only widgets enabled
+  * @return array - Widgets requested
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/widgets'] =  {
+    methods: ['get'],
+    middleware: [widgetsMiddleware(false)],
+    fn: function(req, res, next) {
+        res.json(
+            {
+                'widgets': req.objects,
+                'success': true
+            }
+        );
+    }
+};
+
+/**
+  * @desc  Updates widgets available in the system
+  * @return bool - Success response
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/widgets/update'] =  {
+    methods: ['post'],
+    middleware: [widgetsUpdateMiddleware()],
     fn: function(req, res, next) {
         res.json(
             {

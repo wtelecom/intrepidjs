@@ -2,12 +2,12 @@
  * UI methods
  */
 
-var settings = require('../../settings');
-var rek = require('rekuire');
-var compileSassMiddleware = rek('middlewares/admin/compile_sass');
-var formValidation = rek('middlewares/form_validation');
-var modulesMiddleware = rek('middlewares/admin/modules_info');
-var saveThemeMiddleware = rek('middlewares/admin/theme_save');
+var settings = require('../../settings'),
+    rek = require('rekuire'),
+    compileSassMiddleware = rek('middlewares/admin/compile_sass'),
+    formValidation = rek('middlewares/form_validation'),
+    modulesMiddleware = rek('middlewares/admin/modules_info'),
+    saveThemeMiddleware = rek('middlewares/admin/theme_save');
 
 var routes = {};
 
@@ -27,7 +27,9 @@ routes[settings.siteRoutes.admin.route + '/ui/'] =  {
 
 routes[settings.siteRoutes.admin.route + '/dist'] =  {
     methods: ['get'],
-    middleware: [modulesMiddleware(true)],
+    middleware: [
+        modulesMiddleware(true)
+    ],
     fn: function(req, res, next) {
         res.render(
             'admin/partials/dist',

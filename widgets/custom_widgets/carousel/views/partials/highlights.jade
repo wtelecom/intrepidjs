@@ -1,0 +1,16 @@
+div(ng-controller="CarouselHighlightController")
+    div.carousel.slide#carousel-home(data-ride="carousel", ng-if="images")
+        ol.carousel-indicators
+            li.active(data-target="#carousel-home", data-slide-to="0")
+            li(data-target="#carousel-home", data-slide-to="1")
+            li(data-target="#carousel-home", data-slide-to="2")
+        div.carousel-inner(ng-repeat="image in images")
+            div.item(ng-class="{'active': $index == 0}")
+                img(ng-src="{{image.image}}") 
+        a.left.carousel-control(href="#carousel-home", role="button", data-slide="prev")
+            span.glyphicon.glyphicon-chevron-left
+        a.right.carousel-control(href="#carousel-home", role="button", data-slide="next")
+            span.glyphicon.glyphicon-chevron-right
+
+
+

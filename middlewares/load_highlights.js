@@ -3,40 +3,88 @@
  * Get modules highlights
  */
 
-var rek = require('rekuire');
-var settings = require('../settings');
-var _ = require('underscore');
+var rek = require('rekuire'),
+    settings = rek('/settings'),
+    _ = require('underscore'),
+    widgetsModel = rek('data/models/widget/widget');
 
 function loadHighlights(req, res, next) {
-    function getModulesHighlights(position) {
+    var elements_highlights = [];
+    function getModulesHighlights() {
         var mods = [];
         for (var index in req.objects) {
             try {
                 var mSettings = rek('modules/'+ req.objects[index].name + '/settings');
                 if (mSettings.highlights) {
                     if (req.objects[index].position) {
-                        if (position == req.objects[index].position) {
-                            mods.push(
-                                {
-                                    route: '/' + req.objects[index].name + '/partials/highlights',
-                                    position:  req.objects[index].position,
-                                    order: req.objects[index].order
-                                }
-                            );
-                        }
+                        mods.push(
+                            {
+                                route: '/' + req.objects[index].name + '/partials/highlights',
+                                position:  req.objects[index].position,
+                                order: req.objects[index].order
+                            }
+                        );
                     }
                 }
             } catch (err) {
                 console.log(err);
             }
         }
-        return _.sortBy(mods, 'order');
+
+        return mods;
     }
 
-    req.highlights_left = getModulesHighlights(1);
-    req.highlights_right = getModulesHighlights(2);
+    function getWidgetsHighlights() {
+        var widgets_list = [];
+        widgetsModel.find({enabled: true})
+            // .where('position').in([0, 1, 2])
+            .exec(function(err, widgets) {
+                if (!_.isEmpty(widgets)) {
+                    _.each(widgets, function(widget) {
+                        if (!_.isNull(widget.position)) {
+                            widgets_list.push(
+                                {
+                                    route: '/widget/' + widget.parent + '/partials/highlights',
+                                    position: widget.position,
+                                    order: widget.position
+                                }
+                            );
+                        }
+                    });
+                }
+                var modules_highlights = getModulesHighlights();
+                if (!_.isEmpty(modules_highlights)) {
+                    elements_highlights = modules_highlights.concat(widgets_list);
+                    req.highlights_center = _.sortBy(_.filter(elements_highlights, function(el) {
+                        if (el.position === 0)
+                            return true;
+                        return false;
 
-    return next();
+                    }), 'order');
+                    req.highlights_left = _.sortBy(_.filter(elements_highlights, function(el) {
+                        if (el.position == 1)
+                            return true;
+                        return false;
+
+                    }), 'order');
+                    req.highlights_right = _.sortBy(_.filter(elements_highlights, function(el) {
+                        if (el.position == 2)
+                            return true;
+                        return false;
+
+                    }), 'order');
+                    return next();
+                } else {
+                    // Without modules highlights, nothing works (because I can)
+                    req.highlights_center = [];
+                    req.highlights_left = [];
+                    req.highlights_right = [];
+                    return next();
+                }
+            });
+    }
+
+    getWidgetsHighlights();
 }
 
 module.exports = loadHighlights;

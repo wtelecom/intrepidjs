@@ -1,0 +1,20 @@
+if user
+    div
+        div.row.mail
+            div.col-xs-12
+                ul.list-inline
+                    li(ng-if="backBtnShow")
+                        a.btn.btn-default.fa.fa-long-arrow-left(ui-sref="{{backState || 'profile.mail'}}")
+                    li(ng-if="replyBtnShow")
+                        ng-open-mail(type="reply", reply="mail")
+        div.row.mail
+            div.col-xs-12
+                div.panel
+                    div.tabbable.tabs-left.clearfix(ui-view="panel_content")
+                        ul#mail-menu.nav.nav-tabs
+                            li(ui-sref-active="active")
+                                a(ui-sref='profile.mail.inbox')= __('Inbox')
+                            li(ui-sref-active="active")
+                                a(ui-sref='profile.mail.sent')= __('Sent')
+                        div#mail-content.table-content(ui-view="table_content")
+            div.clearfix

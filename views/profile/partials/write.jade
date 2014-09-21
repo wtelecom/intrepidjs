@@ -1,0 +1,18 @@
+div.col-xs-12.write.text-left
+    form
+        ul.list-inline.middle
+            li
+                ng-thumb-user(image="receiver.image", size="35")
+            li
+                span {{receiver.username}}
+                .small= __('From: ')
+                    span {{meUser.username}}
+        br
+        label.label-form= __('Subject')
+        input.form-control(ng-model="mailData.subject")
+        label.label-form= __('Content')
+        div#text(summernote, config="textOptions", name="text", ng-model="mailData.text")
+        br
+        div.pull-right
+            div.btn.btn-primary(ng-click="create()", data-dismiss="modal")= __('Send mail')
+div.clearfix

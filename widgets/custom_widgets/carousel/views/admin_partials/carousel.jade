@@ -1,0 +1,41 @@
+div(ng-controller="UICarouselController")
+    div.well(style="margin-top: 15px;")
+        div.row
+            div.col-xs-9(ng-init="timeline=false")
+                h5.title Carousel
+                    &nbsp;
+                    a.btn.btn-default.btn-xs(ng-click="carousel=!carousel")
+                        span= __('Show actions')
+                p= __('Carousel widget shows a picture slider')
+            div.col-xs-3
+                toggle-switch.pull-right.switch-small(model="enabled")
+            div.col-xs-12(ng-slide-show="carousel")
+                div.panel.panel-default
+                    div.panel-heading
+                        h3.panel-title= __('Carousel Data')
+                    div.panel-body
+                        form.create-carousel(ng-submit="validator()")
+                            div.row
+                                div.col-md-6.col-xs-12
+                                    label= __('First picture')
+                                    br
+                                    div(ng-thumb="file", on-change="readFile()", ng-file-select="onFileSelect($files)")
+                                    br
+                                    br
+                                    label= __('Second picture')
+                                    br
+                                    div(ng-thumb="file", on-change="readFile()", ng-file-select="onFileSelect($files)")
+                                    br
+                                    br
+                                    label= __('Third picture')
+                                    br
+                                    div(ng-thumb="file", on-change="readFile()", ng-file-select="onFileSelect($files)")
+                                    br
+                                    br
+                                div.col-md-6.col-xs-12
+                                    br
+                                    div(ng-repeat="image in images")
+                                        ng-thumbnail(image="image.image", size="50")
+                                        br
+                                    br
+                            input.btn.pull-right(type="submit", value="#{__('Add data')}")

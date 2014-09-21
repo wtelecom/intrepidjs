@@ -55,17 +55,22 @@ block header
                                 span= user.username
                             ul.dropdown-menu
                                 li
-                                    a(ui-sref="admin.dashboard")
+                                    a(ui-sref="profile")
                                         i.fa.fa-cog.fa-fw
                                         &nbsp;
-                                        span= __('Edit profile')
+                                        span= __('Profile')
                                 if (_.contains(user.roles, 'admin'))
-                                    li.divider
                                     li
                                         a(ui-sref="admin.dashboard")
                                             i.fa.fa-tachometer.fa-fw
                                             &nbsp;
                                             span= __('Control panel')
+                                li.divider
+                                li
+                                    a(href="accounts/logout")
+                                        i.fa.fa-sign-out.fa-fw
+                                        &nbsp;
+                                        span= __('Log out')
                     else
                         li
                             a(ui-sref='/accounts/signup')= __('Signup')

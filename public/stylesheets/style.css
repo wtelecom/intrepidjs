@@ -23,7 +23,7 @@ body {
 }
 
 .navbar-custom a:hover {
-    background-color: #FFF !important;
+    background-color: #FFF;
 }
 
 ul.main-menu li.active {
@@ -36,7 +36,7 @@ ul.main-menu li.active {
 
 .img-responsive, .thumbnail>img, .thumbnail a>img, .carousel-inner>.item>img, .carousel-inner>.item>a>img {
     width: 100%;
-    height: 300px;
+    /*height: 300px;*/
 }
 
 .media-heading {
@@ -87,6 +87,21 @@ canvas {
 }
 .img-user-sm {
     width: 35px;
+}
+.mt5 {
+    margin-top: 5px;
+}
+.mr10 {
+    margin-right: 10px;
+}
+.ml10 {
+    margin-left: 10px;
+}
+.mb15 {
+    margin-bottom: 15px;
+}
+.nowrap {
+    white-space: nowrap;
 }
 
 
@@ -560,6 +575,7 @@ canvas {
 
 .admin .dist .panel-body.page-header {
     margin-bottom: 0;
+    margin-top: 20px;
     border-bottom: 1px solid #eee;
 }
 
@@ -571,6 +587,12 @@ canvas {
 .admin .dist .modules-row .module-col {
     border: dashed 1px #ccc;
     height: 36px;
+    border-radius: 4px;
+}
+
+.admin .dist .modules-row .module-col-lg {
+    border: dashed 1px #ccc;
+    height: 47px;
     border-radius: 4px;
 }
 
@@ -594,9 +616,6 @@ canvas {
 .admin-users .roles span{
     margin-left: 10px;
     margin-bottom: 10px;
-}
-.admin-users .ml10 {
-    margin-left: 10px;
 }
 .admin-users .add-role {
     margin-left: 10px;
@@ -639,4 +658,105 @@ canvas {
 
 .edit-in-place.active input {
     display: inline-block;
+}
+
+
+/* Profile detail */
+
+.profile .thumbnail.user {
+    border-radius: 50%;
+}
+
+/* Profile mail */
+.mail .tabbable {
+    background-color: #e6e9ed;
+    border-radius: 4px
+}
+.mail #mail-menu {
+    margin-right: 0;
+}
+.mail .table-content {
+    padding: 0;
+    display: table;
+    background-color: #fff;
+}
+.mail .table-content .tab-pane {
+    padding: 5px 10px 5px 10px;
+    margin-bottom: 0;
+    display: block;
+    min-height: 100px;
+}
+.mail .table-content tbody {
+    background-color: #fff;
+}
+.mail .table-content tr:first-child td {
+    border-top: 0;
+}
+.mail .table-content .subject {
+    width: 100%
+}
+.mail .table-content .name,
+.mail .table-content .date {
+    white-space: nowrap;
+}
+.mail .table-content .no-mails:hover td {
+    background-color: #fff;
+}
+.write {
+    padding: 15px;
+}
+.mail .read-mail {
+    padding: 15px;
+    background-color: #fff;
+}
+.mail ul.middle li {
+    vertical-align: middle;
+}
+.mail .mail-unread {
+    background-color: #e6e9ed;
+}
+/*.mail .sent .mail-unread {
+    background-color: #fff;
+}*/
+.mail .nav-tabs,
+.tabs-left .nav-tabs>li:last-child>a {
+    border-radius: 0;
+}
+.mail .nav-tabs li {
+    border: 0;
+}
+
+
+/* Login, Signup */
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading {
+    font-size: 42px;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }

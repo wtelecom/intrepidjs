@@ -1,9 +1,6 @@
 block content
-    form(action="/accounts/login", method="post")
-        label Username:
-        input(type="text", name="username")
-        br
-        label Password:
-        input(type="password", name="password")
-        br
-        input(type="submit", value="Submit")
+    form.form-signin.panel.panel-body(role='form', action="/accounts/login", method="post")
+      h2.form-signin-heading= __('Please sign in')
+      input.form-control(type='text', placeholder='Username', name="username", required='', autofocus='')
+      input.form-control(type='password', placeholder='Password',name="password", required='')
+      button.btn.btn-lg.btn-primary.btn-block(type='submit')= __('Sign in')

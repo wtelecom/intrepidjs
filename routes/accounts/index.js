@@ -4,7 +4,6 @@
 
 var passport = require("passport");
 var rek = require('rekuire');
-var Account = rek('data/models/user/account');
 var signupPassport = rek('middlewares/users/signup_user');
 
 module.exports = {
@@ -39,4 +38,14 @@ module.exports = {
             })
         }
     ],
+
+    '/accounts/logout': [
+        {
+            methods: ['get'],
+            fn: function(req, res, next) {
+                req.logout();
+                res.redirect('/');
+            }
+        }
+    ]
 };

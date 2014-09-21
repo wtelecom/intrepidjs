@@ -58,7 +58,7 @@ routes[settings.siteRoutes.admin.route + '/widget/:type/info'] =  {
     middleware: [],
     fn: function(req, res, next) {
         res.render(
-            settings.viewsPath + 'admin/partials/widgets',
+            settings.viewsPath + 'admin/partials/widgets_' + req.params.type,
             {
                 widgets: settings.widgets[req.params.type]
             }

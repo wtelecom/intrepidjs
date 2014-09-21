@@ -1,0 +1,17 @@
+div.row.admin
+    div.col-xs-12.col-md-3.menu
+        //- Left sidebar
+        div.list-group
+            a.list-group-item(ui-sref="profile.detail", ui-sref-active="active")
+                i.fa.fa-user.fa-fw
+                &nbsp;
+                span= __('Profile')
+            a.list-group-item(ui-sref="profile.mail", ui-sref-active="active")
+                i.fa.fa-envelope-o.fa-fw
+                &nbsp;
+                span= __('Mail')
+
+    div.col-md-9.col-xs-12
+        //- Right content
+        div.row
+          div.col-xs-12(ui-view="profile_content")

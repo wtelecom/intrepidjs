@@ -55,6 +55,9 @@ app.set('env', 'development');
 app.set('port', settings.port || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+app.locals._ = require("underscore");
+
 //app.use(favicon());
 //app.use(morgan());
 //app.use(bodyParser({keepExtensions:true, uploadDir: path.join(__dirname,'/public/files')}));
@@ -131,10 +134,18 @@ loadSiteParams(app, settings);
 loadResources(app, settings.themesPath);
 
 // Load modules
-loadModules(app, settings.modulesPath, settings.modules);
-
-// Load widgets
-loadWidgets(app);
+loadModules(app, settings.modulesPath, settings.modules, false, function() {
+    // Load widgets
+    loadWidgets(app, function() {
+        // Init routes
+        routescan(app, {
+            directory: app.get('site_routes')
+        });
+        
+        // TODO: Improve this shit, please
+        settings.app_instance = app;
+    });
+});
 
 // development only
 if ('development' == app.get('env')) {
@@ -150,14 +161,14 @@ if ('production' == app.get('env')) {
     app.use(errorHandler());
 }
 
-// Init routes
-routescan(app, {
-    directory: app.get('site_routes')
-});
-
 // MongoDB constructor
 var dbURL = 'mongodb://localhost/wetalk';
 var dbCon = db.connect(dbURL);
+
+// development only
+if ('development' == app.get('env')) {
+    // db.set('debug', true);
+}
 
 // Initializing server
 var server = http.createServer(app);

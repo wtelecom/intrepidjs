@@ -1,0 +1,84 @@
+div.btn.btn-default.fa.fa-reply(data-toggle='modal', data-target='#mailTo_{{uid}}')
+div.modal.fade(id="mailTo_{{uid}}")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal')
+          span(aria-hidden='true') ×
+          span.sr-only Close
+      .modal-body
+        //- Show white template
+        div(ng-include='writeTemplate')
+
+        //- now, render parents mails
+        div.col-xs-12.mb15
+            //- show/hide older mails button
+            div.pointer.pull-right(ng-click="showParents=!showParents")
+                span(ng-if="!showParents")= __('Show parents')
+                span(ng-if="showParents")= __('Hide parents')
+                i.fa.ml10(ng-class="showParents ? 'fa-caret-square-o-up' : 'fa-caret-square-o-down'")
+            .clearfix
+
+            div(ng-if="showParents")
+                //- Only when mail has children
+                div(ng-if="reply.children.length")
+                    //- First, show last mail in stack
+                    div
+                        h5 {{reply.subject}}
+                        div
+                            hr
+                            ul.list-inline.middle
+                                li
+                                    ng-thumb-user(image="reply.children[0].user_src.image", size="35")
+                                li
+                                    span {{reply.children[0].user_src.username}}
+                                    .small= __('For: ')
+                                        span {{reply.children[0].user_dst.username}}
+                            br
+                            div(ng-bind-html="reply.children[0].text")
+                    
+                    
+                        //- show children without lastest (show up)
+                        div(ng-repeat="child in reply.children", ng-if="$index != 0")
+                            div
+                                hr
+                                ul.list-inline.middle
+                                    li
+                                        ng-thumb-user(image="child.user_src.image", size="35")
+                                    li
+                                        span {{child.user_src.username}}
+                                        .small= __('For: ')
+                                            span {{child.user_dst.username}}
+                                br
+                                div(ng-bind-html="child.text")
+                        //- Finally, show the main (first) mail
+                        div
+                            div
+                                hr
+                                ul.list-inline.middle
+                                    li
+                                        ng-thumb-user(image="reply.user_src.image", size="35")
+                                    li
+                                        span {{reply.user_src.username}}
+                                        .small= __('For: ')
+                                            span {{reply.user_dst.username}}
+                                br
+                                div(ng-bind-html="reply.text")
+                
+                //- Only when mail hasn't children
+                div(ng-if="reply.children.length == 0")
+                    //- Show the mail
+                    div
+                        h5 {{reply.subject}}
+                        div
+                            hr
+                            ul.list-inline.middle
+                                li
+                                    ng-thumb-user(image="reply.user_src.image", size="35")
+                                li
+                                    span {{reply.user_src.username}}
+                                    .small= __('For: ')
+                                        span {{reply.user_dst.username}}
+                            br
+                            div(ng-bind-html="reply.text")
+        .clearfix

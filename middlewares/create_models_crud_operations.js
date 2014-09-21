@@ -21,19 +21,41 @@ module.exports = function(models) {
     var routes = {};
 
     _.each(models, function(model) {
+        var moduleSettings = require(settings.modulesPath + model.module + '/settings');
         _.each(
             ['get', 'getAll', 'create', 'update', 'delete'],
             function(method) {
-                applyCrudMethod(method, model);
+                applyCrudMethod(method, model, moduleSettings);
             }
         );
     });
+
+
+    /**
+     * @desc Loads extra middlewares
+     * @return object - Dynamic API's model routes
+     */
+    function loadExtraModuleMiddlewares(method, msettings, model) {
+        var middleware = null;
+        if (msettings.onTheFlyMiddlewares) {
+            if (msettings.onTheFlyMiddlewares[model]) {
+                if (!_.isNull(msettings.onTheFlyMiddlewares[model][method])) {
+                    middleware = require(msettings.onTheFlyMiddlewares[model][method]);
+                }
+            }
+        }
+        if (!_.isNull(middleware)) {
+            return middleware();
+        } else {
+            return function(req, res, next) { next(); };
+        }
+    }
 
     /**
      * @desc Apply CRUD methods to the models 
      * @return object - Dynamic API's model routes
      */
-    function applyCrudMethod(method, model) {
+    function applyCrudMethod(method, model, msettings) {
         var modelFile = require(model.modelFile);
 
         switch(method) {
@@ -47,7 +69,10 @@ module.exports = function(models) {
                     '/:id'
                 ] =  {
                     methods: ['get'],
-                    middleware: [getMethod(modelFile)],
+                    middleware: [
+                        getMethod(modelFile),
+                        loadExtraModuleMiddlewares(method, msettings, model.name)
+                    ],
                     fn: function(req, res, next) {
                         res.json({
                             response: req.response,
@@ -65,7 +90,10 @@ module.exports = function(models) {
                     model.name
                 ] =  {
                     methods: ['get'],
-                    middleware: [getAllMethod(modelFile, model.should_be_private())],
+                    middleware: [
+                        getAllMethod(modelFile, model.should_be_private()),
+                        loadExtraModuleMiddlewares(method, msettings, model.name)
+                    ],
                     fn: function(req, res, next) {
                         res.json({
                             response: req.response,
@@ -86,7 +114,8 @@ module.exports = function(models) {
                     methods: ['post'],
                     middleware: [
                         hasAuthorization(),
-                        createMethod(modelFile)
+                        createMethod(modelFile),
+                        loadExtraModuleMiddlewares(method, msettings, model.name)
                     ],
                     fn: function(req, res, next) {
                         res.json({
@@ -108,7 +137,8 @@ module.exports = function(models) {
                     methods: ['post'],
                     middleware: [
                         hasAuthorization(modelFile),
-                        updateMethod(modelFile)
+                        updateMethod(modelFile),
+                        loadExtraModuleMiddlewares(method, msettings, model.name)
                     ],
                     fn: function(req, res, next) {
                         res.json({
@@ -130,7 +160,8 @@ module.exports = function(models) {
                     methods: ['post'],
                     middleware: [
                         hasAuthorization(modelFile),
-                        deleteMethod(modelFile)
+                        deleteMethod(modelFile),
+                        loadExtraModuleMiddlewares(method, msettings, model.name)
                     ],
                     fn: function(req, res, next) {
                         res.json({

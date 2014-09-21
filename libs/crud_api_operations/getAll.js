@@ -30,7 +30,18 @@ function getObjects(model, privacy) {
             if (_.isNull(conditions)) {
                 conditions = {};
             }
-            conditions['author'] = req.user._id;
+
+            // Check if user is logged in, otherwise return error message
+            try {
+                conditions['author'] = req.user._id;
+            } catch (err) {
+                res.send(
+                    {
+                        error: err.message,
+                        response: false
+                    }
+                );
+            }
         }
 
         m = model.find(conditions);

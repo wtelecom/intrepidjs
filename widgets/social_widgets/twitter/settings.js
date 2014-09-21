@@ -9,6 +9,10 @@ exports.name = 'Twitter';
 // Module description
 exports.description = 'Twitter widget';
 
+
+// Route prefix
+exports.route_prefix = 'twitter';
+
 // Root path
 var widgetPath = process.cwd() + '/widgets/social_widgets/twitter';
 exports.widgetPath = widgetPath;

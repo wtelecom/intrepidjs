@@ -10,7 +10,6 @@ angular.module('WeTalk').controller('HighLightsController',
     [
         '$scope',
         function ($scope) {
-            
         }
     ]
 );

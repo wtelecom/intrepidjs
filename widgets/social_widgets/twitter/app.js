@@ -4,43 +4,64 @@
  * @desc Twitter's widget init methods
  */
 
-var rek = require('rekuire');
+var rek = require('rekuire'),
+    path = require('path'),
+    expressStatic = require('serve-static'),
+    diveSync = require('diveSync'),
+    _ = require('underscore');
 
 /**
-  * @desc  Set module ready
+  * @desc  Loads widgets public data
   * @param object $app - App instance
-  * @param string $module_path - Module path
-  * @param string $module_name - Module name
+  * @param object $route - Widget path
+  * @param String $name - Widget name
 */
-exports.setWidgetData = function(app, module_path, module_name) {
-    try {
-        var resourcesMiddleware = rek('libs/load_resources');
-        resourcesMiddleware(app, module_path + '/public', module_name);
-    } catch(err) {
-        console.log(err);
+exports.setWidgetPublic = function(app, route, name) {
+    // Initializing static widget path
+    app.use(
+        '/widgets/' + name + '/public/',
+        expressStatic(
+            path.join(process.cwd(),
+                'widgets/social_widgets/' + name + '/public/'
+            )
+        )
+    );
+
+    var widget_js_files = [];
+
+    // Load social widgets public files
+    // Dive into widget public dir
+    function dive(path) {
+        diveSync(path,
+            {
+              directories: false,
+              all: false,
+              recursive: true
+            }, function(err, file) {
+                if (!err) checkAndInsert(file);
+            }
+        );
     }
-    console.log('Module %s loaded', module_name);
-};
 
-/**
-  * @desc  Loads module sections
-  * @param object $app - App instance
-  * @param object $module_settings - Module setting instance
-*/
-exports.setWidgetPublic = function(app, module_settings) {
-    var module_sections = module_settings.sections;
-    var section_obj = {
-        name: module_settings.name,
-        real_name: module_settings.route_prefix,
-        route: '/' + module_settings.route_prefix,
-        sections: (module_settings.sections ? module_settings.sections : null)
-    };
+    // Check if file extension
+    function checkAndInsert(file) {
+        var extname = path.extname(file);
 
-    if (!app.locals.sections) {
-        app.locals.sections = [];
-        app.locals.sections.push(section_obj);
+        // Checks if extension is .js
+        if (extname === '.js') {
+            widget_js_files.push(
+                '/widgets/' + name + '/public/javascripts/' + _.last(file.split('/'))
+            );
+        }
+    }
+
+    dive(route + '/public');
+
+    if (!app.locals.widgets_js_files) {
+        app.locals.widgets_js_files = [];
+        app.locals.widgets_js_files = widget_js_files;
     } else {
-        app.locals.sections.push(section_obj);
+        app.locals.widgets_js_files = app.locals.widgets_js_files.concat(widget_js_files);
     }
 };
 

@@ -8,6 +8,7 @@ var loadPostsMiddleware = rek('middlewares/blog/load_posts');
 var loadHighlightsMiddleware = rek('middlewares/load_highlights');
 var modulesMiddleware = rek('middlewares/admin/modules_info');
 var settings = rek('/settings');
+var _ = require('underscore');
 
 module.exports = {
     // Default routes
@@ -16,7 +17,7 @@ module.exports = {
         middleware: [],
         fn: function(req, res, next) {
             res.render('index', {
-                message: res.__('Hello world'),
+                message: res.__('Hello IntrepidJS'),
             });
         }
     },
@@ -27,11 +28,7 @@ module.exports = {
         fn: function(req, res, next) {
             res.json({
                 api_prefix: settings.apiPrefix,
-                user: {
-                    _id: req.user ? req.user._id : null,
-                    image: req.user ? req.user.image : null,
-                    username: req.user ? req.user.username : null
-                }
+                user: req.user ? _.pick(req.user, '_id', 'image', 'username', 'email') : null
             });
         }
     },
@@ -44,6 +41,7 @@ module.exports = {
             res.render(
                 'highlights',
                 {
+                    highlights_center: req.highlights_center,
                     highlights_left: req.highlights_left,
                     highlights_right: req.highlights_right
                 }

@@ -48,6 +48,7 @@ settingSchema.statics.exists = function(next) {
 settingSchema.statics.getModules = function(enabled, req, next) {
     this.findOne()
     .select('modules')
+    .lean()
     .exec(function(err, result) {
 
         var modules = [];
@@ -231,11 +232,13 @@ settingSchema.statics.getActiveTheme = function(next) {
     this.findOne()
     .select('themes')
     .exec(function(err, result) {
-
         if (err) {
             return next(err);
         }
-        return next(result.themes.active);
+        if (result && result.themes && result.themes.active) {
+            next(result.themes.active);
+        }
+        next();
     });
 };
 

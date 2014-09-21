@@ -1,0 +1,70 @@
+.read-mail(ng-init="readMail()")
+    //- Only when mail has children
+    div(ng-if="mail.children.length")
+        //- First, show last mail in stack
+        div
+            h5 {{mail.subject}}
+            div
+                hr
+                ul.list-inline.middle
+                    li
+                        ng-thumb-user(image="mail.children[0].user_src.image", size="35")
+                    li
+                        span {{ mail.children[0].user_src.username }}
+                        .small= __('For: ')
+                            span {{ mail.children[0].user_dst.username }}
+                    li.pull-right {{ mail.created | date: dateFormat }}
+                br
+                div(ng-bind-html="mail.children[0].text")
+        //- show/hide older mails button
+        div.pointer.pull-right(ng-click="showParents=!showParents")
+            span(ng-if="!showParents")= __('Show parents')
+            span(ng-if="showParents")= __('Hide parents')
+            i.fa.ml10(ng-class="showParents ? 'fa-caret-square-o-up' : 'fa-caret-square-o-down'")
+        .clearfix
+        
+        div(ng-if="showParents")
+            //- show children without lastest (show up)
+            div(ng-repeat="child in mail.children", ng-if="$index != 0")
+                div
+                    hr
+                    ul.list-inline.middle
+                        li
+                            ng-thumb-user(image="child.user_src.image", size="35")
+                        li
+                            span {{child.user_src.username}}
+                            .small= __('For: ')
+                                span {{child.user_dst.username}}
+                    br
+                    div(ng-bind-html="child.text")
+            //- Finally, show the main (first) mail
+            div
+                div
+                    hr
+                    ul.list-inline.middle
+                        li
+                            ng-thumb-user(image="mail.user_src.image", size="35")
+                        li
+                            span {{mail.user_src.username}}
+                            .small= __('For: ')
+                                span {{mail.user_dst.username}}
+                    br
+                    div(ng-bind-html="mail.text")
+    
+    //- Only when mail hasn't children
+    div(ng-if="mail.children.length == 0")
+        //- Show the mail
+        div
+            h5 {{mail.subject}}
+            div
+                hr
+                ul.list-inline.middle
+                    li
+                        ng-thumb-user(image="mail.user_src.image", size="35")
+                    li
+                        span {{mail.user_src.username}}
+                        .small= __('For: ')
+                            span {{mail.user_dst.username}}
+                    li.pull-right {{ mail.created | date: dateFormat }}
+                br
+                div(ng-bind-html="mail.text")

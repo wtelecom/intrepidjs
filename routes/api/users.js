@@ -8,6 +8,10 @@ var rek = require('rekuire');
 var loadObgetsMiddleware = rek('middlewares/load_objects');
 var accountModel = rek('data/models/user/account');
 var updateUser = rek('middlewares/users/update');
+var checkPass = rek('middlewares/users/check_password');
+var changePass = rek('middlewares/users/change_password');
+var findUser = rek('middlewares/users/find_user');
+
 
 var routes = {};
 
@@ -34,6 +38,29 @@ routes[settings.apiPrefix + '/users/:id/update'] =  {
                 'object': req.object
             }
         );
+    }
+};
+
+routes[settings.apiPrefix + '/user/password'] = {
+    methods: ['post'],
+    middleware: [checkPass],
+    fn: function(req, res, next) {}
+};
+
+routes[settings.apiPrefix + '/user/password/change'] = {
+    methods: ['post'],
+    middleware: [changePass],
+    fn: function(req, res, next) {}
+};
+
+routes[settings.apiPrefix + '/user/:id'] = {
+    methods: ['get'],
+    middleware: [findUser],
+    fn: function(req, res, next) {
+        res.send({
+            success: true,
+            user: req.user
+        });
     }
 };
 

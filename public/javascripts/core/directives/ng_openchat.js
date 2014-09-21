@@ -13,7 +13,7 @@ angular.module('WeTalk').directive('openchat', [
                 openchat: '@'
             },
             link: function(scope, elem, attrs) {
-                if (!user._id || scope.openchat === user._id) {
+                if (!user || !user._id || scope.openchat === user._id) {
                     elem.remove();
                 }
                 elem.bind('click', function() {

@@ -78,7 +78,7 @@ angular.module('WeTalk').config(
                     views: {
                         "admin_content":
                             {
-                                templateUrl: "/admin/partials/customstyle",
+                                templateUrl: "/admin/widget/custom/info",
                                 controller: 'AdminUIController'
                             }
                     }

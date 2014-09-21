@@ -1,0 +1,13 @@
+div.row(ng-controller="WidgetsRouteConstructorController")
+    div.col-xs-12
+        h4.title= __('Manage your social widgets')
+        hr
+    each widget in widgets
+        div.col-xs-12
+            h5= widget.real_name
+        div.col-xs-12(ng-include="'#{widget.main_url}'")
+        each partial in widget.partials
+            div.col-xs-12.col-md-6
+                div(ng-include="'#{partial.url}'")
+        div.col-xs-12
+            hr

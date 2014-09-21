@@ -8,6 +8,7 @@ angular.module(
     'WeTalk',
     [
         'ngSanitize',
+        // 'ngRoute',
         'ui.router',
         //'ui.bootstrap',
         'i18n',
@@ -32,8 +33,9 @@ angular.module(
 );
 
 angular.module('WeTalk').run(
-    function($permission) {
+    function($permission, $rootScope) {
         $permission.setPermissions(permissionList);
+        $rootScope._ = _;
     }
 );
 

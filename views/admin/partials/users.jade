@@ -10,13 +10,17 @@ div.row.admin-users
             div.list-group-item(ng-repeat="user in users | filter: search")
                 h4.panel-title
                     a(data-toggle='collapse', data-parent='#users', href="#user{{$index}}")
-                        div.pull-left
-                            img.img-circle.img-user-sm(ng-src="{{user.image}}")
-                            | {{ user.username }}
-                        div.pull-right.ml10
-                            i.caret
-                        div.pull-right
-                            span.badge.ml10(ng-repeat="role in user.roles") {{role}}
+                        table
+                            tr
+                                td
+                                    ng-thumb-user.pull-left(image="user.image", size="35")
+                                td.col-xs-12
+                                    span {{ user.username }}
+                                td.nowrap
+                                    span.badge.ml10(ng-repeat="role in user.roles | limitTo: 2 ") {{role}}
+                                    i.fa.fa-ellipsis-h.ml10(ng-if="user.roles.length > 2")
+                                td
+                                    i.caret.ml10
                         .clearfix
                 div.panel-collapse.collapse(id="user{{$index}}")
                     span.badge.ml10(ng-repeat="role in user.roles") {{role}}

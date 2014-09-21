@@ -38,14 +38,14 @@ exports.widgetsPath = rootPath + '/widgets/';
 // Social widgets path
 exports.socialwidgetsPath = rootPath + '/widgets/social_widgets/';
 // Custom Widgets path
-exports.customWidgetsPath = rootPath + '/widgets/custom_widgets/';
+exports.customwidgetsPath = rootPath + '/widgets/custom_widgets/';
 
 // Site settings
 exports.site = {
     // Site title
     title: {
         property: 'title',
-        content: 'WeTalk'
+        content: 'Tigris'
     },
     // Default theme
     theme: {
@@ -92,10 +92,17 @@ exports.widgets = {
         main_url: null
     }],
     // Custom widgets
-    custom: [
-        'slider'
-    ]
+    custom: [{
+        partials: [],
+        name: 'carousel',
+        real_name: 'Carousel',
+        main_url: null
+    }]
 };
+
+// TODO: Improve this fucking shit
+// App instance
+exports.app_instance = null;
 
 // Site static files
 exports.styleFiles = null;
