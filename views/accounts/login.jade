@@ -1,6 +1,6 @@
 block content
-    form.form-signin.panel.panel-body(role='form', action="/accounts/login", method="post")
+    form.form-signin.panel.panel-body(role='form', ng-submit="account_process('login')", method="post")
       h2.form-signin-heading= __('Please sign in')
-      input.form-control(type='text', placeholder='Username', name="username", required='', autofocus='')
-      input.form-control(type='password', placeholder='Password',name="password", required='')
+      input.form-control.username(type='text', placeholder='Username', name="username", ng-model="formData.username", required='', autofocus='')
+      input.form-control.password(type='password', placeholder='Password',name="password", ng-model="formData.password", required='')
       button.btn.btn-lg.btn-primary.btn-block(type='submit')= __('Sign in')

@@ -168,6 +168,11 @@ angular.module('WeTalk').controller('CarouselHighlightController',
                         if (!_.isEmpty(data.widgets)) {
                             var d_carousel = _.first(data.widgets);
                             $scope.images = d_carousel.fields;
+                            setTimeout(function() {
+                                $('#carousel-home').carousel({
+                                    interval: 5000
+                                });
+                            }, 0);
                         }
                     }
                 },

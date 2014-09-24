@@ -28,6 +28,7 @@
     "ng-icheck": "*",
     "ngInfiniteScroll": "~1.1.2",
     "textAngular": "~1.2.1",
-    "underscore.string": "~2.3.3"
+    "underscore.string": "~2.3.3",
+    "angular-ui-router": "~0.2.11"
   }
 }

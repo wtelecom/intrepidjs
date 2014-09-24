@@ -113,7 +113,7 @@ module.exports = function(models) {
                 ] =  {
                     methods: ['post'],
                     middleware: [
-                        hasAuthorization(),
+                        hasAuthorization(modelFile),
                         createMethod(modelFile),
                         loadExtraModuleMiddlewares(method, msettings, model.name)
                     ],

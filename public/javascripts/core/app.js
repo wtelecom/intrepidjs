@@ -32,16 +32,18 @@ angular.module(
     permissionList
 );
 
+var apiPrefix = null,
+    permissionList = [],
+    user = null,
+    lastPath = null;
+
 angular.module('WeTalk').run(
-    function($permission, $rootScope) {
+    function($permission, $rootScope, $location) {
         $permission.setPermissions(permissionList);
         $rootScope._ = _;
     }
 );
 
-var apiPrefix = null,
-    permissionList = [],
-    user = null;
 
 angular.element(document).ready(function() {
     $.get('/info', function(data) {

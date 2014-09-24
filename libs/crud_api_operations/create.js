@@ -20,13 +20,15 @@ function createObject(model) {
             } else {
                 newData = req.body ? JSON.parse(req.body) : null;
             }
-            newData.author = req.user;
+
+            if (!req.query.apikey && !_.isUndefined(model.schema.paths.author))
+                newData.author = req.user;
         }
 
         model.create(newData, function(err, doc) {
             if (err) {
                 res.send({
-                    error: err.message,
+                    error: err,
                     response: false
                 });
             } else {

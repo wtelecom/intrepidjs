@@ -31,11 +31,16 @@ module.exports = {
         },
         {
             methods: ['post'],
-            fn: passport.authenticate('local', {
-                successRedirect: '/',
-                failureRedirect: '/accounts/login',
-                failureFlash: true
-            })
+            fn: function(req, res, next) {
+                passport.authenticate('local', function(err, user, info) {
+                    if (err) { return next(err); }
+                    if (!user) { return res.send({success: false}); }
+                    req.logIn(user, function(err) {
+                        if (err) { return next(err); }
+                        return res.send({success: true});
+                    });
+                })(req, res, next);
+            }
         }
     ],
 
@@ -44,7 +49,7 @@ module.exports = {
             methods: ['get'],
             fn: function(req, res, next) {
                 req.logout();
-                res.redirect('/');
+                res.send({success: true});
             }
         }
     ]

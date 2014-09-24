@@ -23,6 +23,9 @@ angular.module('WeTalk').directive('ngOpenMail', [
             },
             link: function($scope, elem, attrs) {
                 $scope.meUser = user;
+                if (!user || !user._id || $scope.uid === user._id) {
+                    elem.remove();
+                }
                 $scope.writeTemplate = 'profile/partials/write.jade';
                 $scope.textOptions = {
                     height: 150,

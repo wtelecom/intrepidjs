@@ -18,7 +18,7 @@ block header
                         button.btn.btn-primary(type="submit") Submit
 
     .navbar.navbar-custom#header(role='navigation')
-        .container
+        .container(ng-controller="HeaderController")
             .navbar-header
                 button(type='button', class='navbar-toggle', data-toggle='collapse', data-target='.navbar-collapse')
                     span(style="color: #3BAFDA;")
@@ -40,7 +40,7 @@ block header
                                                     a(href='#{s.route}')= s.name
                                     else
                                         a(ui-sref='#{section.real_name}')= __(section.name)
-                ul.nav.navbar-nav.navbar-right
+                ul.nav.navbar-nav.navbar-right.main-menu
                     if user
                         li.dropdown(ng-controller="globalChatMessages")
                             a.dropdown-toggle(href='', data-toggle='dropdown' openchat)
@@ -67,12 +67,12 @@ block header
                                             span= __('Control panel')
                                 li.divider
                                 li
-                                    a(href="accounts/logout")
+                                    a(href="", ng-click="account_process('logout')")
                                         i.fa.fa-sign-out.fa-fw
                                         &nbsp;
                                         span= __('Log out')
                     else
-                        li
-                            a(ui-sref='/accounts/signup')= __('Signup')
-                        li
-                            a(ui-sref='/accounts/login')= __('Login')
+                        li(ui-sref-active="active")
+                            a(ui-sref='signup')= __('Signup')
+                        li(ui-sref-active="active", ng-click="provide_path()")
+                            a(ui-sref='login')= __('Login')

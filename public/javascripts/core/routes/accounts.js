@@ -6,22 +6,23 @@ angular.module('WeTalk').config(
             $urlRouterProvider.otherwise('/');
             
             $stateProvider.
-                state('/accounts/signup', {
+                state('signup', {
                     url: '/accounts/signup',
-                    //controller: 'SignupController',
                     views: {
                         "main_content":
                             {
-                                templateUrl: "/accounts/signup"
+                                templateUrl: "/accounts/signup",
+                                controller: 'SignupController'
                             }
                     }
                 }).
-                state('/accounts/login', {
+                state('login', {
                     url: "/accounts/login",
                     views: {
                         "main_content":
                             {
-                                templateUrl: "/accounts/login"
+                                templateUrl: "/accounts/login",
+                                controller: 'HeaderController'
                             }
                     }
                 });

@@ -12,6 +12,11 @@ module.exports = function(app) {
         // Setting underscore
         res.locals._ = require("underscore");
 
+        // Retro-compatibility with flash method (ExpressJS 3.XX)
+        // req.flash = function(type, msg) {
+        //     console.log(msg);
+        // };
+
         next();
     });
 };

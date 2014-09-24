@@ -4,9 +4,10 @@
  * @desc Signup logic strategy
  */
 
-var passport = require("passport");
-var rek = require('rekuire');
-var Account = rek('data/models/user/account');
+var passport = require("passport"),
+    rek = require('rekuire'),
+    uuid = require('node-uuid'),
+    Account = rek('data/models/user/account');
 
 /**
  * @desc  Method to singup an user in the system
@@ -18,7 +19,8 @@ function signupUser(req, res) {
         new Account(
             {
                 username: req.body.username,
-                email: req.body.email
+                email: req.body.email,
+                token: uuid.v4()
             }
         ),
         req.body.password,

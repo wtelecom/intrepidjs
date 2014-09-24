@@ -22,8 +22,8 @@ var postSchema = new mongoose.Schema({
     },
     tags: [],
     image: String,
-    created: Date,
-    updated: Date
+    created: {type: Date, default: Date.now },
+    updated: {type: Date, default: Date.now }
 });
 
 function isObjectId(str){
@@ -82,7 +82,7 @@ postSchema.statics.getCategories = function(req, next) {
     this.aggregate(
         {
             $project: {
-                categories:1
+                categories: 1
             }
         },
         {
@@ -90,7 +90,7 @@ postSchema.statics.getCategories = function(req, next) {
         },
         {
             $group: {
-                    _id: "$categories",
+                    _id: "$categories.title",
                     total: {
                         $sum: 1
                     }

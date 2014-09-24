@@ -33,8 +33,10 @@ var express = require('express'),
     loadCustomMiddlewares = rek('middlewares/custom_data');
 
 // Initializing passport
-var localStrategy = require('passport-local').Strategy;
-var passportStrategies = rek('utils/passport_strategies');
+var localStrategy = require('passport-local').Strategy,
+    BasicStrategy = require('passport-http').BasicStrategy,
+    APIKeyStrategy = require('passport-localapikey').Strategy,
+    passportStrategies = rek('utils/passport_strategies');
 
 // Initializing Express
 var app = express();
@@ -55,8 +57,6 @@ app.set('env', 'development');
 app.set('port', settings.port || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-
-app.locals._ = require("underscore");
 
 //app.use(favicon());
 //app.use(morgan());
@@ -121,7 +121,7 @@ app.use('/' , expressStatic(path.join(__dirname, 'public')));
 // app.use(app.router);
 
 // loading passport strategies
-passportStrategies(localStrategy);
+passportStrategies(localStrategy, BasicStrategy, APIKeyStrategy);
 
 // Check site setting
 checkSiteSetting(settings);
@@ -141,6 +141,20 @@ loadModules(app, settings.modulesPath, settings.modules, false, function() {
         routescan(app, {
             directory: app.get('site_routes')
         });
+
+        app.get(exports.apiPrefix + '/token/auth',
+            passport.authenticate('basic', { session: false }),
+            function(req, res) {
+                res.json(req.user);
+            }
+        );
+
+        app.post(exports.apiPrefix + '/authenticated',
+            passport.authenticate('localapikey', { session: false }),
+            function(req, res) {
+                res.json({ message: "Authenticated" });
+            }
+        );
         
         // TODO: Improve this shit, please
         settings.app_instance = app;

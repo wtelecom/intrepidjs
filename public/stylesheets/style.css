@@ -146,9 +146,9 @@ canvas {
     position: absolute;
     width: 100%
 }
-.forum .panel-float div{
+.forum .panel-float .list-group {
     overflow-y: scroll;
-    max-height: 300px;
+    max-height: 200px;
     margin-right: 30px;
 }
 .forum .moderator {
@@ -170,6 +170,9 @@ canvas {
 .forum .break-word {
     word-wrap: break-word;
 }
+.middle {
+    vertical-align: middle;
+}
 
 
 
@@ -181,9 +184,9 @@ canvas {
     width: 100%;
     z-index: 1;
 }
-.meetings .panel-float div{
+.meetings .panel-float .list-group {
     overflow-y: scroll;
-    max-height: 300px;
+    max-height: 200px;
     margin-right: 30px;
 }
 .meetings .moderator {
@@ -728,17 +731,20 @@ canvas {
 
 
 /* Login, Signup */
-.form-signin {
+.form-signin,
+.form-signup {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
-.form-signin .form-signin-heading {
+.form-signin .form-signin-heading,
+.form-signup .form-signup-heading {
     font-size: 42px;
     margin-bottom: 10px;
     margin-top: 0;
 }
-.form-signin .form-control {
+.form-signin .form-control,
+.form-signup .form-control {
     position: relative;
     height: auto;
     -webkit-box-sizing: border-box;
@@ -747,16 +753,29 @@ canvas {
     padding: 10px;
     font-size: 16px;
 }
-.form-signin .form-control:focus {
+.form-signup .form-control:focus {
     z-index: 2;
 }
-.form-signin input[type="text"] {
+.form-signup .form-group {
+    margin-bottom: 0;
+}
+.form-signin .username,
+.form-signup .username {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-signup .email {
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+.form-signin .password,
+.form-signup .password {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+.form-signup .has-feedback .form-control-feedback {
+    top: 5px;
+    z-index: 2;
 }

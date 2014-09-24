@@ -11,6 +11,7 @@ var updateUser = rek('middlewares/users/update');
 var checkPass = rek('middlewares/users/check_password');
 var changePass = rek('middlewares/users/change_password');
 var findUser = rek('middlewares/users/find_user');
+var existUser = rek('middlewares/users/load_user');
 
 
 var routes = {};
@@ -61,6 +62,18 @@ routes[settings.apiPrefix + '/user/:id'] = {
             success: true,
             user: req.user
         });
+    }
+};
+
+routes[settings.apiPrefix + '/users/exist/:name'] = {
+    methods: ['get'],
+    middleware: [existUser],
+    fn: function(req, res, next) {
+        if (!req.user) {
+            res.send({available: true});
+        } else {
+            res.send({available: false});
+        }
     }
 };
 

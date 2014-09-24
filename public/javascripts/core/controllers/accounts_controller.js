@@ -9,50 +9,54 @@
 angular.module('WeTalk').controller('SignupController',
     [
         '$scope',
-        '$modal',
-        '$log',
-        function ($scope, $modal, $log) {
-            $scope.items = ['item1', 'item2', 'item3'];
-
-            $scope.open = function () {
-
-                var modalInstance = $modal.open({
-                    templateUrl: '/accounts/signup',
-                    controller: ModalInstanceController,
-                    resolve: {
-                        items: function () {
-                            return $scope.items;
-                        }
+        'restService',
+        'i18n',
+        function ($scope, restService, i18n) {
+            $scope.errors = {};
+            $scope.checkUser = function() {
+                if ($scope.username) {
+                    restService.get(
+                        {},
+                        apiPrefix + '/users/exist/' + $scope.username,
+                        function(data, status, headers, config) {
+                            if (!data.available) {
+                                $scope.errors.username = {message: i18n.__('Username in use')};
+                            } else {
+                                delete $scope.errors.username;
+                            }
+                        },
+                        function(data, status, headers, config) {}
+                    );
+                }
+            };
+            var regExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+            $scope.$watch('email', function() {
+                if ($scope.email) {
+                    if ($scope.email.search(regExp) === -1) {
+                        $scope.errors.email = {message: i18n.__('Wrong email')};
+                    } else {
+                        delete $scope.errors.email;
                     }
-                });
+                }
+            });
+            $scope.$watch('password', function() {
+                if ($scope.password) {
+                    if ($scope.password.length < 2) {
+                        $scope.errors.password = {message: i18n.__('Password too short')};
+                    } else {
+                        delete $scope.errors.password;
+                    }
+                }
+            });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
-        }
-    ]
-);
+            $scope.$watch(function() { return $scope.errors; }, function() {
+                if (_.isEmpty($scope.errors) && $scope.username && $scope.email && $scope.password) {
+                    $scope.disabled = false;
+                } else {
+                    $scope.disabled = true;
+                }
+            }, true);
 
-angular.module('WeTalk').controller('ModalInstanceController',
-    [
-        '$scope',
-        '$modalInstance',
-        function ($scope, $modalInstance, items) {
-            $scope.items = items;
-            $scope.selected = {
-                item: $scope.items[0]
-            };
-
-            $scope.ok = function () {
-                $modalInstance.close($scope.selected.item);
-            };
-
-            $scope.cancel = function () {
-                $modalInstance.dismiss('cancel');
-            };
         }
     ]
 );

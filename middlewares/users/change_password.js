@@ -15,45 +15,36 @@ var crypto = require('crypto');
  * @return object - Success true or false
  */
 function changePassword(req, res, next) {
-    Account.findOne({_id: req.user._id})
-        .exec(function(err, user) {
-            if (user && req.body.password && req.body.newPass) {
-                crypto.pbkdf2(req.body.password, user.salt, 25000, 512, function(err, hashRaw) {
+    Account.validPassword(req.user._id, req.body.password, function(result, user) {
+        if (result) {
+            if (user && req.body.newPass) {
+                crypto.randomBytes(32, function(err, buf) {
                     if (err) {
                         res.send(err);
                     }
-                    
-                    var hash = new Buffer(hashRaw, 'binary').toString('hex');
 
-                    if (hash === user.hash) {
-                        crypto.randomBytes(32, function(err, buf) {
-                            if (err) {
-                                res.send(err);
-                            }
+                    var salt = buf.toString('hex');
 
-                            var salt = buf.toString('hex');
+                    crypto.pbkdf2(req.body.newPass, salt, 25000, 512, function(err, hashRaw) {
+                        if (err) {
+                            return cb(err);
+                        }
 
-                            crypto.pbkdf2(req.body.newPass, salt, 25000, 512, function(err, hashRaw) {
-                                if (err) {
-                                    return cb(err);
-                                }
+                        user.hash = new Buffer(hashRaw, 'binary').toString('hex');
+                        user.salt = salt;
 
-                                user.hash = new Buffer(hashRaw, 'binary').toString('hex');
-                                user.salt = salt;
+                        user.save();
 
-                                user.save();
-
-                                res.send({success: true});
-                            });
-                        });
-                    } else {
-                        res.send({success: false});
-                    }
+                        res.send({success: true});
+                    });
                 });
             } else {
-                res.send({err: 'no user'});
+                res.send({success: false});
             }
-        });
+        } else {
+            res.send({success: false});
+        }
+    });
 }
 
 module.exports = changePassword;
