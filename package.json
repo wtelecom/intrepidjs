@@ -34,6 +34,8 @@
     "passport-local": "~1.0.0",
     "passport-local-mongoose": "~0.3.0",
     "passport.socketio": "~3.2.0",
+    "passport-http": "~0.2.2",
+    "passport-localapikey": "~0.0.3",
     "pow-mongoose-fixtures": "~0.3.0",
     "q": "*",
     "redis": "~0.10.3",
@@ -43,7 +45,7 @@
     "serve-static": "~1.1.0",
     "socket.io": "~0.9.17",
     "stream-transform": "0.0.6",
-    "superagent": "^0.18.2",
+    "superagent": "~0.18.2",
     "underscore": "~1.6.0",
     "underscore.string": "~2.3.3",
     "validator": "~3.16.1"
