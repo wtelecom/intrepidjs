@@ -493,7 +493,11 @@ angular.module('WeTalk').controller('AdminDashboardController',
                 apiPrefix + '/admin/models',
                 function(data, status, headers, config) {
                     if (data.success) {
-                          moduleVolumeGraph(data.models);
+                        if (_.isEmpty(data.models)) {
+                            $scope.volumeGraph = true;
+                        } else {
+                            moduleVolumeGraph(data.models);
+                        }
                     }
                 },
                 function(data, status, headers, config) {}

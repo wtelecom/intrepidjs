@@ -177,7 +177,7 @@ if ('production' == app.get('env')) {
 }
 
 // MongoDB constructor
-var dbURL = 'mongodb://localhost/intrepid';
+var dbURL = settings.dbURL;
 var dbCon = db.connect(dbURL);
 
 // development only

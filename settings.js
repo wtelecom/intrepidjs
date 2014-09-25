@@ -40,6 +40,9 @@ exports.socialwidgetsPath = rootPath + '/widgets/social_widgets/';
 // Custom Widgets path
 exports.customwidgetsPath = rootPath + '/widgets/custom_widgets/';
 
+// Database name
+exports.dbURL = 'mongodb://localhost/intrepid';
+
 // Site settings
 exports.site = {
     // Site title

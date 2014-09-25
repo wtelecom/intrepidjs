@@ -24,6 +24,8 @@ div.row
                             td {{ action.name }}
                             td
                                 a.btn.btn-xs.pull-right(ui-sref="{{action.url}}")= __('Manage')
+    div.col-xs-12(ng-if="!modules.modules.length")
+        div.alert.alert-warning= __('No modules yet!')
 
 div.row
     div.col-xs-12(ui-view="actions_parent_content")                          

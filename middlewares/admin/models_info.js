@@ -14,26 +14,31 @@ function getModels() {
         var count = 0;
         var modelCount = 0;
         
-        _.each(settings.models, function(module) {
-            _.each(module.models, function(model) {
-                count += 1;
-            });
-        });
-
-        _.each(settings.models, function(module) {
-            _.each(module.models, function(model) {
-                var tempModel = require(model.file);
-                tempModel.count({}, function(err, el_count) {
-                    model['count'] = el_count;
-                    modelCount ++;
-                    if (modelCount == count) {
-                        next();
-                    }
+        if (_.isEmpty(settings.modules)) {
+            next();
+        } else {
+            _.each(settings.models, function(module) {
+                _.each(module.models, function(model) {
+                    count += 1;
                 });
             });
-        });
 
-        req.objects = settings.models;
+            _.each(settings.models, function(module) {
+                _.each(module.models, function(model) {
+                    var tempModel = require(model.file);
+                    tempModel.count({}, function(err, el_count) {
+                        model['count'] = el_count;
+                        modelCount ++;
+                        if (modelCount == count) {
+                            req.objects = settings.models;
+                            next();
+                        }
+                    });
+                });
+            });
+        }
+
+
         
     };
 }

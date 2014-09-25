@@ -1,7 +1,7 @@
 {
-  "name": "WTPlatform",
+  "name": "IntrepidJS",
   "version": "0.0.1",
-  "description": "NodeJS platform framework",
+  "description": "A new NodeJS framework",
   "main": "app.js",
   "dependencies": {
     "body-parser": "~1.0.2",
@@ -56,7 +56,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wtelecom/social-platform"
+    "url": "https://github.com/wtelecom/intrepidjs"
   },
   "keywords": [
     "expressjs",
@@ -66,11 +66,15 @@
     "wellness telecom",
     "wellness",
     "telecom",
-    "angularjs"
+    "angularjs",
+    "framework",
+    "mongodb",
+    "socketio",
+    "mongoose"
   ],
   "author": "Francisco Hidalgo and Marcos García",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wtelecom/social-platform/issues"
+    "url": "https://github.com/wtelecom/intrepidjs/issues"
   }
 }
