@@ -10,6 +10,7 @@ var rek = require('rekuire'),
 
 function loadHighlights(req, res, next) {
     var elements_highlights = [];
+
     function getModulesHighlights() {
         var mods = [];
         for (var index in req.objects) {
@@ -37,7 +38,6 @@ function loadHighlights(req, res, next) {
     function getWidgetsHighlights() {
         var widgets_list = [];
         widgetsModel.find({enabled: true})
-            // .where('position').in([0, 1, 2])
             .exec(function(err, widgets) {
                 if (!_.isEmpty(widgets)) {
                     _.each(widgets, function(widget) {
@@ -52,7 +52,9 @@ function loadHighlights(req, res, next) {
                         }
                     });
                 }
+                
                 var modules_highlights = getModulesHighlights();
+
                 if (!_.isEmpty(modules_highlights)) {
                     elements_highlights = modules_highlights.concat(widgets_list);
                     req.highlights_center = _.sortBy(_.filter(elements_highlights, function(el) {

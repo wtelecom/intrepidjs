@@ -12,7 +12,9 @@ dump.rdb
 *.old.*
 test
 test.xls
-public/files/
+!public/files
+public/files/*
+!public/files/empty
 public/vendor/bower_components/*
 modules/*
 !modules/empty

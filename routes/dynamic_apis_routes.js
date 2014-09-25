@@ -77,18 +77,26 @@ function dynamicRoutes() {
         );
     }
 
-    _.each(settings.modules, function(module) {
-        var modModelPath = path.join(process.cwd(),
-                'modules/' + module + '/data/models'
-            ),
-            mSetting = path.join(process.cwd(),
-                'modules/' + module + '/settings'
-            );
+    if (!_.isEmpty(settings.modules)) {
+        _.each(settings.modules, function(module) {
+            var modModelPath = path.join(process.cwd(),
+                    'modules/' + module + '/data/models'
+                ),
+                mSetting = path.join(process.cwd(),
+                    'modules/' + module + '/settings'
+                );
 
-        dive(modModelPath, module, mSetting);
-    });
+            dive(modModelPath, module, mSetting);
+        });
 
-    return createSchemaCrudMethods(models);
+        return createSchemaCrudMethods(models);
+
+    } else {
+        
+        return routes;
+    }
+
+    
 }
 
 module.exports = dynamicRoutes();

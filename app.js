@@ -139,7 +139,8 @@ loadModules(app, settings.modulesPath, settings.modules, false, function() {
     loadWidgets(app, function() {
         // Init routes
         routescan(app, {
-            directory: app.get('site_routes')
+            directory: app.get('site_routes'),
+            ignoreInvalid: settings.invalid_routes
         });
 
         app.get(exports.apiPrefix + '/token/auth',
@@ -176,7 +177,7 @@ if ('production' == app.get('env')) {
 }
 
 // MongoDB constructor
-var dbURL = 'mongodb://localhost/wetalk';
+var dbURL = 'mongodb://localhost/intrepid';
 var dbCon = db.connect(dbURL);
 
 // development only

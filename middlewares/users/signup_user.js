@@ -15,25 +15,34 @@ var passport = require("passport"),
  * @return object - Sanitized data
  */
 function signupUser(req, res) {
-    Account.register(
-        new Account(
-            {
-                username: req.body.username,
-                email: req.body.email,
-                token: uuid.v4()
-            }
-        ),
-        req.body.password,
-        function(err, account) {
-            if (err) {
-                console.log(err);
-            }
+    Account.count({}, function (err, count) {
+        var roles = [];
 
-            passport.authenticate('local')(req, res, function() {
-                res.redirect('/');
-            });
+        if (count === 0) {
+            roles.push('admin');
         }
-    );
+
+        Account.register(
+            new Account(
+                {
+                    username: req.body.username,
+                    email: req.body.email,
+                    token: uuid.v4(),
+                    roles: roles
+                }
+            ),
+            req.body.password,
+            function(err, account) {
+                if (err) {
+                    console.log(err);
+                }
+
+                passport.authenticate('local')(req, res, function() {
+                    res.redirect('/');
+                });
+            }
+        );
+    });
 }
 
 module.exports = signupUser;

@@ -45,7 +45,7 @@ exports.site = {
     // Site title
     title: {
         property: 'title',
-        content: 'Tigris'
+        content: 'IntrepidJS'
     },
     // Default theme
     theme: {
@@ -72,11 +72,6 @@ exports.siteRoutes = {
 
 // Modules to load
 exports.modules = [
-    //'egovernment',
-    'measures',
-    'forum',
-    'meetings',
-    'recommendations'
 ];
 
 // Modules models
@@ -99,6 +94,10 @@ exports.widgets = {
         main_url: null
     }]
 };
+
+
+// Param to ignore invalid routes
+exports.invalid_routes = true;
 
 // TODO: Improve this fucking shit
 // App instance

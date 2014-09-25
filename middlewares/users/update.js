@@ -4,12 +4,12 @@
  * @desc Update logic strategy
  */
 
-var rek = require('rekuire');
-var Account = rek('data/models/user/account');
-var _ = require('underscore');
-var mainSettings = rek('/settings');
-var fs = require('fs');
-var uuid = require('node-uuid');
+var rek = require('rekuire'),
+    Account = rek('data/models/user/account'),
+    _ = require('underscore'),
+    mainSettings = rek('/settings'),
+    fs = require('fs'),
+    uuid = require('node-uuid');
 
 
 /**
@@ -17,9 +17,9 @@ var uuid = require('node-uuid');
  * @return object - Updated user
  */
 function update(req, res, next) {
-    var isAdmin = req.user.roles.indexOf('admin')+1;
-    var isTheUser = req.user._id == req.body._id;
-    var reqUser = req.body;
+    var isAdmin = req.user.roles.indexOf('admin') + 1,
+        isTheUser = String(req.user._id) == req.params.id,
+        reqUser = req.body;
     
     if (!_.isEmpty(reqUser)) {
         if (isAdmin || isTheUser) {
@@ -41,9 +41,6 @@ function update(req, res, next) {
             res.send({error: 'unauthorized'});
         }
     } else if (req.busboy) {
-
-
-
         if (isAdmin || isTheUser) {
             Account.findById(req.params.id)
                 .exec(function(err, user) {
@@ -78,17 +75,6 @@ function update(req, res, next) {
                     }
                 });
         }
-
-
-
-
-
-
-
-
-
-
-
 
     } else {
         res.send({error: 'empty'});

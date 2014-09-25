@@ -101,7 +101,7 @@ module.exports = function loadSelectedModules(app, path, modules_to_load, fake, 
         }
     }
 
-    if (modules_to_load) {
+    if (!_.isEmpty(modules_to_load)) {
         for (var module in modules_to_load) {
             loadModule(path + modules_to_load[module], modules_to_load[module]);
         }

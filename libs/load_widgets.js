@@ -54,32 +54,36 @@ module.exports = function loadWidgets(app, cb) {
     }
 
     // Social widgets
-    _.each(mainSettings.widgets.social, function(element) {
-        var route = mainSettings.socialwidgetsPath + element.name,
-            widgetInit = require(route + '/app'),
-            widgetRoutes = widgetInit.setWidgetRoutes(route);
+    if (!_.isEmpty(mainSettings.widgets.social)) {
+        _.each(mainSettings.widgets.social, function(element) {
+            var route = mainSettings.socialwidgetsPath + element.name,
+                widgetInit = require(route + '/app'),
+                widgetRoutes = widgetInit.setWidgetRoutes(route);
 
-        widgetInit.setWidgetPublic(app, route, element.name);
+            widgetInit.setWidgetPublic(app, route, element.name);
 
-        app.get('site_routes').push(widgetRoutes);
+            app.get('site_routes').push(widgetRoutes);
 
-        element.main_url = '/widget/' + element.name + '/index';
-        dive(mainSettings.socialwidgetsPath + element.name + '/views/admin_partials', element);
-    });
+            element.main_url = '/widget/' + element.name + '/index';
+            dive(mainSettings.socialwidgetsPath + element.name + '/views/admin_partials', element);
+        });
+    }
 
     // Custom widgets
-    _.each(mainSettings.widgets.custom, function(element) {
-        var route = mainSettings.customwidgetsPath + element.name,
-            widgetInit = require(route + '/app'),
-            widgetRoutes = widgetInit.setWidgetRoutes(route);
+    if (!_.isEmpty(mainSettings.widgets.custom)) {
+        _.each(mainSettings.widgets.custom, function(element) {
+            var route = mainSettings.customwidgetsPath + element.name,
+                widgetInit = require(route + '/app'),
+                widgetRoutes = widgetInit.setWidgetRoutes(route);
 
-        widgetInit.setWidgetPublic(app, route, element.name);
+            widgetInit.setWidgetPublic(app, route, element.name);
 
-        app.get('site_routes').push(widgetRoutes);
+            app.get('site_routes').push(widgetRoutes);
 
-        element.main_url = '/widget/' + element.name + '/index';
-        dive(mainSettings.customwidgetsPath + element.name + '/views/admin_partials', element);
-    });
+            element.main_url = '/widget/' + element.name + '/index';
+            dive(mainSettings.customwidgetsPath + element.name + '/views/admin_partials', element);
+        });
+    }
     
     cb();
 };
