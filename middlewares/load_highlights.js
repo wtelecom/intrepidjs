@@ -55,34 +55,26 @@ function loadHighlights(req, res, next) {
                 
                 var modules_highlights = getModulesHighlights();
 
-                if (!_.isEmpty(modules_highlights)) {
-                    elements_highlights = modules_highlights.concat(widgets_list);
-                    req.highlights_center = _.sortBy(_.filter(elements_highlights, function(el) {
-                        if (el.position === 0)
-                            return true;
-                        return false;
+                elements_highlights = modules_highlights.concat(widgets_list);
+                req.highlights_center = _.sortBy(_.filter(elements_highlights, function(el) {
+                    if (el.position === 0)
+                        return true;
+                    return false;
 
-                    }), 'order');
-                    req.highlights_left = _.sortBy(_.filter(elements_highlights, function(el) {
-                        if (el.position == 1)
-                            return true;
-                        return false;
+                }), 'order');
+                req.highlights_left = _.sortBy(_.filter(elements_highlights, function(el) {
+                    if (el.position == 1)
+                        return true;
+                    return false;
 
-                    }), 'order');
-                    req.highlights_right = _.sortBy(_.filter(elements_highlights, function(el) {
-                        if (el.position == 2)
-                            return true;
-                        return false;
+                }), 'order');
+                req.highlights_right = _.sortBy(_.filter(elements_highlights, function(el) {
+                    if (el.position == 2)
+                        return true;
+                    return false;
 
-                    }), 'order');
-                    return next();
-                } else {
-                    // Without modules highlights, nothing works (because I can)
-                    req.highlights_center = [];
-                    req.highlights_left = [];
-                    req.highlights_right = [];
-                    return next();
-                }
+                }), 'order');
+                return next();
             });
     }
 

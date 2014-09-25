@@ -15,7 +15,8 @@ angular.module('WeTalk').controller('UICarouselController',
         'restService',
         'fileReader',
         '$upload',
-        function ($scope, $state, restService, fileReader, $upload) {
+        '$window',
+        function ($scope, $state, restService, fileReader, $upload, $window) {
 
             // Beauty upload button
             $('input[type=file]').bootstrapFileInput();
@@ -54,8 +55,36 @@ angular.module('WeTalk').controller('UICarouselController',
                 function(data, status, headers, config) {
                     if (data.success) {
                         if (!_.isEmpty(data.widgets)) {
+
                             var d_carousel = _.first(data.widgets);
                             $scope.enabled = d_carousel.enabled;
+
+                            $scope.$watch(
+                                function () { return $scope.enabled; },
+                                function (vnew, vold) {
+                                    if (vnew != vold) {
+                                        var formData = {};
+
+                                        formData.enabled = {
+                                            value: vnew,
+                                            type: 'boolean'
+                                        };
+                                        
+                                        restService.post(formData, apiPrefix + '/widget/carousel/detail',
+                                            function(data, status, headers, config) {
+                                                if (data.success) {
+                                                    
+                                                    $window.location.reload();
+                                                    // $scope.enabled = vnew;
+                                                }
+                                            },
+                                            function(data, status, headers, config) {
+
+                                            }
+                                        );
+                                    }
+                            }, true);
+
                             $scope.images = d_carousel.fields;
                             if (d_carousel.fields.length === 3) {
                                 hasFile = true;
@@ -68,30 +97,6 @@ angular.module('WeTalk').controller('UICarouselController',
                 }
             );
 
-
-            $scope.$watch(
-                function () { return $scope.enabled; },
-                function (vnew, vold) {
-                    if (vnew != vold) {
-                        var formData = {};
-
-                        formData.enabled = {
-                            value: vnew,
-                            type: 'boolean'
-                        };
-                        
-                        restService.post(formData, apiPrefix + '/widget/carousel/detail',
-                            function(data, status, headers, config) {
-                                if (data.success) {
-                                    $scope.enabled = vnew;
-                                }
-                            },
-                            function(data, status, headers, config) {
-
-                            }
-                        );
-                    }
-            }, true);
 
             $scope.validator = function() {
                 var formData = {};

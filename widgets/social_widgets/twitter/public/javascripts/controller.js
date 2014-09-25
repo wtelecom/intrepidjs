@@ -13,7 +13,8 @@ angular.module('WeTalk').controller('TwitterTimelineController',
         '$scope',
         '$state',
         'restService',
-        function ($scope, $state, restService) {
+        '$window',
+        function ($scope, $state, restService, $window) {
             $scope.formData = {};
             restService.get(
                 {
@@ -32,6 +33,31 @@ angular.module('WeTalk').controller('TwitterTimelineController',
                             $scope.formData.username = d_timeline.fields.username;
                             $scope.formData.widget_id = d_timeline.fields.widgetid;
                             $scope.enabled = d_timeline.enabled;
+                            $scope.$watch(
+                                function () { return $scope.enabled; },
+                                function (vnew, vold) {
+                                    if (vnew != vold) {
+                                        var formData = {};
+
+                                        formData.enabled = {
+                                            value: vnew,
+                                            type: 'boolean'
+                                        };
+                                        if ($scope.formData.username && $scope.formData.widget_id) {
+                                            restService.post(formData, apiPrefix + '/widget/twitter/timeline',
+                                                function(data, status, headers, config) {
+                                                    if (data.success) {
+                                                        // $scope.enabled = vnew;
+                                                        $window.location.reload();
+                                                    }
+                                                },
+                                                function(data, status, headers, config) {
+
+                                                }
+                                            );
+                                        }
+                                    }
+                            }, true);
                         }
                     }
                 },
@@ -41,30 +67,6 @@ angular.module('WeTalk').controller('TwitterTimelineController',
             );
 
 
-            $scope.$watch(
-                function () { return $scope.enabled; },
-                function (vnew, vold) {
-                    if (vnew != vold) {
-                        var formData = {};
-
-                        formData.enabled = {
-                            value: vnew,
-                            type: 'boolean'
-                        };
-                        if ($scope.formData.username && $scope.formData.widget_id) {
-                            restService.post(formData, apiPrefix + '/widget/twitter/timeline',
-                                function(data, status, headers, config) {
-                                    if (data.success) {
-                                        $scope.enabled = vnew;
-                                    }
-                                },
-                                function(data, status, headers, config) {
-
-                                }
-                            );
-                        }
-                    }
-            }, true);
 
             $scope.validator = function() {
                 var formData = {};

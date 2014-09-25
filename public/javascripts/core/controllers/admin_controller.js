@@ -595,8 +595,9 @@ angular.module('WeTalk').controller('AdminDashboardController',
                         totalTmpObj.data.push([Date.UTC(c_d.getFullYear(), c_d.getMonth(), c_d.getDate()), d.global_count]);
                     });
 
-                    currentTmpObj.data = _.sortBy(currentTmpObj.data, function(o) {return o[0];});
-                    totalTmpObj.data = _.sortBy(totalTmpObj.data, function(o) {return o[0];});
+                    // Data should be sorted by date already, but if not, uncomment the next.
+                    // currentTmpObj.data = _.sortBy(currentTmpObj.data, function(o) {return o[0];});
+                    // totalTmpObj.data = _.sortBy(totalTmpObj.data, function(o) {return o[0];});
 
                     var dataParsed = [
                         currentTmpObj,
