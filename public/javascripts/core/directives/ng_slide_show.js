@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngSlideShow', function() {
+angular.module('IntrepidJS').directive('ngSlideShow', function() {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {

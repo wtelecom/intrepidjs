@@ -8,7 +8,7 @@
  * @desc  Twitter timeline widget controller
  * @param object $scope - The controller scope var
  */
-angular.module('WeTalk').controller('TwitterTimelineController',
+angular.module('IntrepidJS').controller('TwitterTimelineController',
     [
         '$scope',
         '$state',
@@ -123,7 +123,7 @@ angular.module('WeTalk').controller('TwitterTimelineController',
  * @desc  Twitter highlight controller
  * @param object $scope - The controller scope var
  */
-angular.module('WeTalk').controller('TwitterHighlightController',
+angular.module('IntrepidJS').controller('TwitterHighlightController',
     [
         '$scope',
         function ($scope) {

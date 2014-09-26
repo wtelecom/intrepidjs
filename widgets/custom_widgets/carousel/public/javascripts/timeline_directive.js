@@ -1,4 +1,4 @@
-angular.module('WeTalk')
+angular.module('IntrepidJS')
   .directive('twitterTimelineWidget',['restService', function(restService) {
     return {
         restrict: 'E',

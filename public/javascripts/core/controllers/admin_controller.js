@@ -10,7 +10,7 @@
   * @param bool $state - Current module state
   * @return array - Modules requested
 */
-angular.module('WeTalk').controller('AdminModulesController',
+angular.module('IntrepidJS').controller('AdminModulesController',
     [
         '$scope',
         '$templateCache',
@@ -57,7 +57,7 @@ angular.module('WeTalk').controller('AdminModulesController',
 );
 
 // This controller loads the interface needed to make a modules distribution.
-angular.module('WeTalk').controller('AdminDistController',
+angular.module('IntrepidJS').controller('AdminDistController',
     [
         '$scope',
         '$templateCache',
@@ -284,7 +284,7 @@ angular.module('WeTalk').controller('AdminDistController',
 );
 
 // This controller loads the interface needed to make a custom style.
-angular.module('WeTalk').controller('AdminStyleController',
+angular.module('IntrepidJS').controller('AdminStyleController',
     [
         '$scope',
         'restService',
@@ -460,7 +460,7 @@ angular.module('WeTalk').controller('AdminStyleController',
 
 
 // This controller loads the admin interface.
-angular.module('WeTalk').controller('AdminController',
+angular.module('IntrepidJS').controller('AdminController',
     [
         '$scope',
         '$state',
@@ -481,7 +481,7 @@ angular.module('WeTalk').controller('AdminController',
 
 
 
-angular.module('WeTalk').controller('AdminDashboardController',
+angular.module('IntrepidJS').controller('AdminDashboardController',
     [
         '$scope',
         'restService',
@@ -651,7 +651,7 @@ angular.module('WeTalk').controller('AdminDashboardController',
     ]
 );
 
-angular.module('WeTalk').controller('AdminUsersController',
+angular.module('IntrepidJS').controller('AdminUsersController',
     [
         '$scope',
         'restService',
@@ -728,7 +728,7 @@ angular.module('WeTalk').controller('AdminUsersController',
     ]
 );
 
-angular.module('WeTalk').controller('AdminUIController',
+angular.module('IntrepidJS').controller('AdminUIController',
     [
         '$scope',
         'restService',
@@ -738,7 +738,7 @@ angular.module('WeTalk').controller('AdminUIController',
     ]
 );
 
-angular.module('WeTalk').controller('AdminSocialNetworkController',
+angular.module('IntrepidJS').controller('AdminSocialNetworkController',
     [
         '$scope',
         'restService',

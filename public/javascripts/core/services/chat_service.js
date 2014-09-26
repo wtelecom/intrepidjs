@@ -4,7 +4,7 @@
  * This service manage SocketIO operations
  */
 
-angular.module('WeTalk')
+angular.module('IntrepidJS')
 .service('uSession', function () {
     var users = null;
     var globalMessages = 0;

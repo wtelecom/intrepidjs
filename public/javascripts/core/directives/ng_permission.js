@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('hasPermission', function($permission) {
+angular.module('IntrepidJS').directive('hasPermission', function($permission) {
 	return {
 		link: function(scope, element, attrs) {
 			if(!_.isString(attrs.hasPermission))

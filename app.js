@@ -104,7 +104,7 @@ app.use(passport.session());
 // Initializing i18n
 i18n.configure({
     locales: ['en', 'es', 'ar'],
-    cookie: 'wetalk_locales',
+    cookie: 'IntrepidJS_locales',
     directory: __dirname + '/locales'
 });
 app.use(i18n.init);

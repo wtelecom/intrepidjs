@@ -6,7 +6,7 @@
 
 
  // This controller loads the profile interface.
-angular.module('WeTalk').controller('ProfileController',
+angular.module('IntrepidJS').controller('ProfileController',
     [
         '$scope',
         '$state',
@@ -21,7 +21,7 @@ angular.module('WeTalk').controller('ProfileController',
 );
 
 
-angular.module('WeTalk').controller('ProfileDetailController',
+angular.module('IntrepidJS').controller('ProfileDetailController',
     [
         '$scope',
         'restService',
@@ -144,7 +144,7 @@ angular.module('WeTalk').controller('ProfileDetailController',
 );
 
 
-angular.module('WeTalk').controller('ProfileMailController',
+angular.module('IntrepidJS').controller('ProfileMailController',
     [
         '$scope',
         'restService',
@@ -211,7 +211,7 @@ angular.module('WeTalk').controller('ProfileMailController',
     ]
 );
 
-angular.module('WeTalk').controller('ProfileMailReadController',
+angular.module('IntrepidJS').controller('ProfileMailReadController',
     [
         '$scope',
         'restService',

@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngEditInPlace', function() {
+angular.module('IntrepidJS').directive('ngEditInPlace', function() {
     return {
         restrict: 'E',
         scope: {

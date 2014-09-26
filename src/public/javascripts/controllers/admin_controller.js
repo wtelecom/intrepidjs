@@ -9,7 +9,7 @@
  * @param object $scope - The controller scope var
  * @param object $state - The controller state route var
  */
-angular.module('WeTalk').controller('@nameAdminIndexController',
+angular.module('IntrepidJS').controller('@nameAdminIndexController',
     [
         '$scope',
         '$state',

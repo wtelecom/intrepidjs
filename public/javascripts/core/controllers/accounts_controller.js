@@ -6,7 +6,7 @@
 
 // This controller is a dummy controller.
 // It's only purpose is to show the highlights of the modules
-angular.module('WeTalk').controller('SignupController',
+angular.module('IntrepidJS').controller('SignupController',
     [
         '$scope',
         'restService',

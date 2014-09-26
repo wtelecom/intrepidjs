@@ -8,7 +8,7 @@
  * @desc  Twitter timeline widget controller
  * @param object $scope - The controller scope var
  */
-angular.module('WeTalk').controller('UICarouselController',
+angular.module('IntrepidJS').controller('UICarouselController',
     [
         '$scope',
         '$state',
@@ -152,7 +152,7 @@ angular.module('WeTalk').controller('UICarouselController',
  * @desc  Twitter highlight controller
  * @param object $scope - The controller scope var
  */
-angular.module('WeTalk').controller('CarouselHighlightController',
+angular.module('IntrepidJS').controller('CarouselHighlightController',
     [
         '$scope',
         'restService',

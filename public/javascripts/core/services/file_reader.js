@@ -53,4 +53,4 @@
     module.factory("fileReader",
                    ["$q", "$log", fileReader]);
  
-}(angular.module("WeTalk")));
+}(angular.module("IntrepidJS")));

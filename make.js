@@ -116,7 +116,7 @@ cli.main(function (args, options) {
             Connection = require('mongodb').Connection,
             Server = require('mongodb').Server;
 
-        var db = new Db('wetalk', new Server("localhost", 27017, {}), {safe:false});
+        var db = new Db('IntrepidJS', new Server("localhost", 27017, {}), {safe:false});
         
         fixtures.load(dirFixtures);
         fixtures.save(db, function(err) {

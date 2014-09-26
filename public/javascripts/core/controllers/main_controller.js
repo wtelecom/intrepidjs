@@ -6,7 +6,7 @@
 
 
 // This controller manage header info.
-angular.module('WeTalk').controller('HeaderController',
+angular.module('IntrepidJS').controller('HeaderController',
     [
         '$scope',
         '$location',
@@ -66,7 +66,7 @@ angular.module('WeTalk').controller('HeaderController',
 
 // This controller is a dummy controller.
 // It's only purpose is to show the highlights of the modules
-angular.module('WeTalk').controller('HighLightsController',
+angular.module('IntrepidJS').controller('HighLightsController',
     [
         '$scope',
         function ($scope) {

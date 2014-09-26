@@ -14,7 +14,7 @@
   * @param object $anchorScroll - The Anchor Scroll service
   * @param object uSession - Service to comunicate with other controllers
 */
-angular.module('WeTalk').controller('ChatController',
+angular.module('IntrepidJS').controller('ChatController',
     [
         '$scope',
         'socketIO',
@@ -270,7 +270,7 @@ angular.module('WeTalk').controller('ChatController',
   * @param object $scope - The controller scope var
   * @param object uSession - Service to comunicate with other controllers
 */
-angular.module('WeTalk').controller('globalChatMessages',
+angular.module('IntrepidJS').controller('globalChatMessages',
     [
         '$scope',
         'uSession',

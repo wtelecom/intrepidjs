@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('dctype', function() {
+angular.module('IntrepidJS').directive('dctype', function() {
     return {
         restrict: 'A',
         require: "ngModel",

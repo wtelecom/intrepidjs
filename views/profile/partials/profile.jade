@@ -30,9 +30,11 @@ if user
                             dd
                                 each role, i in user.roles
                                     if i != 0
-                                        | , #{role}
+                                        span , #{role}
                                     else 
-                                        | #{role}
+                                        span #{role}
+                                if !user.roles.length
+                                    span.text-warning #{__('No roles')}
                             dt= __("Password")
                             dd
                                 span.text-primary.pointer(ng-click="collapsein = !collapsein")= __("Change password")

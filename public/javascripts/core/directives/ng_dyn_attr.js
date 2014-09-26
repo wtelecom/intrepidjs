@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngDynAttr', function($compile) {
+angular.module('IntrepidJS').directive('ngDynAttr', function($compile) {
     return {
         restrict: "A",
         scope: {

@@ -4,7 +4,7 @@
  * This module manage AngularJS index operations
  */
 
-// angular.module('WeTalk').controller('IndexController', function (socketIO, restService, $scope, $http) {
+// angular.module('IntrepidJS').controller('IndexController', function (socketIO, restService, $scope, $http) {
 
 //     restService.get({}, '/entry',
 //         function(data, status, headers, config) {

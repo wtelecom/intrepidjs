@@ -1,5 +1,5 @@
 // Directive to check if req.user is the author.
-angular.module('WeTalk').directive('author', [
+angular.module('IntrepidJS').directive('author', [
     'restService',
     function(restService) {
         return {

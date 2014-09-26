@@ -5,7 +5,7 @@
  */
 
 angular.module(
-    'WeTalk',
+    'IntrepidJS',
     [
         'ngSanitize',
         // 'ngRoute',
@@ -37,7 +37,7 @@ var apiPrefix = null,
     user = null,
     lastPath = null;
 
-angular.module('WeTalk').run(
+angular.module('IntrepidJS').run(
     function($permission, $rootScope, $location) {
         $permission.setPermissions(permissionList);
         $rootScope._ = _;
@@ -51,7 +51,7 @@ angular.element(document).ready(function() {
         user = data.user;
         $.get(apiPrefix + '/perms', function(data) {
             permissionList = data.perms;
-            angular.bootstrap(document, ['WeTalk']);
+            angular.bootstrap(document, ['IntrepidJS']);
         });
     });
 });

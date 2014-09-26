@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngThumb', ['$parse', function($parse) {
+angular.module('IntrepidJS').directive('ngThumb', ['$parse', function($parse) {
     return {
         restrict: "EA",
         template: "<input type='file' class='btn-md' />",

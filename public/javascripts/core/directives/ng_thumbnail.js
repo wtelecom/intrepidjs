@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngThumbnail', ['$parse', function($parse) {
+angular.module('IntrepidJS').directive('ngThumbnail', ['$parse', function($parse) {
     return {
         restrict: "E",
         scope: {

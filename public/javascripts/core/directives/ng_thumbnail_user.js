@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngThumbUser', ['$parse', function($parse) {
+angular.module('IntrepidJS').directive('ngThumbUser', ['$parse', function($parse) {
     return {
         restrict: "E",
         scope: {

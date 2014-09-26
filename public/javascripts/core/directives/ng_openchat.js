@@ -1,7 +1,7 @@
 
 /*globals user */
 // Directive to open chat window.
-angular.module('WeTalk').directive('openchat', [
+angular.module('IntrepidJS').directive('openchat', [
     'socketIO',
     'uSession',
     function(socketIO, uSession) {

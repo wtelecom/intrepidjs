@@ -1,4 +1,4 @@
-angular.module('WeTalk').directive('ngShare', ['$location', 'i18n', function($location, i18n) {
+angular.module('IntrepidJS').directive('ngShare', ['$location', 'i18n', function($location, i18n) {
     return {
         restrict: "E",
         template:   "<div class='btn-group'><span data-toggle='dropdown' " +

@@ -1,6 +1,6 @@
 
 
-  angular.module('WeTalk').directive( "ngFileReader", function(){
+  angular.module('IntrepidJS').directive( "ngFileReader", function(){
 
     /**
     * @param {Object} attrs

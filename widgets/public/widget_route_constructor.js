@@ -8,7 +8,7 @@
  * @desc  Main widget controller
  * @param object $scope - The controller scope var
  */
-angular.module('WeTalk').controller('WidgetsRouteConstructorController',
+angular.module('IntrepidJS').controller('WidgetsRouteConstructorController',
     [
         '$scope',
         '$state',

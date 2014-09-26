@@ -5,7 +5,7 @@
  */
 
 
-angular.module('WeTalk').config(
+angular.module('IntrepidJS').config(
     [
         '$stateProvider',
         '$urlRouterProvider',

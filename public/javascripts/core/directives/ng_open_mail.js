@@ -1,7 +1,7 @@
 /*globals user */
 
 // Directive to open mail modal.
-angular.module('WeTalk').directive('ngOpenMail', [
+angular.module('IntrepidJS').directive('ngOpenMail', [
     '$rootScope',
     'restService',
     function($rootScope, restService) {
