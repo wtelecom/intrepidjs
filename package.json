@@ -1,6 +1,6 @@
 {
-  "name": "IntrepidJS",
-  "version": "0.0.1",
+  "name": "intrepidjs",
+  "version": "0.1.0",
   "description": "A new NodeJS framework",
   "main": "app.js",
   "dependencies": {

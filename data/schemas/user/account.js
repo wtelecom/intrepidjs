@@ -18,7 +18,8 @@ var Account = new Schema({
     created: {type: Date, default: Date.now },
     updated: {type: Date, default: Date.now },
     token: String,
-    token_updated: {type: Date, default: Date.now }
+    token_updated: {type: Date, default: Date.now },
+    subscriptions: mongoose.Schema.Types.Mixed
 });
 
 Account.plugin(passportLocalMongoose);

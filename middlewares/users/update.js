@@ -23,14 +23,27 @@ function update(req, res, next) {
     
     if (!_.isEmpty(reqUser)) {
         if (isAdmin || isTheUser) {
-            Account.findById(req.body._id)
+            Account.findById(req.params.id)
                 .exec(function(err, user) {
                     if (err) return res.send(err);
                     else {
                         if (!isAdmin) {
                             // Only admins can modify "roles" property
-                            reqUser = _.without(user, 'roles');
+                            reqUser = _.without(user, 'roles', 'subscriptions');
                         }
+
+                        if (req.body.subscriptions) {
+                            if (!_.has(user, 'subscriptions')) {
+                                user['subscriptions'] = [];
+                                user.subscriptions.push(req.body.subscriptions);
+                            } else {
+                                user.subscriptions = _.without(user.subscriptions, {id: req.body.subscriptions.id});
+                                user.subscriptions.push(req.body.subscriptions);
+                            }
+
+                            user.markModified('subscriptions');
+                        }
+
                         _.extend(user, reqUser);
                         user.save();
                         req.object = _.pick(user, '_id', 'image', 'username', 'email', 'roles');
