@@ -4,6 +4,7 @@
  */
 
 var mongoose = require('mongoose'),
+    uniqueValidator = require('mongoose-unique-validator'),
     rek = require('rekuire'),
     Schema = mongoose.Schema,
     passportLocalMongoose = require('passport-local-mongoose'),
@@ -12,7 +13,7 @@ var mongoose = require('mongoose'),
 var Account = new Schema({
     firstName: String,
     lastName: Date,
-    email: String,
+    email: { type: String, unique: true, require: true },
     roles: [],
     image: String,
     created: {type: Date, default: Date.now },
@@ -23,6 +24,7 @@ var Account = new Schema({
 });
 
 Account.plugin(passportLocalMongoose);
+Account.plugin(uniqueValidator);
 
 Account.statics.getObjects = function(order, count, attr, req, next) {
     var params = req.query.attrs ? JSON.parse(req.query.attrs) : {};

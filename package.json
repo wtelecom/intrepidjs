@@ -48,7 +48,8 @@
     "superagent": "~0.18.2",
     "underscore": "~1.6.0",
     "underscore.string": "~2.3.3",
-    "validator": "~3.16.1"
+    "validator": "~3.16.1",
+    "mongoose-unique-validator": "~0.3.0"
   },
   "devDependencies": {},
   "scripts": {
