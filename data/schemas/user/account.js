@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 
 var Account = new Schema({
     firstName: String,
-    lastName: Date,
+    lastName: String,
     email: { type: String, unique: true, require: true },
     roles: [],
     image: String,

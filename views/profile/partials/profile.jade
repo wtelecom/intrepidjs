@@ -17,14 +17,32 @@ if user
                         dl.dl-horizontal
                             dt= __("Username")
                             dd #{user.username}
+                            dt= __("First name")
+                            dd
+                                span(ng-if="!showEditFirstName") {{user.firstName}}
+                                div.input-group(ng-if="showEditFirstName")
+                                  input.form-control(type='text', ng-model="user.firstName", autofocus, ng-enter="updateUser('firstName')")
+                                  .input-group-btn
+                                    button.btn.btn-danger(type='button', tabindex='-1', ng-click="cancelFirstName()")= __("Cancel")
+                                    button.btn.btn-primary(type='button', tabindex='-1', ng-click="updateUser('firstName')")= __("Send")
+                                i.fa.fa-edit.ml10.pointer(ng-click="editFirstName()", ng-if="!showEditFirstName")
+                            dt= __("Last name")
+                            dd
+                                span(ng-if="!showEditLastName") {{user.lastName}}
+                                div.input-group(ng-if="showEditLastName")
+                                  input.form-control(type='text', ng-model="user.lastName", autofocus, ng-enter="updateUser('lastName')")
+                                  .input-group-btn
+                                    button.btn.btn-danger(type='button', tabindex='-1', ng-click="cancelLastName()")= __("Cancel")
+                                    button.btn.btn-primary(type='button', tabindex='-1', ng-click="updateUser('lastName')")= __("Send")
+                                i.fa.fa-edit.ml10.pointer(ng-click="editLastName()", ng-if="!showEditLastName")
                             dt= __("Email")
                             dd
                                 span(ng-if="!showEditEmail") {{user.email}}
                                 div.input-group(ng-if="showEditEmail")
-                                  input.form-control(type='email', ng-model="user.email", autofocus, ng-enter="sendEmail()")
+                                  input.form-control(type='email', ng-model="user.email", autofocus, ng-enter="updateUser('email')")
                                   .input-group-btn
                                     button.btn.btn-danger(type='button', tabindex='-1', ng-click="cancelEmail()")= __("Cancel")
-                                    button.btn.btn-primary(type='button', tabindex='-1', ng-click="sendEmail()")= __("Send")
+                                    button.btn.btn-primary(type='button', tabindex='-1', ng-click="updateUser('email')")= __("Send")
                                 i.fa.fa-edit.ml10.pointer(ng-click="editEmail()", ng-if="!showEditEmail")
                             dt= __("Roles")
                             dd

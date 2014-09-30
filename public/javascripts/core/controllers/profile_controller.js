@@ -34,11 +34,27 @@ angular.module('IntrepidJS').controller('ProfileDetailController',
             $scope.editEmail = function() {
                 $scope.showEditEmail = !$scope.showEditEmail;
             };
+            $scope.editFirstName = function() {
+                $scope.showEditFirstName = !$scope.showEditFirstName;
+            };
+            $scope.editLastName = function() {
+                $scope.showEditLastName = !$scope.showEditLastName;
+            };
 
-            $scope.sendEmail = function() {
+            $scope.updateUser = function(prop) {
                 restService.post(user, apiPrefix + '/users/' + user._id + '/update',
                     function(data, status, headers, config) {
-                        $scope.editEmail();
+                        switch (prop) {
+                            case 'firstName':
+                                $scope.editFirstName();
+                                break;
+                            case 'lastName':
+                                $scope.editLastName();
+                                break;
+                            case 'email':
+                                $scope.editEmail();
+                                break;
+                        }
                         user_old = _.clone(data.object);
                     },
                     function(data, status, headers, config) {}
@@ -48,6 +64,14 @@ angular.module('IntrepidJS').controller('ProfileDetailController',
             $scope.cancelEmail = function() {
                 $scope.user.email = user_old.email;
                 $scope.editEmail();
+            };
+            $scope.cancelFirstName = function() {
+                $scope.user.firstName = user_old.firstName;
+                $scope.editFirstName();
+            };
+            $scope.cancelLastName = function() {
+                $scope.user.lastName = user_old.lastName;
+                $scope.editLastName();
             };
 
             $scope.checkPass = function() {
