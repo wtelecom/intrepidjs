@@ -4,9 +4,10 @@
  * @desc Middleware to check site settings
  */
 
-var _ = require('underscore');
-var rek = require('rekuire');
-var settingModel = rek('data/models/admin/setting');
+var _ = require('underscore'),
+    rek = require('rekuire'),
+    settingModel = rek('data/models/admin/setting'),
+    mainModules = rek('/settings').main_modules;
 
 module.exports = function checkSiteSetting(setting) {
     settingModel.exists(
@@ -15,6 +16,7 @@ module.exports = function checkSiteSetting(setting) {
                 if (!result) {
                     settingModel.create(
                         {
+                            main_modules: mainModules,
                             modules: [],
                             themes: [],
                             logo: null

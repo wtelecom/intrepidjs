@@ -52,6 +52,39 @@ angular.module('IntrepidJS').controller('AdminModulesController',
                 },
                 function(data, status, headers, config) {}
             );
+            restService.get(
+                {},
+                '/api/v1/admin/main_modules',
+                function(data, status, headers, config) {
+                    $scope.mainModules = {};
+                    _.each(data.modules, function (m) {
+                        $scope.mainModules[m.name] = m;
+                        $scope.mainModules[m.name].real_name = i18n.__(m.real_name);
+                        $scope.$watch(
+                            function () { return $scope.mainModules[m.name].enabled; },
+                            function (vnew, vold) {
+                                if (vnew != vold) {
+                                    restService.post(
+                                        {
+                                            module: m.name,
+                                            enabled: vnew
+                                        },
+                                        apiPrefix + '/admin/main_modules/update',
+                                        function(data, status, headers, config) {
+                                            if (data.success) {
+                                                $window.location.reload();
+                                            }
+                                        },
+                                        function(data, status, headers, config) {
+                                            $window.location.reload();
+                                        }
+                                    );
+                                }
+                        }, true);
+                    });
+                },
+                function(data, status, headers, config) {}
+            );
         }
     ]
 );

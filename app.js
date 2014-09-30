@@ -24,6 +24,7 @@ var express = require('express'),
     i18nRoutes = require("i18n-node-angular"),
     oAuth2Provider = require('oauth2-provider').OAuth2Provider,
     mubsub = require('mubsub'),
+    nodemailer = require('nodemailer'),
     settings = require('./settings'),
     checkSiteSetting = rek('libs/check_site_settings'),
     loadResources = rek('libs/load_resources'),
@@ -176,8 +177,17 @@ if ('production' == app.get('env')) {
     app.use(errorHandler());
 }
 
+// Create reusable transporter object using SMTP transport
+settings.mail_instance = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'user@domain.com',
+        pass: 'password'
+    }
+});
+
 // MongoDB constructor
-var dbURL = settings.dbURL;
+var dbURL = settings.dbSettings.dbURL;
 var dbCon = db.connect(dbURL);
 
 // development only

@@ -11,6 +11,15 @@ var mongoose = require('mongoose'),
 
 
 var settingSchema = new mongoose.Schema({
+    main_modules: [
+        {
+            name: String,
+            real_name: String,
+            description: String,
+            enabled: Boolean,
+            kind: []
+        }
+    ],
     modules: [
         {
             name: String,

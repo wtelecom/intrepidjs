@@ -41,7 +41,10 @@ exports.socialwidgetsPath = rootPath + '/widgets/social_widgets/';
 exports.customwidgetsPath = rootPath + '/widgets/custom_widgets/';
 
 // Database name
-exports.dbURL = 'mongodb://localhost/intrepid';
+exports.dbSettings = {
+    dbURL: 'mongodb://localhost/intrepid',
+    dbName: 'intrepid'
+};
 
 // Site settings
 exports.site = {
@@ -72,6 +75,24 @@ exports.siteRoutes = {
         route: '/admin'
     },
 };
+
+// Main modules
+exports.main_modules = [
+    {
+        name: 'chat',
+        real_name: 'Chat',
+        description: 'Chat core module',
+        enabled: true,
+        kind: ['notification']
+    },
+    {
+        name: 'mail',
+        real_name: 'Mail',
+        description: 'Mail core module',
+        enabled: true,
+        kind: ['notification']
+    }
+];
 
 // Modules to load
 exports.modules = [
@@ -105,6 +126,7 @@ exports.invalid_routes = true;
 // TODO: Improve this fucking shit
 // App instance
 exports.app_instance = null;
+exports.mail_instance = null;
 
 // Site static files
 exports.styleFiles = null;

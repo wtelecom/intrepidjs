@@ -6,7 +6,8 @@ var cli = require('cli'),
     path = require('path'),
     rek = require('rekuire'),
     fixtures = require('mongodb-fixtures'),
-    colors = require('colors');
+    colors = require('colors'),
+    settings = rek('/settings');
 
 colors.setTheme({
     verbose: 'cyan',
@@ -116,7 +117,7 @@ cli.main(function (args, options) {
             Connection = require('mongodb').Connection,
             Server = require('mongodb').Server;
 
-        var db = new Db('IntrepidJS', new Server("localhost", 27017, {}), {safe:false});
+        var db = new Db(settings.dbSettings.dbName, new Server("localhost", 27017, {}), {safe:false});
         
         fixtures.load(dirFixtures);
         fixtures.save(db, function(err) {

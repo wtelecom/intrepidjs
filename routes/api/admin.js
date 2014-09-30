@@ -7,11 +7,13 @@
 var rek = require('rekuire'),
     settings = rek('/settings'),
     modulesMiddleware = rek('middlewares/admin/modules_info'),
+    mainModulesMiddleware = rek('middlewares/admin/main_modules_info'),
     widgetsMiddleware = rek('middlewares/admin/widgets_info'),
     modelsMiddleware = rek('middlewares/admin/models_info'),
     usersMiddleware = rek('middlewares/admin/users_info'),
     modulesCreateMiddleware = rek('middlewares/admin/modules_create'),
     modulesUpdateMiddleware = rek('middlewares/admin/modules_update'),
+    mainModulesUpdateMiddleware = rek('middlewares/admin/main_modules_update'),
     widgetsUpdateMiddleware = rek('middlewares/admin/widgets_update'),
     themesMiddleware = rek('middlewares/admin/themes'),
     activeThemeMiddleware = rek('middlewares/admin/theme_active'),
@@ -68,6 +70,40 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/'] =  {
         res.json(
             {
                 'modules': req.objects,
+                'success': true
+            }
+        );
+    }
+};
+
+/**
+  * @desc  Get core modules
+  * @param bool $available - Returns only modules enabled
+  * @return object - Modules requested
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/main_modules'] =  {
+    methods: ['get'],
+    middleware: [mainModulesMiddleware],
+    fn: function(req, res, next) {
+        res.json(
+            {
+                'modules': req.objects,
+                'success': true
+            }
+        );
+    }
+};
+
+/**
+  * @desc  Updates modules available in the system
+  * @return bool - Success response
+*/
+routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/main_modules/update'] =  {
+    methods: ['post'],
+    middleware: [mainModulesUpdateMiddleware()],
+    fn: function(req, res, next) {
+        res.json(
+            {
                 'success': true
             }
         );
