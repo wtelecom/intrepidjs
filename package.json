@@ -1,6 +1,6 @@
 {
   "name": "intrepidjs",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "A new NodeJS framework",
   "main": "app.js",
   "dependencies": {
@@ -61,20 +61,20 @@
     "url": "https://github.com/wtelecom/intrepidjs"
   },
   "keywords": [
-    "expressjs",
-    "nodejs",
+    "intrepid",
+    "intrepidjs",
     "platform",
     "social",
     "wellness telecom",
     "wellness",
     "telecom",
-    "angularjs",
-    "framework",
-    "mongodb",
-    "socketio",
-    "mongoose"
+    "framework"
   ],
-  "author": "Francisco Hidalgo and Marcos García",
+  "author": "Wellness Telecom",
+  "contributors": [
+    "Francisco Hidalgo <fjhidalgo@wtelecom.es>",
+    "Marcos García <mgarcia@wtelecom.es>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wtelecom/intrepidjs/issues"
