@@ -5,6 +5,7 @@ var cli = require('cli'),
     ncp = require('ncp').ncp,
     path = require('path'),
     rek = require('rekuire'),
+    shell = require('shelljs'),
     fixtures = require('mongodb-fixtures'),
     colors = require('colors'),
     settings = rek('/settings');
@@ -20,7 +21,8 @@ colors.setTheme({
     error: 'red'
 });
     
-var progress = 0;
+var progress = 0,
+    source = 'https://github.com/wtelecom/intrepidjs-module.git';
 
 cli.parse(null, ['createmodule', 'loaddata']);
 
@@ -73,20 +75,27 @@ cli.main(function (args, options) {
         });
     };
 
-    var createModule = function(module) {
+    var createModule = function(data) {
         var srcPath = process.cwd() + '/src',
-            modulePath = process.cwd() + '/modules/' + module,
-            moduleLowerCase = module.toLowerCase(),
-            moduleCamelCase = module.charAt(0).toUpperCase() + module.slice(1);
+            modulePath = process.cwd() + '/modules/' + data[0],
+            moduleLowerCase = data[0].toLowerCase(),
+            moduleCamelCase = data[0].charAt(0).toUpperCase() + data[0].slice(1);
+
+        if (!shell.which('git')) return console.log(chalk.red('Prerequisite not installed: git'));
 
         fs.exists(modulePath, function (exists) {
             if (exists) {
-                console.log('%s module already exists'.warn, module);
+                console.log('%s module already exists'.warn, data[0]);
             } else {
                 fs.mkdir(modulePath, 0755, function(err) {
                     if (!err) {
                         progress += 0.1;
                         cli.progress(progress);
+
+                        shell.exec('git clone ' + source + ' ' + name, function(code, output) {
+                            if (code) return console.error(output);
+                        });
+
                         ncp(srcPath, modulePath, function (err) {
                             if (err) {
                                 return console.error(err.error);
@@ -98,10 +107,12 @@ cli.main(function (args, options) {
                                     console.error(err.error);
                                 } else {
                                     cli.progress(1);
-                                    console.log('%s module created!'.info, module);
+                                    console.log('%s module created!'.info, data[0]);
                                 }
                             });
                         });
+
+
                     } else {
                         console.error(err.error);
                     }
@@ -130,19 +141,17 @@ cli.main(function (args, options) {
         });
     };
 
-    if (this.argc && this.argc == 1) {
-        for (i = 0; i < 1; i++) {
-            switch(cli.command) {
-                case 'createmodule':
-                    createModule(args[i]);
-                    break;
-                case 'loaddata':
-                    loadFixture(args[i]);
-                    break;
-                default:
-                    console.error('Invalid command'.error + ', commands availables are: createmodule loaddata'.help);
-                    break;
-            }
+    if (this.argc && (this.argc > 0 && this.argc < 3)) {
+        switch(cli.command) {
+            case 'createmodule':
+                createModule(args);
+                break;
+            case 'loaddata':
+                loadFixture(args[0]);
+                break;
+            default:
+                console.error('Invalid command'.error + ', commands availables are: createmodule loaddata'.help);
+                break;
         }
     } else {
         switch(cli.command) {
