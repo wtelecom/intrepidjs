@@ -87,35 +87,22 @@ cli.main(function (args, options) {
             if (exists) {
                 console.log('%s module already exists'.warn, data[0]);
             } else {
-                fs.mkdir(modulePath, 0755, function(err) {
-                    if (!err) {
-                        progress += 0.1;
-                        cli.progress(progress);
+                progress += 0.1;
+                cli.progress(progress);
 
-                        shell.exec('git clone ' + source + ' ' + name, function(code, output) {
-                            if (code) return console.error(output);
-                        });
+                shell.exec('git clone ' + source + ' ' + modulePath, function(code, output) {
+                    if (code) return console.error(output);
 
-                        ncp(srcPath, modulePath, function (err) {
-                            if (err) {
-                                return console.error(err.error);
-                            }
-                            progress += 0.1;
-                            cli.progress(progress);
-                            walk(modulePath, moduleLowerCase, moduleCamelCase, function(err, results) {
-                                if (err) {
-                                    console.error(err.error);
-                                } else {
-                                    cli.progress(1);
-                                    console.log('%s module created!'.info, data[0]);
-                                }
-                            });
-                        });
-
-
-                    } else {
-                        console.error(err.error);
-                    }
+                    progress += 0.1;
+                    cli.progress(progress);
+                    walk(modulePath, moduleLowerCase, moduleCamelCase, function(err, results) {
+                        if (err) {
+                            console.error(err.error);
+                        } else {
+                            cli.progress(1);
+                            console.log('%s module created!'.info, data[0]);
+                        }
+                    });
                 });
             }
         });
