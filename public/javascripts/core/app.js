@@ -55,3 +55,9 @@ angular.element(document).ready(function() {
         });
     });
 });
+
+angular.module('IntrepidJS', []).config(
+        function($interpolateProvider){
+            $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+        });
+

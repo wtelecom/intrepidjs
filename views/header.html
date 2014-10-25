@@ -1,0 +1,78 @@
+block header
+    div.modal.fade(id="main-modal")
+        div.modal-dialog
+            div.modal-content
+                form(role='form', action="/accounts/signup", method="post")
+                    div.modal-header
+                        button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                        h4.modal-title= __('Signup')
+                    div.modal-body
+                        .form-group
+                            label Usuario
+                            input.form-control(type='text', name="username", placeholder='Enter Username')
+                        .form-group
+                            label Contraseña
+                            input.form-control(type='password', name="password", placeholder='Password')
+                    div.modal-footer
+                        button.btn.btn-default(type="button", data-dismiss="modal") Close
+                        button.btn.btn-primary(type="submit") Submit
+
+    .navbar.navbar-custom#header(role='navigation')
+        .container(ng-controller="HeaderController")
+            .navbar-header
+                button(type='button', class='navbar-toggle', data-toggle='collapse', data-target='.navbar-collapse')
+                    span(style="color: #3BAFDA;")
+                        i.fa.fa-bars.fa-lg
+                a.navbar-brand(ui-sref="/") #{title}
+            .collapse.navbar-collapse
+                ul.nav.navbar-nav.main-menu
+                    li(ui-sref-active="active")
+                        a(ui-sref="/")= __('Home')
+                    each module in modules
+                        each section in sections
+                            if section.real_name == module.name
+                                li.dropdown(ui-sref-active="active")
+                                    if section.sections
+                                        a.dropdown-toggle(href='', data-toggle='dropdown')= __(section.name)
+                                        ul.dropdown-menu
+                                            each s in section.sections
+                                                li
+                                                    a(href='#{s.route}')= s.name
+                                    else
+                                        a(ui-sref='#{section.real_name}')= __(section.name)
+                ul.nav.navbar-nav.navbar-right.main-menu
+                    if user
+                        li.dropdown(ng-controller="globalChatMessages")
+                            a.dropdown-toggle(href='', data-toggle='dropdown' openchat)
+                                i.fa.fa-comment.fa-lg
+                                | &nbsp;
+                                = __('Chats')
+                                | &nbsp;
+                                span.badge.ng-cloak.globalUnread(ng-if="globalChatMessages") {{globalChatMessages}}
+                        li.dropdown
+                            a.dropdown-toggle(href='', data-toggle='dropdown')
+                                span.glyphicon.glyphicon-user &nbsp; 
+                                span= user.username
+                            ul.dropdown-menu
+                                li
+                                    a(ui-sref="profile")
+                                        i.fa.fa-cog.fa-fw
+                                        &nbsp;
+                                        span= __('Profile')
+                                if (_.contains(user.roles, 'admin'))
+                                    li
+                                        a(ui-sref="admin.dashboard")
+                                            i.fa.fa-tachometer.fa-fw
+                                            &nbsp;
+                                            span= __('Control panel')
+                                li.divider
+                                li
+                                    a(href="", ng-click="account_process('logout')")
+                                        i.fa.fa-sign-out.fa-fw
+                                        &nbsp;
+                                        span= __('Log out')
+                    else
+                        li(ui-sref-active="active")
+                            a(ui-sref='signup')= __('Signup')
+                        li(ui-sref-active="active", ng-click="provide_path()")
+                            a(ui-sref='login')= __('Login')

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block htmltag %}
+  {% parent %}
+  <!--<html i18n-locale='i18n.getLocale()'></html>-->
+{% endblock htmltag %}
+
+{% block content %}
+<div class="row">
+  <div class="col-xs-12">
+    <div ui-view="main_content">
+    </div>
+  </div>
+</div>
+{% endblock content %}

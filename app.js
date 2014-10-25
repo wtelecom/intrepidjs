@@ -56,8 +56,25 @@ var myOAP = new oAuth2Provider(
 // Setting environment vars
 app.set('env', 'development');
 app.set('port', settings.port || 3000);
+var swig = require('swig');
+
+// This is where all the magic happens!
+app.engine('html', swig.renderFile);
+
+app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+//
+// // Swig will cache templates for you, but you can disable
+// // that and use Express's caching instead, if you like:
+app.set('view cache', false);
+// // To disable Swig's cache, do the following:
+swig.setDefaults({ cache: false });
+//app.engine('html', consolidate.swig);
+//app.set('view engine', 'html');
+//app.set('views', __dirname + '/views');
+//app.set('view cache', false);
+//app.set('views', __dirname + '/views');
+//app.set('view engine', 'swig');
 
 //app.use(favicon());
 //app.use(morgan());

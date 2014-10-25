@@ -1,0 +1,35 @@
+div#chat-header
+    div.chat-name.pull-left {{uChatName}}
+    div.chat-buttons
+        span.glyphicon.glyphicon-remove.chat-close(ng-click="close()")
+
+div#chat-container
+    div#chat-content(scroll-glue, ng-model="glued")
+        div.room(ng-if="!userActive")
+            div.alert.alert-warning
+                p= __('No messages yet')
+        div.room(room="{{key}}", ng-repeat="(key, room) in rooms",
+            ng-show="userActive == key ? 'true' : 'false'")
+            div(ng-repeat="message in room.messages | orderBy:'created'",
+                id="msg{{message._id}}",
+                ng-class="message.user_src._id == user._id ? 'chat-message-me' : 'chat-message-other'")
+                //- img.img-circle(ng-if="message.user_src.image",
+                //-     ng-src="{{message.user_src.image}}")
+                //- img.img-circle(ng-if="!message.user_src.image",
+                //-     data-src="/vendor/misc/holder.js/40x40")
+                div.chat-message {{message.text}}   
+    div#chat-text
+        input.form-control(type="text", ng-enter="send()", ng-model="chatText")
+
+div#chat-users
+    ul.chat-users
+        li.chat-user(ng-repeat="user in usersInSession",
+            ng-class="user._id == userActive ? 'active':''",
+            uid="{{user._id}}", ng-click="chatWith($event.currentTarget)")
+            span.badge(ng-if="user.unread > 0") {{user.unread}}
+            ng-thumb-user(image="user.image", size="40")
+            //- img.img-circle(ng-if="user.image", ng-src="{{user.image}}")
+            //- img.img-circle(ng-if="!user.image",
+            //-     data-src="/vendor/misc/holder.js/40x40")
+            span.uname {{user.username}}
+            div.state(class="{{user.state}}")

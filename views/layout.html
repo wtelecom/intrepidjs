@@ -1,0 +1,162 @@
+<!doctype html>
+{% block htmltag %}
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block head %}
+    {% block title %}
+    [[ title ]]
+    {% endblock title %}
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/bootflat/css/bootflat.min.css">
+    <link rel="stylesheet" href="/vendor/font-awesome-4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+    <link rel="stylesheet" href="/stylesheets/action_button.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/angular-toggle-switch-bootstrap-3.css">
+    <link rel="stylesheet" href="/vendor/bower_components/summernote/dist/summernote.css">
+    <link rel="stylesheet" href="/vendor/bower_components/angular-loading-bar/src/loading-bar.css">
+    <script type="text/javascript" src="/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/vendor/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/underscore.string/dist/underscore.string.min.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-file-upload-shim.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-sanitize/angular-sanitize.js">   </script>
+    <script type="text/javascript" src="/vendor/angular/angular-inview.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-file-upload.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/summernote/dist/summernote.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-summernote/src/angular-summernote.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script type="text/javascript" src="/vendor/misc/bootstrap.file-input.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-resource.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-route.js"></script>
+    <script type="text/javascript" src="/vendor/misc/i18n-node-angular.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-dragdrop.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="/vendor/misc/holder.js"></script>
+    <script type="text/javascript" src="/vendor/misc/recordrtc/RecordRTC.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"> </script>
+    <style id="holderjs-style" type="text/css"></style>
+
+    // Styles files
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/bootflat/css/bootflat.min.css">
+    <link rel="stylesheet" href="/vendor/font-awesome-4.1.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+    <link rel="stylesheet" href="/stylesheets/action_button.css">
+    <link rel="stylesheet" href="/vendor/bootstrap/css/angular-toggle-switch-bootstrap-3.css">
+    <link rel="stylesheet" href="/vendor/bower_components/summernote/dist/summernote.css">
+    <link rel="stylesheet" href="/vendor/bower_components/angular-loading-bar/src/loading-bar.css">
+
+    // Custom styles
+    {% for styleFile in styleFiles %}
+    <link rel="stylesheet" href="[[styleFile.path]]">
+    {% endfor %}
+
+    // JavaScripts files
+    <script type="text/javascript" src="/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/vendor/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/underscore.string/dist/underscore.string.min.js"></script>
+    // Upload image behaviour
+    <script type="text/javascript" src="/vendor/angular/angular-file-upload-shim.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-inview.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-file-upload.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/summernote/dist/summernote.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-summernote/src/angular-summernote.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-loading-bar/src/loading-bar.js"></script>
+    <script type="text/javascript" src="/vendor/misc/bootstrap.file-input.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-resource.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-route.js"></script>
+    <script type="text/javascript" src="/vendor/misc/i18n-node-angular.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-dragdrop.js"></script>
+    <script type="text/javascript" src="/vendor/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="/vendor/misc/holder.js"></script>
+    <script type="text/javascript" src="/vendor/misc/recordrtc/RecordRTC.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+    {% endblock head %}
+  </head>
+
+  <body>
+    <!--TODO-->
+    <!--{% include 'header.html' %}-->
+    <div class="container">
+      <div class="row">
+        <div id="wrapper" class="col-xs-12">
+          <div id="content">
+            {% block content %}
+            {% endblock content %}
+            {% block widgets %}
+            {% endblock widgets %}
+            <!--TODO-->
+            <!--{% include 'footer.jade' %}-->
+            <div class="ng-cloak" id="chat" ng-controller="ChatController", ng-show="chatVisible", ng-cloak>
+              <!--TODO-->
+              <!--{% include 'chat/chat.html' %}-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block scripts %}
+    <script type="text/javascript" src="/javascripts/core/app.js"></script>
+    <script type="text/javascript" src="/javascripts/core/controllers/main_controller.js"></script>
+    <script type="text/javascript" src="/javascripts/core/controllers/accounts_controller.js"></script>
+    <script type="text/javascript" src="/javascripts/core/controllers/admin_controller.js"></script>
+    <script type="text/javascript" src="/javascripts/core/controllers/chat_controller.js"></script>
+    <script type="text/javascript" src="/javascripts/core/controllers/profile_controller.js"></script>
+    <script type="text/javascript" src="/javascripts/core/routes/index.js"></script>
+    <script type="text/javascript" src="/javascripts/core/routes/accounts.js"></script>
+    <script type="text/javascript" src="/javascripts/core/routes/admin.js"></script>
+    <script type="text/javascript" src="/javascripts/core/routes/profile.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_inplace_editor.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_dyn_attr.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_type.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_slide_show.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_permission.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_author.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_holder.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_openchat.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_open_mail.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_enter.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_thumbnail_user.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_thumbnail.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_share.js"></script>
+    <script type="text/javascript" src="/vendor/ng_draggable/ngDraggable.js"></script>
+    <script type="text/javascript" src="/javascripts/core/directives/ng_thumbnail_preview.js"></script>
+    <script type="text/javascript" src="/javascripts/core/services/file_reader.js"></script>
+    <script type="text/javascript" src="/javascripts/core/services/permission_service.js"></script>
+    <script type="text/javascript" src="/javascripts/core/services/rest_service.js"></script>
+    <script type="text/javascript" src="/javascripts/core/services/socketio_service.js"></script>
+    <script type="text/javascript" src="/javascripts/core/services/chat_service.js"></script>
+    //- Widget routes
+    <script type="text/javascript" src="/widgets/public/widget_route_constructor.js"></script>
+    <script type="text/javascript" src="/widgets/public/share_widgets.js"></script>
+    //- TODO: Check if this JS file is needed if ui-bootstrap-tpls is loaded
+    <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/vendor/scroll-glue/scrollglue.js"></script>
+    <script type="text/javascript" src="/vendor/angular/angular-toggle-switch.min.js"></script>
+    <script type="text/javascript" src="/widgets/twitter/public/javascripts/timeline_directive.js"></script>
+    // Custom javascripts
+    {% for jsFile in jsFiles %}
+    <script type="text/javascript" src="[[jsFile.path]]"></script>
+    {% endfor %}
+    // Custom widgets javascripts
+    {% for widget_js in widgets_js_files %}
+    <script type="text/javascript" src="[[jsFile]]"></script>
+    {% endfor %}
+    {% endblock scripts %}
+  </body>
+</html>
+{% endblock htmltag %}
