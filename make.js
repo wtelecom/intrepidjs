@@ -36,7 +36,7 @@ cli.main(function (args, options) {
             var reLower = new RegExp('@iname', 'g');
 
             var resultLower = data.replace(reLower, lower);
-            var resultCamel = resultLower.replace(/(@name)\b/g, camel);
+            var resultCamel = resultLower.replace(/@name/g, camel);
 
             fs.writeFile(file, resultCamel, 'utf8', function(err) {
                 if (err) return console.error(err.error);
