@@ -1,66 +1,426 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Intrepidjs by wtelecom</title>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+    <title>IntrepidJS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- stylesheets -->
+    <link rel="stylesheet" type="text/css" href="css/compiled/theme.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/animate.css">
+
+    <!-- javascript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/theme.js"></script>
+
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Intrepidjs</h1>
-        <p>Intrepid is an ExpressJS based framework that helps you to develop NodeJS&#39;s applications quickly</p>
+</head>
+<body id="home">
+    <header class="navbar navbar-inverse hero" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" class="navbar-brand">
+                    <img src="images/logo.png" height="50px">
+                    IntrepidJS
+                </a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html" >
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="docs.html">
+                            Documentation
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <p class="view"><a href="https://github.com/wtelecom/intrepidjs">View the Project on GitHub <small>wtelecom/intrepidjs</small></a></p>
+    <div id="hero">
+        <div class="container">
+            <h1 class="hero-text animated fadeInDown">
+                An ExpressJS based framework that helps you to develop NodeJS's applications quickly
+            </h1>
+            <!-- <p class="sub-text animated fadeInDown">
+                Get a complete existing website with great design up and running in no time.
+            </p> -->
+            <!-- <div class="cta animated fadeInDown">
+                <a href="features.html" class="button-outline">See the tour</a>
+                <a href="signup.html" class="button">Sign up free</a>
+            </div> -->
+            <!-- <div class="img animated fadeInDown"></div> -->
 
-
-        <ul>
-          <li><a href="https://github.com/wtelecom/intrepidjs/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/wtelecom/intrepidjs/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/wtelecom/intrepidjs">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3><a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link">
-        	</span></a>Welcome to intrepiJs documentacion
-       	</h3>
-
-					<p>First step is configure your enviroment to run intrepid <em>Hello world!</em>. You need to install few fools need the following packages:</p>
-
-					<pre><code>sudo apt-get install nodejs npm redis-server mongodb</code></pre>
-
-					<p>Now we need to get all intrepidjs dependencies. We install intrepidjs-cli ultility via npm:</p>
-
-					<pre><code>npm update &amp;&amp;  sudo npm install -g intrepidjs-cli</code></pre>
-
-					<p>Now we have all we need to start. We need to create the folder for our new intrepidjs project. </p>
-
-					<p>We will use <code>intrepidjs-init</code> for it. There is an utility that clones the repo, gets last version of code and do many magic things for us. The <code>intrepidjs-init</code> command creates a new folder to the project. If we don't use a param for the command, default name for the folder will be intrepidjs.</p>
-
-					<pre><code>mkdir intrepidjs &amp;&amp; cd intrepidjs
-intrepidjs-init myApp</code></pre>
-
-					<p>When it complete successfully, the message <code>Express server listening on port 8000</code> will be shown.
-					Open your browser and go to:</p>
-
-					<p><a href="http://localhost:8000/" target="_blank">http://localhost:8000</a></p>
-
-					<p>Now you can register a new user and preview basic intrepidjs features. If you want to know what we have, read the next point: <em>What does intrepidjs provide?</em></p>
-					<hr>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/wtelecom">wtelecom</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+        </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
+
+    <!-- <div id="features">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h2>Need an easy way to customize your site?</h2>
+                    <p>React is perfect for novice developers and experts alike.</p>
+                </div>
+            </div>
+            <div class="row feature">
+                <div class="col-md-6 info">
+                    <h4>You don't need to have great technical experience to use your product.</h4>
+                    <p>
+                        Whether you want to fill this paragraph with some text like I'm doing right now, this place
+                        is perfect to describe some features or anything you want - React has a complete solution for you.
+                    </p>
+                </div>
+                <div class="col-md-6 image">
+                    <img src="images/feature1.png" class="img-responsive" alt="feature1" />
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="row feature backwards">
+                <div class="col-md-6 info">
+                    <h4>A fully featured well design template that works.</h4>
+                    <p>
+                        You have complete control over the look & feel of your website, we offer the best quality so you
+                        take your site up and running in no time.
+                    </p>
+                    <p>
+                        Write some text here to explain the features of your site or application, it
+                        has lots of uses.
+                    </p>
+                </div>
+                <div class="col-md-6 image">
+                    <img src="images/feature2.png" class="img-responsive" alt="feature2" />
+                </div>
+            </div>
+        </div>      
+    </div> -->
+
+    <!-- <div id="pricing">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Free trial. No contract. Cancel when you want.</h3>
+                    <p>All plans include a 7-day free trial</p>
+                </div>
+            </div>
+            <div class="row charts">
+                <div class="col-md-4">
+                    <div class="chart first">
+                        <div class="quantity">
+                            <span class="dollar">$</span>
+                            <span class="price">29</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-name">Freelance</div>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="variable">5</span>
+                                team members
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Digital</span>
+                                recurring billing
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Virtual</span>
+                                online terminal
+                            </div>
+                            <div class="spec">
+                                <span class="variable">10</span>
+                                total products
+                            </div>
+                            <div class="spec">
+                                <span class="variable">1.0%</span>
+                                Transaction fee
+                            </div>
+                        </div>
+                        <a class="btn-signup button-clear" href="signup.html">
+                            <span>Start free trial</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="chart featured">
+                        <div class="popular">Most popular</div>
+                        <div class="quantity">
+                            <span class="dollar">$</span>
+                            <span class="price">79</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-name">Profesional</div>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="variable">15</span>
+                                team members
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Digital</span>
+                                recurring billing
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Virtual</span>
+                                online terminal
+                            </div>
+                            <div class="spec">
+                                <span class="variable">15</span>
+                                total products
+                            </div>
+                            <div class="spec">
+                                <span class="variable">0.5%</span>
+                                Transaction fee
+                            </div>
+                        </div>
+                        <a class="btn-signup button-clear" href="signup.html">
+                            <span>Start free trial</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="chart last">
+                        <div class="quantity">
+                            <span class="dollar">$</span>
+                            <span class="price">119</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <div class="plan-name">Premium</div>
+                        <div class="specs">
+                            <div class="spec">
+                                <span class="variable">Unlimited</span>
+                                team members
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Digital</span>
+                                recurring billing
+                            </div>
+                            <div class="spec">
+                                <span class="variable">Virtual</span>
+                                online terminal
+                            </div>
+                            <div class="spec">
+                                <span class="variable">25</span>
+                                total products
+                            </div>
+                            <div class="spec">
+                                <span class="variable">No</span>
+                                Transaction fee
+                            </div>
+                        </div>
+                        <a class="btn-signup button-clear" href="signup.html">
+                            <span>Start free trial</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div id="slider">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Includes all pages that a complete theme should have</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 slide-wrapper">
+                    <div class="slideshow">
+                        <div class="btn-nav prev"></div>
+                        <div class="btn-nav next"></div>
+                        <div class="slide active">
+                            <img src="images/slider/slide3.png" alt="slide3" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide4.png" alt="slide4" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide1.png" alt="slide1" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide5.png" alt="slide5" />
+                        </div>
+                        <div class="slide">
+                            <img src="images/slider/slide2.png" alt="slide2" />
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div id="testimonials">
+        <div class="container">
+            <div class="row header">
+                <div class="col-md-12">
+                    <h3>Trusted by a lot businesses around the world:</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="testimonial pull-right">
+                        <div class="quote">
+                            I am just quoting some stuff but I am seriously happy about this product. Has a lot of powerful
+                            features and is so easy to set up, I could stay customizing it day and night, it's just so much fun!
+                            <div class="arrow-down">
+                                <div class="arrow"></div>
+                                <div class="arrow-border"></div>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <img src="images/testimonials/testimonial1.jpg" class="pic" alt="testimonial1" />
+                            <div class="name">John McClane</div>
+                            <div class="company">Microsoft</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="testimonial">
+                        <div class="quote">
+                            This thing is one of those tools that everybody should be using. I really like it and with this ease to use, you can kickstart your projects and apps and just focus on your business!
+                            <div class="arrow-down">
+                                <div class="arrow"></div>
+                                <div class="arrow-border"></div>
+                            </div>
+                        </div>
+                        <div class="author">
+                            <img src="images/testimonials/testimonial2.jpg" class="pic" alt="testimonial2" />
+                            <div class="name">Karen Jones</div>
+                            <div class="company">Pixar Co.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div id="cta">
+        <p>
+            Start your free 14 day trial! 
+        </p>
+        <a href="signup.html">
+            Sign up for free
+        </a>
+    </div> -->
+
+   <!--  <div id="clients">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Our Customers</h3>
+                    <p>
+                        These are some of our customers who have helped us by using our product.
+                    </p>
+                    <div class="logos">
+                        <img src="images/logos/google.png">
+                        <img src="images/logos/facebook.png">
+                        <img src="images/logos/apple.png">
+                        <img src="images/logos/stripe.png">
+                        <img src="images/logos/yahoo.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="footer-white">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-sm-3 menu">
+                    <h3>Overview</h3>
+                    <ul>
+                        <li>
+                            <a href="features.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="services.html">Services</a>
+                        </li>
+                        <li>
+                            <a href="pricing.html">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="support.html">Support</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">Coming soon</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 menu">
+                    <h3>Menu</h3>
+                    <ul>
+                        <li>
+                            <a href="features.html">About us</a>
+                        </li>
+                        <li>
+                            <a href="services.html">Contact us</a>
+                        </li>
+                        <li>
+                            <a href="aboutus.html">Jobs</a>
+                            <a href="aboutus.html" class="hiring">
+                                We're hiring!
+                            </a>
+                        </li>
+                        <li>
+                            <a href="support.html">Portfolio</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">Status</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-2 menu">
+                    <h3>Social</h3>
+                    <ul>
+                        <li>
+                            <a href="features.html">Youtube</a>
+                        </li>
+                        <li>
+                            <a href="services.html">Facebook</a>
+                        </li>
+                        <li>
+                            <a href="pricing.html">Twitter</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4 newsletter">
+                    <div class="signup clearfix">
+                        <p>
+                            Sign up for the newsletter and we'll inform you of updates, offers and more.
+                        </p>
+                        <form>
+                            <input type="text" name="email" class="form-control" placeholder="Your email address" />
+                            <input type="submit" value="Sign up" />
+                        </form>
+                    </div>
+                    <a href="#">
+                        <img src="images/social/social-tw.png" alt="twitter" />
+                    </a>
+                    <a href="#">
+                        <img src="images/social/social-dbl.png" alt="dribbble" />
+                    </a>
+                </div>
+            </div> -->
+            <div class="row credits">
+                <div class="col-md-12">
+                    Copyright © 2014. Wellness Telecom
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
