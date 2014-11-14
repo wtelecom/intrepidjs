@@ -41,7 +41,7 @@
     "pow-mongoose-fixtures": "~0.3.0",
     "q": "*",
     "redis": "~0.10.3",
-    "rekuire": "~0.1.5",
+    "rekuire": "=0.1.5",
     "request": "~2.27.0",
     "serve-favicon": "~2.0.1",
     "serve-static": "~1.1.0",
