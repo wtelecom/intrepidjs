@@ -7,20 +7,19 @@ var cli = require('cli'),
     rek = require('rekuire'),
     shell = require('shelljs'),
     fixtures = require('mongodb-fixtures'),
-    colors = require('colors'),
+    chalk = require('chalk'),
     settings = rek('/settings');
 
-colors.setTheme({
-    verbose: 'cyan',
-    prompt: 'grey',
-    info: 'green',
-    data: 'grey',
-    help: 'cyan',
-    warn: 'yellow',
-    debug: 'blue',
-    error: 'red'
-});
-    
+// Colors Alert
+var verbose = chalk.cyan,
+prompt = chalk.grey,
+info = chalk.green,
+data = chalk.grey,
+help = chalk.cyan,
+warn = chalk.bold.yellow,
+debug = chalk.blue,
+error = chalk.bold.red;
+
 var progress = 0,
     source = 'https://github.com/wtelecom/intrepidjs-module.git';
 
@@ -30,7 +29,7 @@ cli.main(function (args, options) {
     var modifyFile = function(file, lower, camel) {
         fs.readFile(file, 'utf8', function(err, data) {
             if (err) {
-                return console.error(err.error);
+                return console.error( error( err ) );
             }
 
             var reLower = new RegExp('@iname', 'g');
@@ -39,7 +38,7 @@ cli.main(function (args, options) {
             var resultCamel = resultLower.replace(/@name/g, camel);
 
             fs.writeFile(file, resultCamel, 'utf8', function(err) {
-                if (err) return console.error(err.error);
+                if (err) return console.error( error( err ) );
             });
         });
     };
@@ -81,11 +80,11 @@ cli.main(function (args, options) {
             moduleLowerCase = data[0].toLowerCase(),
             moduleCamelCase = data[0].charAt(0).toUpperCase() + data[0].slice(1);
 
-        if (!shell.which('git')) return console.log(chalk.red('Prerequisite not installed: git'));
+        if (!shell.which('git')) return console.log( error('Prerequisite not installed: git') );
 
         fs.exists(modulePath, function (exists) {
             if (exists) {
-                console.log('%s module already exists'.warn, data[0]);
+                console.log( warn('%s module already exists'), data[0]);
             } else {
                 progress += 0.1;
                 cli.progress(progress);
@@ -97,10 +96,10 @@ cli.main(function (args, options) {
                     cli.progress(progress);
                     walk(modulePath, moduleLowerCase, moduleCamelCase, function(err, results) {
                         if (err) {
-                            console.error(err.error);
+                            console.error( error(err) );
                         } else {
                             cli.progress(1);
-                            console.log('%s module created!'.info, data[0]);
+                            console.log( info('%s module created!') , data[0]);
                         }
                     });
                 });
@@ -116,14 +115,14 @@ cli.main(function (args, options) {
             Server = require('mongodb').Server;
 
         var db = new Db(settings.dbSettings.dbName, new Server("localhost", 27017, {}), {safe:false});
-        
+
         fixtures.load(dirFixtures);
         fixtures.save(db, function(err) {
             db.close();
             if (err) {
-                console.error(err.error);
+                console.error( error(err) );
             } else {
-                console.log('%s fixtures loaded!'.info, module);
+                console.log( info('%s fixtures loaded!') , module);
             }
         });
     };
@@ -137,19 +136,19 @@ cli.main(function (args, options) {
                 loadFixture(args[0]);
                 break;
             default:
-                console.error('Invalid command'.error + ', commands availables are: createmodule loaddata'.help);
+                console.error( error('Invalid command') +','+ help('commands availables are: createmodule loaddata') );
                 break;
         }
     } else {
         switch(cli.command) {
             case 'createmodule':
-                console.error('Invalid command'.error + ', createmodule <module_name>'.help);
+                console.error( error('Invalid command') +','+ help('createmodule <module_name>') );
                 break;
             case 'loaddata':
-                console.error('Invalid command'.error + ', loaddata <module_name>'.help);
+                console.error( error('Invalid command') +','+ help('loaddata <module_name>') );
                 break;
             default:
-                console.error('Invalid command'.error + ', commands availables are: createmodule loaddata'.help);
+                console.error( error('Invalid command') +','+ help('commands availables are: createmodule loaddata') );
                 break;
         }
     }
