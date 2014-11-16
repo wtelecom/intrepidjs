@@ -7,29 +7,30 @@ var cli = require('cli'),
     rek = require('rekuire'),
     shell = require('shelljs'),
     fixtures = require('mongodb-fixtures'),
-    chalk = require('chalk'),
+    colors = require('colors'),
     settings = rek('/settings');
 
-// Colors Alert
-var verbose = chalk.cyan,
-prompt = chalk.grey,
-info = chalk.green,
-data = chalk.grey,
-help = chalk.cyan,
-warn = chalk.bold.yellow,
-debug = chalk.blue,
-error = chalk.bold.red;
-
+colors.setTheme({
+    verbose: 'cyan',
+    prompt: 'grey',
+    info: 'green',
+    data: 'grey',
+    help: 'cyan',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red'
+});
+    
 var progress = 0,
     source = 'https://github.com/wtelecom/intrepidjs-module.git';
 
-cli.parse(null, ['createmodule', 'loaddata']);
+cli.parse(null, ['createmodule', 'loaddata', 'initializeModule']);
 
 cli.main(function (args, options) {
     var modifyFile = function(file, lower, camel) {
         fs.readFile(file, 'utf8', function(err, data) {
             if (err) {
-                return console.error( error( err ) );
+                return console.error(err.error);
             }
 
             var reLower = new RegExp('@iname', 'g');
@@ -38,7 +39,7 @@ cli.main(function (args, options) {
             var resultCamel = resultLower.replace(/@name/g, camel);
 
             fs.writeFile(file, resultCamel, 'utf8', function(err) {
-                if (err) return console.error( error( err ) );
+                if (err) return console.error(err.error);
             });
         });
     };
@@ -80,11 +81,11 @@ cli.main(function (args, options) {
             moduleLowerCase = data[0].toLowerCase(),
             moduleCamelCase = data[0].charAt(0).toUpperCase() + data[0].slice(1);
 
-        if (!shell.which('git')) return console.log( error('Prerequisite not installed: git') );
+        if (!shell.which('git')) return console.log(chalk.red('Prerequisite not installed: git'));
 
         fs.exists(modulePath, function (exists) {
             if (exists) {
-                console.log( warn('%s module already exists'), data[0]);
+                console.log('%s module already exists'.warn, data[0]);
             } else {
                 progress += 0.1;
                 cli.progress(progress);
@@ -96,10 +97,10 @@ cli.main(function (args, options) {
                     cli.progress(progress);
                     walk(modulePath, moduleLowerCase, moduleCamelCase, function(err, results) {
                         if (err) {
-                            console.error( error(err) );
+                            console.error(err.error);
                         } else {
                             cli.progress(1);
-                            console.log( info('%s module created!') , data[0]);
+                            console.log('%s module created!'.info, data[0]);
                         }
                     });
                 });
@@ -115,17 +116,55 @@ cli.main(function (args, options) {
             Server = require('mongodb').Server;
 
         var db = new Db(settings.dbSettings.dbName, new Server("localhost", 27017, {}), {safe:false});
-
+        
         fixtures.load(dirFixtures);
         fixtures.save(db, function(err) {
             db.close();
             if (err) {
-                console.error( error(err) );
+                console.error(err.error);
             } else {
-                console.log( info('%s fixtures loaded!') , module);
+                console.log('%s fixtures loaded!'.info, module);
             }
         });
     };
+
+    var initializeModule = function(module){
+        var modulePath = __dirname + '/modules/' + module,
+            publicVendorPath = modulePath + '/public/vendor/',
+            bowerFile = publicVendorPath + 'bower.json'
+            currentPath = shell.pwd();
+
+        fs.exists(bowerFile, function(exists){
+            if ( ! exists ) {
+                console.log('Bower file doesn\'t find: ' + bowerFile);
+            } else{
+                if (!shell.which('bower')) return console.log('bower executable doesn\'t found');
+                shell.cd(publicVendorPath);
+                shell.exec('bower install');
+                shell.cd(currentPath);
+            }
+        });
+
+    }
+
+    var  installNpmPackages = function(module){
+
+        var modulePath = __dirname + '/modules/' + module,
+            npmFile = modulePath + 'packages.json',
+            currentPath = shell.pwd();
+
+        fs.exists(npmFile, function(exists){
+            if ( ! exists ) {
+                console.log('Npm file doesn\'t find: ' + npmFile);
+            } else{
+                if (!shell.which('npm')) return console.log('npm executable doesn\'t found');
+                shell.cd(modulePath);
+                shell.exec('npm install');
+                shell.cd(currentPath);
+            }
+        }); 
+
+    }
 
     if (this.argc && (this.argc > 0 && this.argc < 3)) {
         switch(cli.command) {
@@ -135,20 +174,27 @@ cli.main(function (args, options) {
             case 'loaddata':
                 loadFixture(args[0]);
                 break;
+            case 'initializeModule':
+                initializeModule(args[0]);
+                installNpmPackages(args[0]);
+            break;
             default:
-                console.error( error('Invalid command') +','+ help('commands availables are: createmodule loaddata') );
+                console.error('Invalid command'.error + ', commands availables are: createmodule loaddata'.help);
                 break;
         }
     } else {
         switch(cli.command) {
             case 'createmodule':
-                console.error( error('Invalid command') +','+ help('createmodule <module_name>') );
+                console.error('Invalid command'.error + ', createmodule <module_name>'.help);
                 break;
             case 'loaddata':
-                console.error( error('Invalid command') +','+ help('loaddata <module_name>') );
+                console.error('Invalid command'.error + ', loaddata <module_name>'.help);
+                break;
+            case 'initializeModule':
+                console.error('Invalid command'.error + ', initializeModule <module_name>'.help);
                 break;
             default:
-                console.error( error('Invalid command') +','+ help('commands availables are: createmodule loaddata') );
+                console.error('Invalid command'.error + ', commands availables are: createmodule loaddata'.help);
                 break;
         }
     }
