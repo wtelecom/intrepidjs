@@ -8,7 +8,7 @@ var cli = require('cli'),
     shell = require('shelljs'),
     fixtures = require('mongodb-fixtures'),
     colors = require('colors'),
-    settings = rek('/settings');
+    mainSettings = rek('/settings');
 
 colors.setTheme({
     verbose: 'cyan',
@@ -20,7 +20,7 @@ colors.setTheme({
     debug: 'blue',
     error: 'red'
 });
-    
+
 var progress = 0,
     source = 'https://github.com/wtelecom/intrepidjs-module.git';
 
@@ -76,8 +76,8 @@ cli.main(function (args, options) {
     };
 
     var createModule = function(data) {
-        var srcPath = process.cwd() + '/src',
-            modulePath = process.cwd() + '/modules/' + data[0],
+        var srcPath = mainSettings.rootPath + '/src',
+            modulePath = mainSettings.rootPath + '/modules/' + data[0],
             moduleLowerCase = data[0].toLowerCase(),
             moduleCamelCase = data[0].charAt(0).toUpperCase() + data[0].slice(1);
 
@@ -109,14 +109,14 @@ cli.main(function (args, options) {
     };
 
     var loadFixture = function(module) {
-        var dirFixtures = __dirname + '/modules/' + module + '/data/fixtures';
+        var dirFixtures = mainSettings.rootPath + '/modules/' + module + '/data/fixtures';
 
         var Db = require('mongodb').Db,
             Connection = require('mongodb').Connection,
             Server = require('mongodb').Server;
 
-        var db = new Db(settings.dbSettings.dbName, new Server("localhost", 27017, {}), {safe:false});
-        
+        var db = new Db(mainSettings.dbSettings.dbName, new Server("localhost", 27017, {}), {safe:false});
+
         fixtures.load(dirFixtures);
         fixtures.save(db, function(err) {
             db.close();
@@ -129,7 +129,7 @@ cli.main(function (args, options) {
     };
 
     var initializeModule = function(module){
-        var modulePath = __dirname + '/modules/' + module,
+        var modulePath = mainSettings.rootPath + '/modules/' + module,
             publicVendorPath = modulePath + '/public/vendor/',
             bowerFile = publicVendorPath + 'bower.json'
             currentPath = shell.pwd();
@@ -149,7 +149,7 @@ cli.main(function (args, options) {
 
     var  installNpmPackages = function(module){
 
-        var modulePath = __dirname + '/modules/' + module,
+        var modulePath = mainSettings.rootPath + '/modules/' + module,
             npmFile = modulePath + 'packages.json',
             currentPath = shell.pwd();
 
@@ -162,7 +162,7 @@ cli.main(function (args, options) {
                 shell.exec('npm install');
                 shell.cd(currentPath);
             }
-        }); 
+        });
 
     }
 
