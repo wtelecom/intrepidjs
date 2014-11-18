@@ -35,6 +35,7 @@ angular.module('IntrepidJS').controller('HeaderController',
                         );
                         break;
                     case 'login':
+                        $scope.loginError = false;
                         restService.post(
                             {
                                 username: $scope.formData.username,
@@ -53,13 +54,14 @@ angular.module('IntrepidJS').controller('HeaderController',
                                 }
                             },
                             function(data, status, headers, config) {
+                              $scope.loginError = true;
                             }
                         );
                         break;
                     default:
                         break;
                 }
-                
+
             };
         }
     ]
