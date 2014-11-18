@@ -8,18 +8,18 @@ var diveSync = require('diveSync'),
     expressStatic = require('serve-static'),
     rek = require('rekuire'),
     settingModel = rek('data/models/admin/setting'),
-    settings = rek('/settings'),
+    mainSettings = rek('/settings'),
     _ = require('underscore');
 
 module.exports = function loadResources(app, route, module) {
     // Checks and creates locals arrays for styles
-    if (!settings.styleFiles) {
-        settings.styleFiles = [];
+    if (!mainSettings.styleFiles) {
+        mainSettings.styleFiles = [];
     }
 
     // Checks and creates locals arrays for javascripts
-    if (!settings.jsFiles) {
-        settings.jsFiles = [];
+    if (!mainSettings.jsFiles) {
+        mainSettings.jsFiles = [];
     }
 
     function findModules(dir) {
@@ -31,23 +31,23 @@ module.exports = function loadResources(app, route, module) {
             if (extname === '.css') {
                 if (!module) {
                     var rm_css = null;
-                    _.each(settings.styleFiles, function(theme, i) {
+                    _.each(mainSettings.styleFiles, function(theme, i) {
                         if (theme.type == 'default') {
                             rm_css = i;
                         }
                     });
 
                     if (!_.isNull(rm_css))
-                        settings.styleFiles.splice(rm_css, 1);
+                        mainSettings.styleFiles.splice(rm_css, 1);
 
-                    settings.styleFiles.push({
+                    mainSettings.styleFiles.push({
                         type: 'default',
-                        path: file.replace(process.cwd() + '/public', '')
+                        path: file.replace(mainSettings.rootPath + '/public', '')
                     });
                 } else {
-                    settings.styleFiles.push({
+                    mainSettings.styleFiles.push({
                         type: 'module',
-                        path: file.replace(process.cwd() + '/modules/' + module + '/public', '/' + module + '/public')
+                        path: file.replace(mainSettings.rootPath + '/modules/' + module + '/public', '/' + module + '/public')
                     });
                 }
 
@@ -55,23 +55,23 @@ module.exports = function loadResources(app, route, module) {
             } else if (extname === '.js') {
                 if (!module) {
                     var rm_js = null;
-                    _.each(settings.jsFiles, function(theme, i) {
+                    _.each(mainSettings.jsFiles, function(theme, i) {
                         if (theme.type == 'default') {
                             rm_js = i;
                         }
                     });
 
                     if (!_.isNull(rm_js))
-                        settings.jsFiles.splice(rm_js, 1);
+                        mainSettings.jsFiles.splice(rm_js, 1);
 
-                    settings.jsFiles.push({
+                    mainSettings.jsFiles.push({
                         type: 'default',
-                        path: file.replace(process.cwd() + '/public', '')
+                        path: file.replace(mainSettings.rootPath + '/public', '')
                     });
                 } else {
-                    settings.jsFiles.push({
+                    mainSettings.jsFiles.push({
                         type: 'module',
-                        path: file.replace(process.cwd() + '/modules/' + module + '/public', '/' + module + '/public')
+                        path: file.replace(mainSettings.rootPath + '/modules/' + module + '/public', '/' + module + '/public')
                     });
                 }
             }
@@ -105,7 +105,7 @@ module.exports = function loadResources(app, route, module) {
         app.use(
             '/' + module + '/public',
             expressStatic(
-                path.join(process.cwd(),
+                path.join(mainSettings.rootPath,
                     'modules/' + module + '/public/'
                 )
             )
