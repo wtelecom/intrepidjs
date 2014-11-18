@@ -7,7 +7,7 @@
 exports.port = 8000;
 
 // Session driver
-exports.sessionDriver = "mongo" // or "redis" or "mongo"
+exports.sessionDriver = "redis" // or "redis" or "mongo"
 
 // Root path
 var rootPath = __dirname;
