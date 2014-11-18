@@ -14,7 +14,7 @@ exports.description = 'Images Carousel';
 exports.route_prefix = 'carousel';
 
 // Root path
-var widgetPath = process.cwd() + '/widgets/custom_widgets/carousel';
+var widgetPath = __dirname;
 exports.widgetPath = widgetPath;
 
 // Paths

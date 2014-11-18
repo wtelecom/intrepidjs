@@ -2,7 +2,6 @@
  * Twitter widget settings
  */
 
-
 // Widget name
 exports.name = 'Twitter';
 
@@ -14,7 +13,7 @@ exports.description = 'Twitter widget';
 exports.route_prefix = 'twitter';
 
 // Root path
-var widgetPath = process.cwd() + '/widgets/social_widgets/twitter';
+var widgetPath = __dirname;
 exports.widgetPath = widgetPath;
 
 // Paths
