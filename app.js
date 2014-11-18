@@ -10,8 +10,8 @@ var express = require('express'),
     methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    redisStore = require('connect-redis')(session),
     redis = require("redis"),
+    redisStore = require('connect-redis')(session),
     morgan = require('morgan'),
     errorHandler = require('errorhandler'),
     http = require('http'),
@@ -37,7 +37,7 @@ var express = require('express'),
 var localStrategy = require('passport-local').Strategy,
     BasicStrategy = require('passport-http').BasicStrategy,
     APIKeyStrategy = require('passport-localapikey').Strategy,
-    passportStrategies = rek('utils/passport_strategies');
+    passportStrategies = rek('utils/passport_strategies_auth');
 
 // Initializing Express
 var app = express();
@@ -79,19 +79,35 @@ app.use(express.query());
 app.use(methodOverride());
 app.use(cookieParser(settings.secret));
 //app.use(session({ secret: settings.secret }));
-app.use(
+if (settings.sessionDriver=="redis") {
+  // We need to define redisStore here but atm is always used for socketio
+
+  app.use(
+      session(
+          {
+              store: new redisStore(
+                  {
+                      host: 'localhost',
+                      port: 6379
+                  }
+              ),
+              secret: settings.secret
+          }
+      )
+  );
+} else if (settings.sessionDriver=="mongo") {
+  var mongoStore = require('connect-mongo')(session);
+  app.use(
     session(
-        {
-            store: new redisStore(
-                {
-                    host: 'localhost',
-                    port: 6379
-                }
-            ),
-            secret: settings.secret
-        }
-    )
-);
+      {
+        secret: settings.secret,
+        //maxAge: new Date(Date.now() + 3600000),
+        store: new mongoStore({
+          host: settings.dbSettings.dbHost,
+          db: settings.dbSettings.dbName
+        })
+  }));
+}
 
 // Initializing oAuth methods
 app.use(myOAP.oauth());
@@ -112,7 +128,7 @@ app.use(i18n.init);
 app.use(i18nRoutes.getLocale);
 i18nRoutes.configure(app, {directory : __dirname + "/locales/"});
 
-// Loading custom middlewares 
+// Loading custom middlewares
 loadCustomMiddlewares(app);
 
 // Main static route
@@ -122,7 +138,8 @@ app.use('/' , expressStatic(path.join(__dirname, 'public')));
 // app.use(app.router);
 
 // loading passport strategies
-passportStrategies(localStrategy, BasicStrategy, APIKeyStrategy);
+//passportStrategies(localStrategy, BasicStrategy, APIKeyStrategy);
+passportStrategies(app, passport);
 
 // Check site setting
 checkSiteSetting(settings);
@@ -157,7 +174,7 @@ loadModules(app, settings.modulesPath, settings.modules, false, function() {
                 res.json({ message: "Authenticated" });
             }
         );
-        
+
         // TODO: Improve this shit, please
         settings.app_instance = app;
     });
@@ -201,12 +218,6 @@ server.listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
-// Initializing redis client
 var redisClient = redis.createClient();
-
 // Initializing SocketIO
 var socketio = rek('utils/socketio')(server, redisStore, redisClient);
-
-
-
-
