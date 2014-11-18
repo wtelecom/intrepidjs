@@ -14,7 +14,7 @@ module.exports = function(local, basic, api) {
 
     passport.use(new basic(
         function(username, password, done) {
-            Account.findOne({ username: username }, function(err, user) {
+            Account.findOne({ "$or": [{username: username }, {email: username}] }, function(err, user) {
                 if (err) { return done(err); }
                 if (!user) { return done(null, false); }
                 user.validPassword(user._id, password, function(result, userLogged) {
