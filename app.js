@@ -25,7 +25,7 @@ var express = require('express'),
     oAuth2Provider = require('oauth2-provider').OAuth2Provider,
     mubsub = require('mubsub'),
     nodemailer = require('nodemailer'),
-    settings = require('./settings'),
+    mainSettings = require('./settings'),
     checkSiteSetting = rek('libs/check_site_settings'),
     loadResources = rek('libs/load_resources'),
     loadSiteParams = rek('libs/load_site_params'),
@@ -43,7 +43,7 @@ var localStrategy = require('passport-local').Strategy,
 var app = express();
 
 // Initializing Static Files
-settings.staticFiles(app);
+mainSettings.staticFiles(app);
 
 // Initializing oAuth provider
 var myOAP = new oAuth2Provider(
@@ -55,13 +55,13 @@ var myOAP = new oAuth2Provider(
 
 // Setting environment vars
 app.set('env', 'development');
-app.set('port', settings.port || 3000);
-app.set('views', __dirname + '/views');
+app.set('port', mainSettings.port || 3000);
+app.set('views', mainSettings.rootPath + '/views');
 app.set('view engine', 'jade');
 
 //app.use(favicon());
 //app.use(morgan());
-//app.use(bodyParser({keepExtensions:true, uploadDir: path.join(__dirname,'/public/files')}));
+//app.use(bodyParser({keepExtensions:true, uploadDir: path.join(mainSettings.rootPath,'/public/files')}));
 app.use(bodyParser(
     {
         limit: 10 * 1024 * 1024
@@ -77,9 +77,9 @@ app.use(busboy(
 ));
 app.use(express.query());
 app.use(methodOverride());
-app.use(cookieParser(settings.secret));
-//app.use(session({ secret: settings.secret }));
-if (settings.sessionDriver=="redis") {
+app.use(cookieParser(mainSettings.secret));
+//app.use(session({ secret: mainSettings.secret }));
+if (mainSettings.sessionDriver=="redis") {
   // We need to define redisStore here but atm is always used for socketio
 
   app.use(
@@ -91,20 +91,20 @@ if (settings.sessionDriver=="redis") {
                       port: 6379
                   }
               ),
-              secret: settings.secret
+              secret: mainSettings.secret
           }
       )
   );
-} else if (settings.sessionDriver=="mongo") {
+} else if (mainSettings.sessionDriver=="mongo") {
   var mongoStore = require('connect-mongo')(session);
   app.use(
     session(
       {
-        secret: settings.secret,
+        secret: mainSettings.secret,
         //maxAge: new Date(Date.now() + 3600000),
         store: new mongoStore({
-          host: settings.dbSettings.dbHost,
-          db: settings.dbSettings.dbName
+          host: mainSettings.dbSettings.dbHost,
+          db: mainSettings.dbSettings.dbName
         })
   }));
 }
@@ -122,17 +122,17 @@ app.use(passport.session());
 i18n.configure({
     locales: ['en', 'es', 'ar'],
     cookie: 'IntrepidJS_locales',
-    directory: __dirname + '/locales'
+    directory: mainSettings.rootPath + '/locales'
 });
 app.use(i18n.init);
 app.use(i18nRoutes.getLocale);
-i18nRoutes.configure(app, {directory : __dirname + "/locales/"});
+i18nRoutes.configure(app, {directory : mainSettings.rootPath + "/locales/"});
 
 // Loading custom middlewares
 loadCustomMiddlewares(app);
 
 // Main static route
-app.use('/' , expressStatic(path.join(__dirname, 'public')));
+app.use('/' , expressStatic(path.join(mainSettings.rootPath, 'public')));
 
 // Initialized app router
 // app.use(app.router);
@@ -142,23 +142,23 @@ app.use('/' , expressStatic(path.join(__dirname, 'public')));
 passportStrategies(app, passport);
 
 // Check site setting
-checkSiteSetting(settings);
+checkSiteSetting(mainSettings);
 
 // Load site params
-loadSiteParams(app, settings);
+loadSiteParams(app, mainSettings);
 
 // Load resources
-// loadResources(app, settings.themesPath + settings.site.theme.content);
-loadResources(app, settings.themesPath);
+// loadResources(app, mainSettings.themesPath + mainSettings.site.theme.content);
+loadResources(app, mainSettings.themesPath);
 
 // Load modules
-loadModules(app, settings.modulesPath, settings.modules, false, function() {
+loadModules(app, mainSettings.modulesPath, mainSettings.modules, false, function() {
     // Load widgets
     loadWidgets(app, function() {
         // Init routes
         routescan(app, {
             directory: app.get('site_routes'),
-            ignoreInvalid: settings.invalid_routes
+            ignoreInvalid: mainSettings.invalid_routes
         });
 
         app.get(exports.apiPrefix + '/token/auth',
@@ -176,7 +176,7 @@ loadModules(app, settings.modulesPath, settings.modules, false, function() {
         );
 
         // TODO: Improve this shit, please
-        settings.app_instance = app;
+        mainSettings.app_instance = app;
     });
 });
 
@@ -195,7 +195,7 @@ if ('production' == app.get('env')) {
 }
 
 // Create reusable transporter object using SMTP transport
-settings.mail_instance = nodemailer.createTransport({
+mainSettings.mail_instance = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         user: 'user@domain.com',
@@ -204,7 +204,7 @@ settings.mail_instance = nodemailer.createTransport({
 });
 
 // MongoDB constructor
-var dbURL = settings.dbSettings.dbURL;
+var dbURL = mainSettings.dbSettings.dbURL;
 var dbCon = db.connect(dbURL);
 
 // development only
