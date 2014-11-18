@@ -10,7 +10,9 @@ var mongoose = require('mongoose'),
     passportLocalMongoose = require('passport-local-mongoose'),
     crypto = require('crypto');
 
+
 var Account = new Schema({
+    username: String,
     firstName: String,
     lastName: String,
     email: { type: String, unique: true, require: true },
@@ -67,7 +69,7 @@ function validPassword(model, id, password, cb) {
                     if (err) {
                         return cb(false);
                     }
-                    
+
                     var hash = new Buffer(hashRaw, 'binary').toString('hex');
 
                     if (hash === user.hash) {
@@ -80,6 +82,28 @@ function validPassword(model, id, password, cb) {
                 return cb(false);
             }
         });
+}
+
+Account.methods = {
+  authenticate: function(plainText, done) {
+    console.log("Pass submit:", plainText);
+    console.log("Salt:");
+    self = this
+    crypto.pbkdf2(plainText, self.salt, 25000, 512, function(err, hashRaw) {
+        if (err) {
+            return cb(false);
+        }
+
+        var hash = new Buffer(hashRaw, 'binary').toString('hex');
+        console.log("hash:", hash, "hash:", self.hash)
+        if (hash === self.hash) {
+            return done(true, self);
+        } else {
+            return done(false);
+        }
+    });
+
+  }
 }
 
 module.exports = mongoose.model('Account', Account);
