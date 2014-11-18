@@ -6,7 +6,7 @@
 var diveSync = require('diveSync'),
     path = require('path'),
     rek = require('rekuire'),
-    settings = rek('/settings'),
+    mainSettings = rek('/settings'),
     _ = require('underscore'),
     createSchemaCrudMethods = rek('middlewares/create_models_crud_operations');
 
@@ -32,9 +32,9 @@ function dynamicRoutes() {
 
             if (extname == '.js') {
                 // With this logic, we create a models registry to use an any place
-                var moduleObj = _.findWhere(settings.models, {module: module});
+                var moduleObj = _.findWhere(mainSettings.models, {module: module});
                 if (_.isEmpty(moduleObj)) {
-                    settings.models.push({module: module, models:[{file: file}]});
+                    mainSettings.models.push({module: module, models:[{file: file}]});
                 } else {
                     moduleObj.models.push({file: file});
                 }
@@ -77,13 +77,13 @@ function dynamicRoutes() {
         );
     }
 
-    if (!_.isEmpty(settings.modules)) {
-        _.each(settings.modules, function(module) {
-            var modModelPath = path.join(process.cwd(),
+    if (!_.isEmpty(mainSettings.modules)) {
+        _.each(mainSettings.modules, function(module) {
+            var modModelPath = path.join(mainSettings.rootPath,
                     'modules/' + module + '/data/models'
                 ),
-                mSetting = path.join(process.cwd(),
-                    'modules/' + module + '/settings'
+                mSetting = path.join(mainSettings.rootPath,
+                    'modules/' + module + '/mainSettings'
                 );
 
             dive(modModelPath, module, mSetting);
@@ -92,11 +92,11 @@ function dynamicRoutes() {
         return createSchemaCrudMethods(models);
 
     } else {
-        
+
         return routes;
     }
 
-    
+
 }
 
 module.exports = dynamicRoutes();

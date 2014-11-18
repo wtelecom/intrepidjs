@@ -10,7 +10,7 @@ var _ = require('underscore'),
     expressStatic = require('serve-static'),
     diveSync = require('diveSync'),
     rek = require('rekuire'),
-    mainSettings = rek('/settings');
+    mainSettings = rek('/settings')
 
 module.exports = function loadWidgets(app, cb) {
 
@@ -18,7 +18,7 @@ module.exports = function loadWidgets(app, cb) {
     app.use(
         '/widgets/public/',
         expressStatic(
-            path.join(process.cwd(),
+            path.join(mainSettings.rootPath,
                 'widgets/public/'
             )
         )
@@ -84,6 +84,6 @@ module.exports = function loadWidgets(app, cb) {
             dive(mainSettings.customwidgetsPath + element.name + '/views/admin_partials', element);
         });
     }
-    
+
     cb();
 };
