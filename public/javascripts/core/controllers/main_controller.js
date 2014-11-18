@@ -47,7 +47,9 @@ angular.module('IntrepidJS').controller('HeaderController',
                                     setTimeout(function() {
                                         location.reload();
                                     }, 0);
-                                    
+                                }else{
+                                    $scope.loginError=true;
+                                    $scope.formData = {}
                                 }
                             },
                             function(data, status, headers, config) {

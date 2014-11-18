@@ -5,14 +5,16 @@
 
 var rek = require('rekuire'),
     settings = rek('/settings'),
+    isAdmin = rek('middlewares/admin/is_admin'),
     modulesMiddleware = rek('middlewares/admin/modules_info');
 
 var routes = {};
 
 routes[settings.siteRoutes.admin.route + '/'] =  {
     methods: ['get'],
-    middleware: [],
+    middleware: [isAdmin()],
     fn: function(req, res, next) {
+        console.log("hola");
         res.render('admin/index', {
                 
         });
@@ -45,7 +47,7 @@ routes[settings.siteRoutes.admin.route + '/'] =  {
 
 routes[settings.siteRoutes.admin.route + '/partials/:name'] =  {
     methods: ['get'],
-    middleware: [],
+    middleware: [isAdmin()],
     fn: function(req, res, next) {
         var name = req.params.name;
         res.render(settings.viewsPath + 'admin/partials/' + name);
@@ -55,7 +57,7 @@ routes[settings.siteRoutes.admin.route + '/partials/:name'] =  {
 // Widgets info
 routes[settings.siteRoutes.admin.route + '/widget/:type/info'] =  {
     methods: ['get'],
-    middleware: [],
+    middleware: [isAdmin()],
     fn: function(req, res, next) {
         res.render(
             settings.viewsPath + 'admin/partials/widgets_' + req.params.type,
