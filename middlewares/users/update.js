@@ -20,7 +20,7 @@ function update(req, res, next) {
     var isAdmin = req.user.roles.indexOf('admin') + 1,
         isTheUser = String(req.user._id) == req.params.id,
         reqUser = req.body;
-    
+
     if (!_.isEmpty(reqUser)) {
         if (isAdmin || isTheUser) {
             Account.findById(req.params.id)
@@ -62,7 +62,7 @@ function update(req, res, next) {
                         req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
                             var dirPath = mainSettings.filesPath + 'users',
                                 newPath = mainSettings.filesPath + 'users/' + uuid.v4(),
-                                pathTreat = newPath.replace(process.cwd() + '/public', '');
+                                pathTreat = newPath.replace(mainSettings.rootPath + '/public', '');
 
                             fs.exists(dirPath, function (exists) {
                                 if (exists) {

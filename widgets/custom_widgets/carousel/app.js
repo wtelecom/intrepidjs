@@ -5,6 +5,7 @@
  */
 
 var rek = require('rekuire'),
+    settings = rek('settings'),
     path = require('path'),
     expressStatic = require('serve-static'),
     diveSync = require('diveSync'),
@@ -21,7 +22,7 @@ exports.setWidgetPublic = function(app, route, name) {
     app.use(
         '/widgets/' + name + '/public/',
         expressStatic(
-            path.join(process.cwd(),
+            path.join(settings.rootPath,
                 'widgets/custom_widgets/' + name + '/public/'
             )
         )

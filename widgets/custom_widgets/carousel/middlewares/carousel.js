@@ -26,7 +26,7 @@ function carouselOperations() {
                 req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
                     var dirPath = mainSettings.filesPath + 'widgets',
                         newPath = mainSettings.filesPath + 'widgets/' + uuid.v4(),
-                        pathTreat = newPath.replace(process.cwd() + '/public', '');
+                        pathTreat = newPath.replace(mainSettings.rootPath + '/public', '');
 
                     fs.exists(dirPath, function (exists) {
                         if (exists) {
