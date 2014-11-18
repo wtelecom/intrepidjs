@@ -54,9 +54,13 @@ userSchema.statics.isValidUserPassword = function(email, password, done) {
     });
 };
 
+userSchema.methods = {
+	authenticate: (plainText, done) {
+		hash(plainText, this.salt, function(err, hash) {
+			if (hash==this.hash) return done(true);
+			return done(false);
+		})
+	}
+}
+
 module.exports = userSchema;
-
-
-
-
-
