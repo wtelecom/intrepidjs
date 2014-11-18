@@ -6,8 +6,12 @@
 // Node port
 exports.port = 8000;
 
+// Session driver
+exports.sessionDriver = "mongo" // or "redis" or "mongo"
+
 // Root path
-var rootPath = process.cwd();
+var rootPath = __dirname;
+
 exports.rootPath = rootPath;
 
 // Secret app key
@@ -43,6 +47,7 @@ exports.customwidgetsPath = rootPath + '/widgets/custom_widgets/';
 // Database name
 exports.dbSettings = {
     dbURL: 'mongodb://localhost/intrepid',
+    dbHost: 'localhost',
     dbName: 'intrepid'
 };
 
