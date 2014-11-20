@@ -7,6 +7,7 @@
 exports.port = 8000;
 
 // Session driver
+
 exports.sessionDriver = "redis" // or "redis" or "mongo"
 
 // Root path

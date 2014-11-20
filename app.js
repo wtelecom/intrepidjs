@@ -77,9 +77,11 @@ app.use(busboy(
 ));
 app.use(express.query());
 app.use(methodOverride());
-app.use(cookieParser(mainSettings.secret));
-//app.use(session({ secret: mainSettings.secret }));
-if (mainSettings.sessionDriver=="redis") {
+
+app.use(cookieParser(settings.secret));
+//app.use(session({ secret: settings.secret }));
+if (mainSsettings.sessionDriver=="redis") {
+
   // We need to define redisStore here but atm is always used for socketio
 
   app.use(
@@ -96,6 +98,7 @@ if (mainSettings.sessionDriver=="redis") {
       )
   );
 } else if (mainSettings.sessionDriver=="mongo") {
+
   var mongoStore = require('connect-mongo')(session);
   app.use(
     session(

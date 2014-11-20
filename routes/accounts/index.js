@@ -5,6 +5,7 @@
 var passport = require("passport");
 var rek = require('rekuire');
 var signupPassport = rek('middlewares/users/signup_user');
+//var passport_strategies = rek('utils/passport_strategies')
 
 module.exports = {
     '/accounts/signup': [
@@ -31,16 +32,15 @@ module.exports = {
         },
         {
             methods: ['post'],
+            middleware: [passport.authenticate('local')],
             fn: function(req, res, next) {
-                passport.authenticate('local', function(err, user, info) {
-                    if (err) { return next(err); }
-                    if (!user) { return res.send({success: false}); }
-                    req.logIn(user, function(err) {
-                        if (err) { return next(err); }
-                        return res.send({success: true});
-                    });
-                })(req, res, next);
+              if (req.user) {
+                return res.status(200).send({success:true});
+              }
+              res.status(500).send({success:false});
+
             }
+
         }
     ],
 

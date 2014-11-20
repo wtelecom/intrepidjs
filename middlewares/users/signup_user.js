@@ -22,26 +22,38 @@ function signupUser(req, res) {
             roles.push('admin');
         }
 
-        Account.register(
-            new Account(
-                {
-                    username: req.body.username,
-                    email: req.body.email,
-                    token: uuid.v4(),
-                    roles: roles
-                }
-            ),
-            req.body.password,
-            function(err, account) {
-                if (err) {
-                    console.log(err);
-                }
+        var newAccount = new Account({
+          username: req.body.username,
+          email: req.body.email,
+          token: uuid.v4(),
+          roles: roles,
+          password: req.body.password
+        });
 
-                passport.authenticate('local')(req, res, function() {
-                    res.redirect('/');
-                });
-            }
-        );
+        newAccount.save(function(err, res) {
+          console.log("User created:", err, res);
+          res.redirect('/');
+        });
+        // Account.register(
+        //     new Account(
+        //         {
+        //             username: req.body.username,
+        //             email: req.body.email,
+        //             token: uuid.v4(),
+        //             roles: roles
+        //         }
+        //     ),
+        //     req.body.password,
+        //     function(err, account) {
+        //         if (err) {
+        //             console.log(err);
+        //         }
+        //
+        //         passport.authenticate('local')(req, res, function() {
+        //             res.redirect('/');
+        //         });
+        //     }
+        // );
     });
 }
 
