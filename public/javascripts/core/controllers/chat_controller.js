@@ -226,8 +226,8 @@ angular.module('IntrepidJS').controller('ChatController',
             };
 
             // Comunicate to server new message
-            $scope.send = function(){
-                if ($scope.user) {
+            $scope.send = function(ev){
+                if ($scope.user && ev.which == 13) {
                     var text = $scope.chatText;
                     if (!_.isEmpty(text)) {
                         $scope.chatText = "";

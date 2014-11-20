@@ -41,24 +41,26 @@ angular.module('IntrepidJS').controller('ProfileDetailController',
                 $scope.showEditLastName = !$scope.showEditLastName;
             };
 
-            $scope.updateUser = function(prop) {
-                restService.post(user, apiPrefix + '/users/' + user._id + '/update',
-                    function(data, status, headers, config) {
-                        switch (prop) {
-                            case 'firstName':
-                                $scope.editFirstName();
-                                break;
-                            case 'lastName':
-                                $scope.editLastName();
-                                break;
-                            case 'email':
-                                $scope.editEmail();
-                                break;
-                        }
-                        user_old = _.clone(data.object);
-                    },
-                    function(data, status, headers, config) {}
-                );
+            $scope.updateUser = function(prop,event) {
+                if(!angular.isDefined(event) || event.which== 13){
+                    restService.post(user, apiPrefix + '/users/' + user._id + '/update',
+                        function(data, status, headers, config) {
+                            switch (prop) {
+                                case 'firstName':
+                                    $scope.editFirstName();
+                                    break;
+                                case 'lastName':
+                                    $scope.editLastName();
+                                    break;
+                                case 'email':
+                                    $scope.editEmail();
+                                    break;
+                            }
+                            user_old = _.clone(data.object);
+                        },
+                        function(data, status, headers, config) {}
+                    );
+                }
             };
 
             $scope.cancelEmail = function() {
