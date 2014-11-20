@@ -1,5 +1,6 @@
 block content
     form.form-signin.panel.panel-body(role='form', ng-submit="account_process('login')", method="post")
+      .alert.alert-danger(ng-if='loginError')=  __('Username or password incorrect')
       h2.form-signin-heading= __('Please sign in')
       input.form-control.username(type='text', placeholder='Username', name="username", ng-model="formData.username", required='', autofocus='')
       input.form-control.password(type='password', placeholder='Password',name="password", ng-model="formData.password", required='')
