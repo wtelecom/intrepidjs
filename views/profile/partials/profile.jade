@@ -21,7 +21,7 @@ if user
                             dd
                                 span(ng-if="!showEditFirstName") {{user.firstName}}
                                 div.input-group(ng-if="showEditFirstName")
-                                  input.form-control(type='text', ng-model="user.firstName", autofocus, bind-enter="updateUser('firstName')")
+                                  input.form-control(type='text', ng-model="user.firstName", autofocus, ng-keypress="updateUser('firstName',$event)")
                                   .input-group-btn
                                     button.btn.btn-danger(type='button', tabindex='-1', ng-click="cancelFirstName()")= __("Cancel")
                                     button.btn.btn-primary(type='button', tabindex='-1', ng-click="updateUser('firstName')")= __("Send")
@@ -30,7 +30,7 @@ if user
                             dd
                                 span(ng-if="!showEditLastName") {{user.lastName}}
                                 div.input-group(ng-if="showEditLastName")
-                                  input.form-control(type='text', ng-model="user.lastName", autofocus, bind-enter="updateUser('lastName')")
+                                  input.form-control(type='text', ng-model="user.lastName", autofocus, ng-keypress="updateUser('lastName',$event)")
                                   .input-group-btn
                                     button.btn.btn-danger(type='button', tabindex='-1', ng-click="cancelLastName()")= __("Cancel")
                                     button.btn.btn-primary(type='button', tabindex='-1', ng-click="updateUser('lastName')")= __("Send")
@@ -39,7 +39,7 @@ if user
                             dd
                                 span(ng-if="!showEditEmail") {{user.email}}
                                 div.input-group(ng-if="showEditEmail")
-                                  input.form-control(type='email', ng-model="user.email", autofocus, bind-enter="updateUser('email')")
+                                  input.form-control(type='email', ng-model="user.email", autofocus, ng-keypress="updateUser('email',$event)")
                                   .input-group-btn
                                     button.btn.btn-danger(type='button', tabindex='-1', ng-click="cancelEmail()")= __("Cancel")
                                     button.btn.btn-primary(type='button', tabindex='-1', ng-click="updateUser('email')")= __("Send")

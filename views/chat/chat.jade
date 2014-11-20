@@ -19,7 +19,7 @@ div#chat-container
                 //-     data-src="/vendor/misc/holder.js/40x40")
                 div.chat-message {{message.text}}   
     div#chat-text
-        input.form-control(type="text", bind-enter="send()", ng-model="chatText")
+        input.form-control(type="text", ng-keypress="send($event)", ng-model="chatText")
 
 div#chat-users
     ul.chat-users
