@@ -30,9 +30,10 @@ function signupUser(req, res) {
           password: req.body.password
         });
 
-        newAccount.save(function(err, res) {
-          console.log("User created:", err, res);
-          res.redirect('/');
+        newAccount.save(function(err, response) {
+          passport.authenticate('local')(req, res, function() {
+            res.redirect('/');
+          })
         });
         // Account.register(
         //     new Account(
