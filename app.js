@@ -78,9 +78,9 @@ app.use(busboy(
 app.use(express.query());
 app.use(methodOverride());
 
-app.use(cookieParser(settings.secret));
+app.use(cookieParser(mainSettings.secret));
 //app.use(session({ secret: settings.secret }));
-if (mainSsettings.sessionDriver=="redis") {
+if (mainSettings.sessionDriver=="redis") {
 
   // We need to define redisStore here but atm is always used for socketio
 

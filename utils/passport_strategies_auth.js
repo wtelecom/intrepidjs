@@ -12,12 +12,12 @@ module.exports = function(app, passport) {
               return done(null, false, { message: 'Unknown user' })
             }
             //user.isValidUserPassword(username, passport, function(done) {
-            user.authenticate(password, function(result) {
-              console.log("User authed:", result);
-              if (result==false) return done(null, false, { message: 'Invalid password' })
+            if (user.authenticate(password)) {
               return done(null, user);
-            });
-
+            } else {
+              return done(null, false, {message: 'Invalid password'});
+            }
+          
           });
       })
     );
