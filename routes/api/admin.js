@@ -5,7 +5,7 @@
  */
 
 var rek = require('rekuire'),
-    settings = rek('/settings'),
+    mainSettings = rek('/settings'),
     modulesMiddleware = rek('middlewares/admin/modules_info'),
     mainModulesMiddleware = rek('middlewares/admin/main_modules_info'),
     widgetsMiddleware = rek('middlewares/admin/widgets_info'),
@@ -27,7 +27,7 @@ var routes = {};
   * @desc  Get modules models data
   * @return array - Models availables
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/models'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/models'] =  {
     methods: ['get'],
     middleware: [modelsMiddleware()],
     fn: function(req, res, next) {
@@ -44,7 +44,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/models'] =  {
   * @desc  Get users evolution data
   * @return array - Users evolution data object
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/users'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/users'] =  {
     methods: ['get'],
     middleware: [usersMiddleware()],
     fn: function(req, res, next) {
@@ -63,7 +63,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/users'] =  {
   * @param bool $available - Returns only modules enabled
   * @return array - Modules requested
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/modules/'] =  {
     methods: ['get'],
     middleware: [modulesMiddleware(false)],
     fn: function(req, res, next) {
@@ -81,7 +81,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/'] =  {
   * @param bool $available - Returns only modules enabled
   * @return object - Modules requested
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/main_modules'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/main_modules'] =  {
     methods: ['get'],
     middleware: [mainModulesMiddleware],
     fn: function(req, res, next) {
@@ -98,7 +98,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/main_modules'] =
   * @desc  Updates modules available in the system
   * @return bool - Success response
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/main_modules/update'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/main_modules/update'] =  {
     methods: ['post'],
     middleware: [mainModulesUpdateMiddleware()],
     fn: function(req, res, next) {
@@ -114,7 +114,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/main_modules/upd
   * @desc  Creates the db entry for each modules available in the system
   * @return bool - Success response
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/create'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/modules/create'] =  {
     methods: ['post'],
     middleware: [modulesCreateMiddleware],
     fn: function(req, res, next) {
@@ -130,7 +130,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/create']
   * @desc  Updates modules available in the system
   * @return bool - Success response
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/update'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/modules/update'] =  {
     methods: ['post'],
     middleware: [modulesUpdateMiddleware()],
     fn: function(req, res, next) {
@@ -147,7 +147,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/modules/update']
   * @param bool $available - Returns only widgets enabled
   * @return array - Widgets requested
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/widgets'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/widgets'] =  {
     methods: ['get'],
     middleware: [widgetsMiddleware(false)],
     fn: function(req, res, next) {
@@ -164,7 +164,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/widgets'] =  {
   * @desc  Updates widgets available in the system
   * @return bool - Success response
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/widgets/update'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/widgets/update'] =  {
     methods: ['post'],
     middleware: [widgetsUpdateMiddleware()],
     fn: function(req, res, next) {
@@ -182,7 +182,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/widgets/update']
   * @return string - Active theme
   * @return array - Default themes
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/themes'] =  {
     methods: ['get', 'post'],
     middleware: [themesMiddleware()],
     fn: function(req, res, next) {
@@ -200,7 +200,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes'] =  {
   * @desc - Update active theme in the system
   * @return bool - Success response
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes/active'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/themes/active'] =  {
     methods: ['post'],
     middleware: [activeThemeMiddleware()],
     fn: function(req, res, next) {
@@ -216,7 +216,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes/active'] 
   * @desc - Edit a theme
   * @return bool - Success response
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes/edit'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/themes/edit'] =  {
     methods: ['post'],
     middleware: [themesMiddleware()],
     fn: function(req, res, next) {
@@ -232,7 +232,7 @@ routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/themes/edit'] = 
   * @desc - Get user roles
   * @return array of different roles
 */
-routes[settings.apiPrefix + settings.siteRoutes.admin.route + '/roles'] =  {
+routes[mainSettings.apiPrefix + mainSettings.siteRoutes.admin.route + '/roles'] =  {
     methods: ['get'],
     middleware: [getObjects(userModel, 'getRoles')],
     fn: function(req, res, next) {

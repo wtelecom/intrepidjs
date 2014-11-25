@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     ObjectId = require("mongoose").Types.ObjectId,
     rek = require('rekuire'),
-    settings = rek('/settings');
+    mainSettings = rek('/settings');
 
 
 var settingSchema = new mongoose.Schema({
@@ -67,16 +67,20 @@ settingSchema.statics.getModules = function(enabled, req, next) {
         }
 
         if (result) {
-            var modules_length = result.modules.length;
+            //select from database only the modules added in mainSettings.modules
+            var modulesAvailable=_.filter(result,function(module){ 
+                return mainSettings.modules.indexOf(module.name) !==-1 
+            });
+            var modules_length = modulesAvailable.length;
             if (enabled) {
                 for (var index = 0; index < modules_length; index ++) {
-                    if (result.modules[index].enabled) {
-                        modules.push(result.modules[index]);
+                    if (modulesAvailable[index].enabled) {
+                        modules.push(modulesAvailable[index]);
                     }
                 }
             } else {
                 for (var index = 0; index < modules_length; index ++) {
-                    modules.push(result.modules[index]);
+                    modules.push(modulesAvailable[index]);
                 }
             }
         }
@@ -202,7 +206,7 @@ settingSchema.statics.getThemes = function(req, next) {
             if (req.method == 'GET') {
                 req.objects = themes;
                 req.active = active;
-                req.default = settings.site.default_themes.content;
+                req.default = mainSettings.site.default_themes.content;
             } else if (req.method == 'POST' && req.body.theme) {
                 var theme = _.filter(themes, function(th) {
                     return th.name.value == req.body.theme;
@@ -264,7 +268,7 @@ settingSchema.statics.saveTheme = function(req, next) {
             return next(err);
         }
         var deleteIndex = null;
-        var nameDefault = _.some(settings.site.default_themes.content, function(theme) {
+        var nameDefault = _.some(mainSettings.site.default_themes.content, function(theme) {
             return req.body.name.value==theme;
         });
         if (nameDefault) {
