@@ -3,24 +3,43 @@
  * @namespace SocketIO services
  * This service manage SocketIO operations
  */
+(function(){
+    'use strict';
 
-angular.module('IntrepidJS')
-.service('uSession', function () {
-    var users = null;
-    var globalMessages = 0;
+    angular.module('IntrepidJS')
+        .factory('uSession',['$timeout', uSession]);
 
-    return {
-        getUsers: function () {
-            return users;
-        },
-        setUsers: function(value) {
-            users = value;
-        },
-        getGMessages: function () {
-            return globalMessages;
-        },
-        setGMessages: function(value) {
-            globalMessages = value;
-        }
-    };
-});
+    function uSession($timeout) {
+    
+        var uSession = {
+            users:  null,
+            globalMessages : 0,
+            properties : {
+                isShown : false,
+                glued : true,
+                },
+            getUsers : function () {
+                return uSession.users;
+            },
+            setUsers : function(value) {
+                uSession.users = value;
+            },
+            getGMessages : function () {
+                return uSession.globalMessages;
+            },
+            setGMessages : function(value) {
+                uSession.globalMessages = value;
+            },
+            setChatVisibility : function(visible){
+                //$timeout(function(){
+                    uSession.properties.isShown = visible;
+                //},0);
+            },
+            scrollBottom : function(){
+                uSession.properties.glued=true;
+            }
+        };
+        return uSession;
+    }
+
+})();

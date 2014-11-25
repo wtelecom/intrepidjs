@@ -1,15 +1,15 @@
 div#chat-header
     div.chat-name.pull-left {{uChatName}}
     div.chat-buttons
-        span.glyphicon.glyphicon-remove.chat-close(ng-click="close()")
+        span.glyphicon.glyphicon-remove.chat-close(ng-click="ChatCtl.close()")
 
 div#chat-container
-    div#chat-content(scroll-glue, ng-model="glued")
-        div.room(ng-if="!userActive")
+    div#chat-content(scroll-glue, ng-model="ChatCtl.properties.glued")
+        div.room(ng-if="!ChatCtl.userActive")
             div.alert.alert-warning
                 p= __('No messages yet')
-        div.room(room="{{key}}", ng-repeat="(key, room) in rooms",
-            ng-show="userActive == key ? 'true' : 'false'")
+        div.room(room="{{key}}", ng-repeat="(key, room) in ChatCtl.rooms",
+            ng-show="ChatCtl.userActive == key ? 'true' : 'false'")
             div(ng-repeat="message in room.messages | orderBy:'created'",
                 id="msg{{message._id}}",
                 ng-class="message.user_src._id == user._id ? 'chat-message-me' : 'chat-message-other'")
@@ -19,17 +19,17 @@ div#chat-container
                 //-     data-src="/vendor/misc/holder.js/40x40")
                 div.chat-message {{message.text}}   
     div#chat-text
-        input.form-control(type="text", ng-keypress="send($event)", ng-model="chatText")
+        input.form-control(type="text", ng-keypress="ChatCtl.send($event)", ng-model="ChatCtl.chatText")
 
 div#chat-users
     ul.chat-users
-        li.chat-user(ng-repeat="user in usersInSession",
-            ng-class="user._id == userActive ? 'active':''",
-            uid="{{user._id}}", ng-click="chatWith($event.currentTarget)")
-            span.badge(ng-if="user.unread > 0") {{user.unread}}
-            ng-thumb-user(image="user.image", size="40")
+        li.chat-user(ng-repeat="user in ChatCtl.usersInSession",
+            ng-class="ChatCtl.user._id == ChatCtl.userActive ? 'active':''",
+            uid="{{ChatCtl.user._id}}", ng-click="ChatCtl.chatWith($event.currentTarget)")
+            span.badge(ng-if="ChatCtl.user.unread > 0") {{user.unread}}
+            ng-thumb-user(image="ChatCtl.user.image", size="40")
             //- img.img-circle(ng-if="user.image", ng-src="{{user.image}}")
             //- img.img-circle(ng-if="!user.image",
             //-     data-src="/vendor/misc/holder.js/40x40")
-            span.uname {{user.username}}
-            div.state(class="{{user.state}}")
+            span.uname {{ChatCtl.user.username}}
+            div.state(class="{{ChatCtl.user.state}}")

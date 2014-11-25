@@ -66,7 +66,7 @@ block htmltag
                         block widgets
             include footer    
 
-            div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
+            div.ng-cloak#chat(ng-controller="ChatController as ChatCtl", ng-show="ChatCtl.properties.isShown", ng-cloak)
                 include chat/chat
 
             block scripts
@@ -106,6 +106,7 @@ block htmltag
                 script(type='text/javascript', src="/javascripts/core/services/rest_service.js")
                 script(type='text/javascript', src="/javascripts/core/services/socketio_service.js")
                 script(type='text/javascript', src="/javascripts/core/services/chat_service.js")
+                script(type='text/javascript', src="/javascripts/core/services/users_service.js")
 
                 //- Widget routes
                 script(type='text/javascript', src="/widgets/public/widget_route_constructor.js")
