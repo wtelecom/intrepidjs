@@ -68,7 +68,7 @@ settingSchema.statics.getModules = function(enabled, req, next) {
 
         if (result) {
             //select from database only the modules added in mainSettings.modules
-            var modulesAvailable=_.filter(result,function(module){ 
+            var modulesAvailable=_.filter(result.modules,function(module){ 
                 return mainSettings.modules.indexOf(module.name) !==-1 
             });
             var modules_length = modulesAvailable.length;
