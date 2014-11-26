@@ -7,6 +7,7 @@
 var passport = require("passport"),
     rek = require('rekuire'),
     uuid = require('node-uuid'),
+    eventController = rek('utils/event_manager'),
     Account = rek('data/models/user/account');
 
 /**
@@ -22,19 +23,24 @@ function signupUser(req, res) {
             roles.push('admin');
         }
 
-        var newAccount = new Account({
+        var userObj = {
           username: req.body.username,
           email: req.body.email,
           token: uuid.v4(),
           roles: roles,
           password: req.body.password
-        });
+
+        };
+
+        var newAccount = new Account(userObj);
 
         newAccount.save(function(err, response) {
           passport.authenticate('local')(req, res, function() {
             res.redirect('/');
           })
         });
+
+        eventController.emit('user-created', userObj);
         // Account.register(
         //     new Account(
         //         {
