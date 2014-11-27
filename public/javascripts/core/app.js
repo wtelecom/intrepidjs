@@ -38,8 +38,8 @@ var apiPrefix = null,
     lastPath = null;
 
 angular.module('IntrepidJS').run(
-    function($permission, $rootScope, $location) {
-        $permission.setPermissions(permissionList);
+    function(permissionService, $rootScope, $location) {
+        permissionService.setPermissions(permissionList);
         $rootScope._ = _;
     }
 );

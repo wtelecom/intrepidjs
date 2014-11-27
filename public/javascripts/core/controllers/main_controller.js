@@ -11,8 +11,9 @@ angular.module('IntrepidJS').controller('HeaderController',
         '$scope',
         '$location',
         '$window',
+        '$timeout',
         'restService',
-        function ($scope, $location, $window, restService) {
+        function ($scope, $location, $window, $timeout, restService) {
             $scope.formData = {};
 
             $scope.provide_path = function() {
@@ -45,9 +46,9 @@ angular.module('IntrepidJS').controller('HeaderController',
                             function(data, status, headers, config) {
                                 if (data.success) {
                                     $location.url(lastPath);
-                                    setTimeout(function() {
+                                    $timeout(function() {
                                         location.reload();
-                                    }, 0);
+                                    },0);
                                 }else{
                                     $scope.loginError=true;
                                     $scope.formData = {}

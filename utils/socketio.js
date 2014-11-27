@@ -8,7 +8,7 @@ var chat_events = rek('utils/socketio_events/chat');
 
 var passportSocketIo = require("passport.socketio"),
     cookieParser = require('cookie-parser'),
-    settings = rek('/settings');
+    mainSettings = rek('/settings');
 
 // var checkEntry = require('./check_url');
 
@@ -47,7 +47,7 @@ module.exports = function(server, redisStore, redisClient) {
     io.set('authorization', passportSocketIo.authorize({
         cookieParser: cookieParser,
         // key:         'express.sid',       // the name of the cookie where express/connect stores its session_id
-        secret:      settings.secret,    // the session_secret to parse the cookie
+        secret:      mainSettings.secret,    // the session_secret to parse the cookie
         store:       sessionStore,        // we NEED to use a sessionstore. no memorystore please
         success:     onAuthorizeSuccess,  // *optional* callback on success - read more below
         fail:        onAuthorizeFail,     // *optional* callback on fail/error - read more below
@@ -72,15 +72,30 @@ module.exports = function(server, redisStore, redisClient) {
     }
 
     io.sockets.on('connection', function (socket) {
-       
-        // When sockets are ready
-        // socket.emit('ready', { status: 'websockets-on' });
-        
-        // Main events
-        // main_events(socket, io);
-
-        // Chat events
-        chat_events(socket, io, redisClient);
+          // Chat events
+        //chat_events(socket, io, redisClient)
+        //Load module socketio events
+        if (mainSettings.modules.length>0) {
+            console.log(mainSettings.modules);
+            _.each(mainSettings.modules, function(module) {
+                console.log(module);
+                var mSettings = rek('modules/' + module + '/settings');
+                if (mSettings.hasSocketIO) {
+                    var modSocketIOEvents = require(mSettings.utilsPath + 'socketio_events/index');
+                    modSocketIOEvents(socket, io);
+                    /*if (_.isEmpty(_.where(mainSettings.modules_sio_events, {module: "opendata"}))) {
+                        mainSettings.modules_sio_events.push(
+                            {
+                                module: module,
+                                sio_events: modSocketIOEvents,
+                                socket: socket,
+                                io: io
+                            }
+                        );
+                    }*/
+                }
+            });
+        }
 
     });
 };

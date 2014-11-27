@@ -1,6 +1,6 @@
 var permissionService = angular.module('permService', []);
 
-permissionService.factory('$permission', function ($rootScope, $state) {
+permissionService.factory('permissionService', function ($rootScope, $state) {
     var permissionList;
     var fns = {
         setPermissions: function(permissions) {

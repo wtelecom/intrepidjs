@@ -1,4 +1,4 @@
-angular.module('IntrepidJS').directive('hasPermission', function($permission) {
+angular.module('IntrepidJS').directive('hasPermission', function(permissionService) {
 	return {
 		link: function(scope, element, attrs) {
 			if(!_.isString(attrs.hasPermission))
@@ -12,7 +12,7 @@ angular.module('IntrepidJS').directive('hasPermission', function($permission) {
 			}
 
 			function toggleVisibilityBasedOnPermission() {
-				var hasPermission = $permission.hasPermission(value);
+				var hasPermission = permissionService.hasPermission(value);
 
 				if (hasPermission && !notPermissionFlag || !hasPermission && notPermissionFlag)
 					element.show();
