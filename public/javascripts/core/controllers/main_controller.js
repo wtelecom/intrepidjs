@@ -21,8 +21,8 @@ angular.module('IntrepidJS').controller('HeaderController',
             };
 
             $scope.account_process = function(action) {
-                switch(action) {
-                    case 'logout':
+                var actions = {
+                    'logout' : function(){
                         restService.get(
                             {},
                             '/accounts/logout',
@@ -34,9 +34,8 @@ angular.module('IntrepidJS').controller('HeaderController',
                             function(data, status, headers, config) {
                             }
                         );
-                        break;
-                    case 'login':
-                        $scope.loginError = false;
+                    },
+                    'login': function(){
                         restService.post(
                             {
                                 username: $scope.formData.username,
@@ -57,11 +56,13 @@ angular.module('IntrepidJS').controller('HeaderController',
                             function(data, status, headers, config) {
                               $scope.loginError = true;
                             }
-                        );
-                        break;
-                    default:
-                        break;
-                }
+                        );                        
+                    },
+                    'default': function(){
+                        return false;
+                    }
+                };
+                return (actions[action] || actions['default'])();
 
             };
         }
