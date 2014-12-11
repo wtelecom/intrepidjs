@@ -23,16 +23,14 @@ function signupUser(req, res) {
             roles.push('admin');
         }
 
-        var userObj = {
+        var newAccount = new Account({
           username: req.body.username,
           email: req.body.email,
           token: uuid.v4(),
           roles: roles,
           password: req.body.password
 
-        };
-
-        var newAccount = new Account(userObj);
+        });
 
         newAccount.save(function(err, response) {
           passport.authenticate('local')(req, res, function() {
@@ -40,7 +38,7 @@ function signupUser(req, res) {
           })
         });
 
-        eventController.emit('user-created', userObj);
+        eventController.emit('user-created', newAccount);
         // Account.register(
         //     new Account(
         //         {
