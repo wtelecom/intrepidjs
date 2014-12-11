@@ -17,6 +17,8 @@
     "express": "~4.1.2",
     "express-routescan": "~0.1.9",
     "express-session": "~1.0.4",
+    "gulp": "~3.8.10",
+    "gulp-nodemon": "~1.0.4",
     "i18n": "~0.4.1",
     "i18n-node-angular": "~0.3.1",
     "jade": "~0.35.0",
@@ -51,7 +53,7 @@
     "superagent": "~0.18.2",
     "underscore": "~1.6.0",
     "underscore.string": "~2.3.3",
-    "validator": "~3.16.1"
+    "validator": "~3.16.1",
   },
   "devDependencies": {},
   "scripts": {
