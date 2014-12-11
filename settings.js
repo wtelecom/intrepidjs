@@ -101,7 +101,7 @@ exports.main_modules = [
 ];
 
 // Modules to load
-exports.modules = ['vidchat-webrtc'];
+exports.modules = [];
 
 // Modules models
 exports.models = [];
