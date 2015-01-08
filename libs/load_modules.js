@@ -103,7 +103,6 @@ module.exports = function loadSelectedModules(app, path, modules_to_load, fake, 
 
     if (!_.isEmpty(modules_to_load)) {
         for (var module in modules_to_load) {
-            console.log("module"+module);
             loadModule(path + modules_to_load[module], modules_to_load[module]);
         }
     } else {

@@ -28,7 +28,7 @@ module.exports = {
         fn: function(req, res, next) {
             res.json({
                 api_prefix: settings.apiPrefix,
-                user: req.user ? _.pick(req.user, '_id', 'image', 'username', 'email', 'firstName', 'lastName') : null
+                user: (req.user && typeof req.user === 'object') ? _.pick(req.user, '_id', 'image', 'username', 'email', 'firstName', 'lastName') : null
             });
         }
     },

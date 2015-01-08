@@ -43,6 +43,7 @@ module.exports = function(server, redisStore, redisClient) {
             port: 6379
         }
     );
+    io.set('log level', 1);//Reduce log level
     // set authorization for socket.io
     io.set('authorization', passportSocketIo.authorize({
         cookieParser: cookieParser,
@@ -76,9 +77,7 @@ module.exports = function(server, redisStore, redisClient) {
         //chat_events(socket, io, redisClient)
         //Load module socketio events
         if (mainSettings.modules.length>0) {
-            console.log(mainSettings.modules);
             _.each(mainSettings.modules, function(module) {
-                console.log(module);
                 var mSettings = rek('modules/' + module + '/settings');
                 if (mSettings.hasSocketIO) {
                     var modSocketIOEvents = require(mSettings.utilsPath + 'socketio_events/index');

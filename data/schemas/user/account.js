@@ -41,7 +41,7 @@ Account.virtual("password").set(function(password) {
 })
 
 Account.pre("save", function(next) {
-  if (!this.isNew) return;
+  if (!this.isNew) return next();
   if (!validatePresenceOf(this.password)) {
     next(new Error("Invalid password"));
   } else {
