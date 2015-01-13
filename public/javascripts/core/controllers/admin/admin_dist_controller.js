@@ -29,6 +29,8 @@ function adminDistController($scope, $templateCache, restService) {
     $scope.elements_enabled_right = [];
     // This array contains the left modules enabled
     $scope.elements_enabled_left = [];
+    // This array contains the left modules enabled
+    $scope.elements_enabled_horizontal = [];    
      // This array contains the left and right modules enabled
     $scope.elements_enabled_center = [];
     // This array contains all social widgets enabled
@@ -50,6 +52,9 @@ function adminDistController($scope, $templateCache, restService) {
             if (data.modules) {
                 _.each(data.modules, function(module) {
                     module['ui_type'] = 'module';
+                    if(module.type == 'horizontal'){
+                        module['ui_type'] = 'horizontal_module';
+                    }
                     all_modules.push(module);
                 });
                 
@@ -97,48 +102,50 @@ function adminDistController($scope, $templateCache, restService) {
     );
 
     function stackElementsInOrder(elements) {
-        
-        _.each(elements, function(el) {
+        var operationsByPosition = {
+            // Adding center elements
+            '0' : function(el){
+                $scope.elements_enabled_center.push(el)
+            },
             // Adding left elements
-            if (el.position && el.position == 1) {
-                $scope.elements_enabled_left.push(el);
-                // Adding right elements
-            } else if (el.position && el.position == 2) {
-                $scope.elements_enabled_right.push(el);
-                // Adding center elements
-            } else if (el.position === 0) {
-                $scope.elements_enabled_center.push(el);
-                // Adding availables and not located elements
-            } else {
+            '1' : function(el){
+                 $scope.elements_enabled_left.push(el)
+            },
+            // Adding right elements
+            '2' : function(el){
+                $scope.elements_enabled_right.push(el)
+            },
+            //Adding horizontal module to permanent bar downside
+            '3' : function(el){
+                $scope.elements_enabled_horizontal.push(el)
+            },
+            // Adding availables and not located elements
+            'default' : function(el){     
                 $scope.modules_availabled = _.reject(all_modules, function(module) {
-                    if (_.isNull(module.position)) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    var res = (_.isNull(module.position)) ? false:true;     
+                    return res;
                 });
                 $scope.social_widgets_availabled = _.reject(all_social_widgets, function(widget) {
-                    if (_.isNull(widget.position)) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    var res = (_.isNull(widget.position)) ? false:true;     
+                    return res;
                 });
                 $scope.custom_widgets_availabled = _.reject(all_custom_widgets, function(widget) {
-                    if (_.isNull(widget.position)) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    var res = (_.isNull(widget.position)) ? false:true;     
+                    return res;
                 });
             }
+        }
+        _.each(elements, function(el) {
+            (operationsByPosition[el.position] || operationsByPosition['default'])(el);
         });
         
         // Adding empty elements to the available arrays
         if (elements) {
             $scope.elements_enabled_left = get_empty_items($scope.elements_enabled_left, $scope.elements_enabled_left, elements.length);
             $scope.elements_enabled_right = get_empty_items($scope.elements_enabled_right, $scope.elements_enabled_right, elements.length);
-            $scope.elements_enabled_center = get_empty_items($scope.elements_enabled_center, $scope.elements_enabled_center, 1);        $scope.modules_availabled = get_empty_items($scope.modules_availabled, $scope.modules_availabled, all_modules.length);
+            $scope.elements_enabled_center = get_empty_items($scope.elements_enabled_center, $scope.elements_enabled_center, 1);        
+            $scope.elements_enabled_horizontal = get_empty_items($scope.elements_enabled_horizontal, $scope.elements_enabled_horizontal, 1);        
+            $scope.modules_availabled = get_empty_items($scope.modules_availabled, $scope.modules_availabled, all_modules.length);
             $scope.social_widgets_availabled = get_empty_items($scope.social_widgets_availabled, $scope.social_widgets_availabled, all_social_widgets.length);
             $scope.custom_widgets_availabled = get_empty_items($scope.custom_widgets_availabled, $scope.custom_widgets_availabled, all_custom_widgets.length);
         }
@@ -159,10 +166,21 @@ function adminDistController($scope, $templateCache, restService) {
     };
 
     $scope.dropCallback = function(event, ui, element, order, position) {
-        $templateCache.removeAll();
-        
-        switch(element.ui_type) {
-            case "module":
+        //$templateCache.removeAll();
+        function widgetRequest(){
+            restService.post(
+                {
+                    name: element.name,
+                    position: position,
+                    order: order
+                },
+                apiPrefix + '/admin/widgets/update',
+                function(data, status, headers, config) {},
+                function(data, status, headers, config) {}
+            );
+        };
+        var requestToElement = {
+            'module' : function(){
                 restService.post(
                     {
                         module: element.name,
@@ -173,33 +191,11 @@ function adminDistController($scope, $templateCache, restService) {
                     function(data, status, headers, config) {},
                     function(data, status, headers, config) {}
                 );
-                break;
-            case "social_widget":
-                restService.post(
-                    {
-                        name: element.name,
-                        position: position,
-                        order: order
-                    },
-                    apiPrefix + '/admin/widgets/update',
-                    function(data, status, headers, config) {},
-                    function(data, status, headers, config) {}
-                );
-                break;
-            case "custom_widget":
-                restService.post(
-                    {
-                        name: element.name,
-                        position: position,
-                        order: order
-                    },
-                    apiPrefix + '/admin/widgets/update',
-                    function(data, status, headers, config) {},
-                    function(data, status, headers, config) {}
-                );
-                break;
-            default:
-                break;
+            },
+            'social_widget' : widgetRequest,
+            'custom_widget' : widgetRequest      
         }
+        if(requestToElement[element.ui_type])
+            requestToElement[element.ui_type]();
     }
 };

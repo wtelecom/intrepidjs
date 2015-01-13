@@ -20,11 +20,18 @@ div.row.dist
                     div.col-xs-8
                         div.modules-row(ng-repeat="element in elements_enabled_left")
                             div.module-col(data-drop="true", ng-model='elements_enabled_left', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(elements_enabled_left[$index], $index, 1)'}")
-                                div.btn.btn-block(ng-class="{'btn-info': element.ui_type == 'module', 'btn-warning': element.ui_type == 'social_widget', 'btn-primary': element.ui_type == 'custom_widget'}", ng-show="elements_enabled_left[$index].name", name="{{elements_enabled_right[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="elements_enabled_left", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{elements_enabled_left[$index].real_name}}
+                                div.btn.btn-block(ng-class="{'btn-info': element.ui_type == 'module', 'btn-warning': element.ui_type == 'social_widget', 'btn-primary': element.ui_type == 'custom_widget'}", ng-show="elements_enabled_left[$index].name", name="{{elements_enabled_left[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="elements_enabled_left", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{elements_enabled_left[$index].real_name}}
                     div.col-xs-4
                         div.modules-row(ng-repeat="element in elements_enabled_right")
                             div.module-col(data-drop="true", ng-model='elements_enabled_right', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(elements_enabled_right[$index], $index, 2)'}")
                                 div.btn.btn-block(ng-class="{'btn-info': element.ui_type == 'module', 'btn-warning': element.ui_type == 'social_widget', 'btn-primary': element.ui_type == 'custom_widget'}", ng-show="elements_enabled_right[$index].name", name="{{elements_enabled_right[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="elements_enabled_right", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{elements_enabled_right[$index].real_name}}
+            div.panel-body.page-horizontal-modules
+                div.row
+                    div.col-md-12
+                        div.modules-row(ng-repeat="element in elements_enabled_horizontal")
+                            div.module-col(data-drop="true", ng-model='elements_enabled_horizontal', jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(elements_enabled_horizontal[$index], $index, 3)'}")
+                                div.btn.btn-block(ng-class="{'btn-info': element.ui_type == 'module', 'btn-warning': element.ui_type == 'social_widget', 'btn-primary': element.ui_type == 'custom_widget'}", ng-show="elements_enabled_horizontal[$index].name", name="{{elements_enabled_horizontal[$index].name}}", data-drag="true", data-jqyoui-options="{revert: 'invalid'}", ng-model="elements_enabled_horizontal", jqyoui-draggable="{index:{{$index}}, placeholder:true}") {{elements_enabled_horizontal[$index].real_name}}
+                       
     div.col-md-3.col-xs-12
         div.row
             h4.title= __('Modules')

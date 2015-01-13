@@ -28,6 +28,7 @@ block htmltag
             script(type='text/javascript', src="/socket.io/socket.io.js")
             script(type='text/javascript', src="/vendor/underscore/underscore-min.js")
             script(type='text/javascript', src="/vendor/bower_components/underscore.string/dist/underscore.string.min.js")
+            script(type='text/javascript', src="/vendor/bower_components/momentjs/min/moment-with-locales.min.js")
             // Upload image behaviour
             script(type='text/javascript', src="/vendor/angular/angular-file-upload-shim.js")
             
@@ -53,7 +54,7 @@ block htmltag
 
             script(type='text/javascript', src="/vendor/bower_components/highcharts/highcharts.js")
             script(type='text/javascript', src="/vendor/bower_components/highcharts/modules/exporting.js")
-
+            script(type="text/javascript" src="/vidchat-webrtc/public/vendor/bower_components/strophe.min.js")
         body
             include header
             .container
@@ -64,7 +65,8 @@ block htmltag
                                 //block entry
                         block widgets
             include footer    
-
+            block  horizontalModules
+                include horizontal_modules 
             div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
                 include chat/chat
 
