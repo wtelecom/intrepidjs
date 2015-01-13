@@ -27,7 +27,7 @@ div.row.admin-users
                         i.fa.fa-times-circle.ml10(ng-click="removeRole(user, role)")
                     label.label.label-warning(ng-if="!user.roles || user.roles.length === 0")= __("No roles yet")
                     .btn-group.open.ml10
-                        input.form-control(type="text", placeholder="Add a role", ng-model="user.newRole", ng-enter="addRole(user)")
+                        input.form-control(type="text", placeholder="Add a role", ng-model="user.newRole", bind-enter="addRole(user)")
                         ul.dropdown-menu(ng-if="(roles | filter: user.newRole).length > 0 && user.newRole")
                             li(ng-repeat="role in roles | filter: user.newRole", ng-click="selectRole(user, role)")
                                 a {{role}}

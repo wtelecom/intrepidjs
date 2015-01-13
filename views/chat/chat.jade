@@ -4,7 +4,8 @@ div#chat-header
         span.glyphicon.glyphicon-remove.chat-close(ng-click="close()")
 
 div#chat-container
-    div#chat-content(scroll-glue, ng-model="glued")
+    //div#chat-content(scroll-glue, ng-model="glued")
+    div#chat-content
         div.room(ng-if="!userActive")
             div.alert.alert-warning
                 p= __('No messages yet')

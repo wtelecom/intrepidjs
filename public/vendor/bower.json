@@ -30,7 +30,8 @@
     "textAngular": "~1.2.1",
     "underscore.string": "~2.3.3",
     "angular-ui-router": "~0.2.11",
-    "jquery-ui": "~1.11.2"
+    "jquery-ui": "~1.11.2",
+    "momentjs": "~2.8.4"
   },
   "resolutions": {
     "angular": "1.3.0"
