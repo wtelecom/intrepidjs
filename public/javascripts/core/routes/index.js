@@ -15,6 +15,10 @@ angular.module('IntrepidJS').config(
                             {
                                 templateUrl: "/highlights",
                                 controller: 'HighLightsController',
+                            },
+                        "horizontal_modules" :
+                            {
+                                templateUrl: "/horizontal_modules"
                             }
                     }
                 });

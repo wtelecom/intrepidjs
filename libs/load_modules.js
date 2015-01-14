@@ -66,6 +66,7 @@ module.exports = function loadSelectedModules(app, path, modules_to_load, fake, 
                 real_name: mSettings.name,
                 description: mSettings.description,
                 actions: mSettings.actions,
+                horizontal: mSettings.horizontal || false
             };
 
             var moduleData = {

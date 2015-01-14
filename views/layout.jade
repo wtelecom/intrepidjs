@@ -65,8 +65,9 @@ block htmltag
                                 //block entry
                         block widgets
             include footer    
-            block  horizontalModules
-                include horizontal_modules 
+            div.row
+                div.col-xs-12
+                    div(ui-view="horizontal_modules")
             div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
                 include chat/chat
 

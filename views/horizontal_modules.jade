@@ -1,5 +1,6 @@
-.horizontalModules
-	.container
-		include ../modules/vidchat-webrtc/views/fillText
-		.row(ng-controller='rosterController as rosterCtl')
-			include ../modules/vidchat-webrtc/views/index
+div.horizontalModules
+	div.container
+		.row
+			each hmod in horizontal_modules_center
+				div.col-md-12
+					div(ng-include="'#{hmod.route}'")

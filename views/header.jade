@@ -29,17 +29,18 @@ block header
                     li(ui-sref-active="active")
                         a(ui-sref="/")= __('Home')
                     each module in modules
-                        each section in sections
-                            if section.real_name == module.name
-                                li.dropdown(ui-sref-active="active")
-                                    if section.sections
-                                        a.dropdown-toggle(href='', data-toggle='dropdown')= __(section.name)
-                                        ul.dropdown-menu
-                                            each s in section.sections
-                                                li
-                                                    a(href='#{s.route}')= s.name
-                                    else
-                                        a(ui-sref='#{section.real_name}')= __(section.name)
+                        if module.horizontal == false
+                            each section in sections
+                                if section.real_name == module.name
+                                    li.dropdown(ui-sref-active="active")
+                                        if section.sections
+                                            a.dropdown-toggle(href='', data-toggle='dropdown')= __(section.name)
+                                            ul.dropdown-menu
+                                                each s in section.sections
+                                                    li
+                                                        a(href='#{s.route}')= s.name
+                                        else
+                                            a(ui-sref='#{section.real_name}')= __(section.name)
                 ul.nav.navbar-nav.navbar-right.main-menu
                     if user
                         li.dropdown(ng-controller="globalChatMessages")
