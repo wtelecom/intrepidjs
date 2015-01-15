@@ -15,10 +15,11 @@ module.exports = {
     // Default routes
     '/': {
         methods: ['get'],
-        middleware: [],
+        middleware: [modulesMiddleware(true), loadHorizontalModules],
         fn: function(req, res, next) {
             res.render('index', {
                 message: res.__('Hello IntrepidJS'),
+                horizontal_modules_center: req.objects
             });
         }
     },
@@ -48,7 +49,8 @@ module.exports = {
                 }
             );
         }
-    },
+    }/*Maybe we need this route to get horizontal modules
+    ,
     '/horizontal_modules': {
         methods: ['get'],
         middleware: [modulesMiddleware(true), loadHorizontalModules],
@@ -63,5 +65,5 @@ module.exports = {
                 }
             );
         }
-    },
+    },*/
 };

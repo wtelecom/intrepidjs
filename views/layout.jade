@@ -67,7 +67,8 @@ block htmltag
             include footer    
             div.row
                 div.col-xs-12
-                    div(ui-view="horizontal_modules")
+                    //div(ui-view="horizontal_modules")
+                    include horizontal_modules
             div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
                 include chat/chat
 
