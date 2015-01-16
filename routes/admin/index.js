@@ -14,7 +14,6 @@ routes[settings.siteRoutes.admin.route + '/'] =  {
     methods: ['get'],
     middleware: [isAdmin()],
     fn: function(req, res, next) {
-        console.log("hola");
         res.render('admin/index', {
                 
         });

@@ -46,7 +46,7 @@ function update(req, res, next) {
 
                         _.extend(user, reqUser);
                         user.save(function (err) {
-                            console.log(err.message) // something went wrong
+                            if(err) throw err; // something went wrong
                         });
                         req.object = _.pick(user, '_id', 'image', 'username', 'email', 'roles');
                         next();
@@ -81,8 +81,8 @@ function update(req, res, next) {
                             });
                         });
                         req.busboy.on('finish', function() {
-                            user.save(function (err) {
-                                console.log(err.message) // something went wrong
+                            user.save(function (err,doc) {
+                                if(err) throw err; // something went wrong
                             });
                             req.object = _.pick(user, '_id', 'image', 'username', 'email');
                             next();
