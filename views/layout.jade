@@ -65,13 +65,9 @@ block htmltag
                                 //block entry
                         block widgets
             include footer    
-            div.row
-                div.col-xs-12
-                    //div(ui-view="horizontal_modules")
-                    include horizontal_modules
-            div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
-                include chat/chat
 
+            //- div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
+                 include chat/chat
             block scripts
                 script(type='text/javascript', src="/javascripts/core/app.js")
                 script(type='text/javascript', src="/javascripts/core/controllers/main_controller.js")
@@ -86,7 +82,7 @@ block htmltag
                 script(type='text/javascript', src="/javascripts/core/controllers/admin/admin_users_controller.js")    
                 script(type='text/javascript', src="/javascripts/core/controllers/admin/admin_modules_controller.js")    
                 
-                script(type='text/javascript', src="/javascripts/core/controllers/chat_controller.js")   
+                //script(type='text/javascript', src="/javascripts/core/controllers/chat_controller.js")   
                 script(type='text/javascript', src="/javascripts/core/controllers/profile/profile_controller.js")             
                 script(type='text/javascript', src="/javascripts/core/controllers/profile/profile_detail_controller.js")             
                 script(type='text/javascript', src="/javascripts/core/controllers/profile/profile_mail_controller.js")             
