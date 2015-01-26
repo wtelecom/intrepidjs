@@ -122,16 +122,13 @@ function adminDistController($scope, $templateCache, restService) {
             // Adding availables and not located elements
             'default' : function(el){     
                 $scope.modules_availabled = _.reject(all_modules, function(module) {
-                    var res = (_.isNull(module.position)) ? false:true;     
-                    return res;
+                    return !_.isNull(module.position);
                 });
                 $scope.social_widgets_availabled = _.reject(all_social_widgets, function(widget) {
-                    var res = (_.isNull(widget.position)) ? false:true;     
-                    return res;
+                    return !_.isNull(widget.position);
                 });
                 $scope.custom_widgets_availabled = _.reject(all_custom_widgets, function(widget) {
-                    var res = (_.isNull(widget.position)) ? false:true;     
-                    return res;
+                    return !_.isNull(widget.position);
                 });
             }
         }
@@ -166,7 +163,7 @@ function adminDistController($scope, $templateCache, restService) {
     };
 
     $scope.dropCallback = function(event, ui, element, order, position) {
-        //$templateCache.removeAll();
+        $templateCache.removeAll();
         function widgetRequest(){
             restService.post(
                 {
@@ -179,8 +176,7 @@ function adminDistController($scope, $templateCache, restService) {
                 function(data, status, headers, config) {}
             );
         };
-        var requestToElement = {
-            'module' : function(){
+        function moduleRequest(){
                 restService.post(
                     {
                         module: element.name,
@@ -191,7 +187,9 @@ function adminDistController($scope, $templateCache, restService) {
                     function(data, status, headers, config) {},
                     function(data, status, headers, config) {}
                 );
-            },
+            }
+        var requestToElement = {
+            'module' : moduleRequest,
             'social_widget' : widgetRequest,
             'custom_widget' : widgetRequest      
         }
