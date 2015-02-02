@@ -33,12 +33,13 @@ function signupUser(req, res) {
         });
 
         newAccount.save(function(err, response) {
-          passport.authenticate('local')(req, res, function() {
-            res.redirect('/');
-          })
+            eventController.emit('user-created', newAccount);
+            passport.authenticate('local')(req, res, function() {
+                res.redirect('/');
+            })
         });
 
-        eventController.emit('user-created', newAccount);
+        //
         // Account.register(
         //     new Account(
         //         {

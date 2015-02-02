@@ -10,7 +10,7 @@ angular.module(
         'ngSanitize',
         // 'ngRoute',
         'ui.router',
-        //'ui.bootstrap',
+        'ui.bootstrap',
         'i18n',
         'RESTservice',
         'Socketio',
