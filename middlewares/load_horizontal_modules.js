@@ -14,7 +14,7 @@ function loadHorizontalModules(req, res, next) {
                     if (req.objects[index].position) {
                         mods.push(
                             {
-                                route: '/' + req.objects[index].name,
+                                route: mSettings.horizontalRoute,
                                 position:  req.objects[index].position,
                                 order: req.objects[index].order
                             }

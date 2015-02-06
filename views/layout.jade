@@ -44,6 +44,7 @@ block htmltag
             script(type='text/javascript', src="/vendor/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js")
             script(type='text/javascript', src="/vendor/bower_components/angular-summernote/src/angular-summernote.js")
             script(type='text/javascript', src="/vendor/bower_components/angular-loading-bar/src/loading-bar.js")
+            script(type='text/javascript', src="/vendor/bower_components/ng-focus-on/ng-focus-on.min.js")
             script(type='text/javascript', src="/vendor/misc/bootstrap.file-input.js")
 
             script(type='text/javascript', src="/vendor/angular/angular-resource.js")
@@ -70,7 +71,7 @@ block htmltag
 
             //- div.ng-cloak#chat(ng-controller="ChatController", ng-show="chatVisible", ng-cloak)
                  include chat/chat
-            //include horizontal_modules
+            include horizontal_modules
             block scripts
                 script(type='text/javascript', src="/javascripts/core/app.js")
                 script(type='text/javascript', src="/javascripts/core/controllers/main_controller.js")
