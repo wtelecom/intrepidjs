@@ -17,6 +17,13 @@ body {
     border-color: #FFF;
 }
 
+.nav>li:hover, .nav>li:focus {
+    text-decoration: none;
+    background-color: #eee;
+}
+.navbar-custom a:focus {
+    background-color: none;
+}
 .navbar-custom a {
     color: #3BAFDA;
     line-height: 18px !important;

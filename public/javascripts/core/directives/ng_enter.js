@@ -5,7 +5,7 @@ angular.module('IntrepidJS').directive('bindEnter', function () {
             if(event.which === 13) {
                 event.preventDefault();
                 scope.$apply(function (){
-                    scope.$eval(attrs.ngEnter);
+                    scope.$eval(attrs.bindEnter);
                 });
             }
         });

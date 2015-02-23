@@ -34,7 +34,6 @@ module.exports = {
             methods: ['post'],
             middleware: [passport.authenticate('local')],
             fn: function(req, res, next) {
-              console.log(":(())");
               if (req.user) {
                 return res.status(200).send({success:true});
               }
