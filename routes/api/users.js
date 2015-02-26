@@ -60,7 +60,7 @@ routes[settings.apiPrefix + '/user/:id'] = {
     fn: function(req, res, next) {
         res.send({
             success: true,
-            user: req.user
+            user: req.object
         });
     }
 };
