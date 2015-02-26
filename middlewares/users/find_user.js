@@ -15,7 +15,12 @@ function loadUser(req, res, next) {
             if (! user) {
                 return res.send('Not found', 404);
             }
-            req.user = user;
+            if(req.user._id == req.params.id){
+                user = _.pick(user, '_id', 'image', 'username', 'email');
+            }else{
+                user = _.pick(user, '_id', 'image', 'username');
+            }
+            req.object = user;
             next();
         });
     }
