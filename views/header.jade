@@ -42,7 +42,7 @@ block header
                                                     a(href='#{s.route}')= s.name
                                     else
                                         a(ui-sref='#{section.real_name}' style="display:inline-block;")= __(section.name)
-                                            div(ng-include="'/#{section.real_name}/intrepidHeader'" style="display:inline-block;")
+                                            div(ng-include="'/#{section.real_name}/intrepidHeader'" style="display:initial;")
                 ul.nav.navbar-nav.navbar-right.main-menu
                     if user
                         //li.dropdown(ng-controller="globalChatMessages")
