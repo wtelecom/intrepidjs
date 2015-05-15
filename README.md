@@ -1,7 +1,7 @@
-IntrepidJS
-==========
-
-<b>IntrepidJS</b> is a framework based on ExpressJS that helps you to develop NodeJS's applications quickly
-<br />
-<br />
-<i><b>IntrepidJS</b> is under construction and <b>NOT</b> is recommended for a production environments</i>
+IntrepidJS - An amazing brand new web tool
+==========================================
+<p>
+  IntrepidJS is web software you can use to create websites or webapps.
+  <br />
+  <i>We are working in a new version (2.0), you can use 1.0 branch ... if you want</i>
+</p>
